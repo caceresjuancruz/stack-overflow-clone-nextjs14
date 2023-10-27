@@ -8,7 +8,6 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 
-import React from "react";
 import Sun from "./Sun";
 import { useTheme } from "@/context/ThemeProvider";
 import Moon from "./Moon";
