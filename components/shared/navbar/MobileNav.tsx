@@ -12,7 +12,7 @@ import Logo from "./Logo";
 import { SignOutButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
-import { sidebarLinks } from "@/constants/constants";
+import { sidebarLinks } from "@/constants";
 
 const NavContent = () => {
   const pathname = usePathname();

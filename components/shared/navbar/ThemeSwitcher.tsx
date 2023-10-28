@@ -11,7 +11,7 @@ import {
 import Sun from "./Sun";
 import { useTheme } from "@/context/ThemeProvider";
 import Moon from "./Moon";
-import { themes } from "@/constants/constants";
+import { themes } from "@/constants";
 import Image from "next/image";
 
 const ThemeSwitcher = () => {
