@@ -12,9 +12,11 @@ const LeftSidebar = () => {
   const pathname = usePathname();
 
   return (
-    <section className="background-light900_dark200 light-border custom-scrollbar shadow-light100_dark100 sticky left-0 top-0 z-50 flex h-screen flex-col justify-between overflow-y-auto border-r px-4 py-12 max-sm:hidden lg:w-[266px]">
-      <Logo />
-      <div className="flex h-full flex-1 flex-col gap-6 pt-20">
+    <section className="background-light900_dark200 light-border custom-scrollbar shadow-light100_dark100 sticky left-0 top-0 z-40 flex h-screen flex-col justify-between overflow-y-auto border-r px-4 pb-12 pt-6 max-sm:hidden lg:z-50 lg:w-[266px]">
+      <div className="hidden lg:block">
+        <Logo />
+      </div>
+      <div className="flex h-full flex-1 flex-col gap-6 pt-20 lg:pt-16">
         {sidebarLinks.map((item) => {
           const isActive =
             (pathname.includes(item.route) && item.route.length > 1) ||
@@ -37,7 +39,11 @@ const LeftSidebar = () => {
                 height={20}
                 className={`${isActive ? "" : "invert-colors"}`}
               />
-              <p className={`${isActive ? "base-bold" : "base-medium"}`}>
+              <p
+                className={`${
+                  isActive ? "base-bold" : "base-medium"
+                } max-lg:hidden`}
+              >
                 {item.label}
               </p>
             </Link>
@@ -88,7 +94,7 @@ const LeftSidebar = () => {
                 height={20}
                 className="invert-colors"
               />
-              <p>Logout</p>
+              <p className="max-lg:hidden">Logout</p>
             </div>
           </SignOutButton>{" "}
         </div>
