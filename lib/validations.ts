@@ -22,6 +22,10 @@ export const QuestionFormSchema = z.object({
           message: "Tags can have a maximum of 15 characters.",
         })
     )
-    .min(1)
-    .max(3),
+    .min(1, {
+      message: "You must add at least 1 tag.",
+    })
+    .max(3, {
+      message: "You can only add a maximum of 3 tags.",
+    }),
 });
