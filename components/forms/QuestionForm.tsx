@@ -20,10 +20,19 @@ import { Input } from "@/components/ui/input";
 import { QuestionFormSchema } from "@/lib/validations";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { createQuestion } from "@/lib/actions/question.action";
+import { useRouter, usePathname } from "next/navigation";
 
-export function QuestionForm() {
+interface Props {
+  userId: string;
+}
+
+export function QuestionForm({ userId }: Props) {
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
   const formType: any = "create";
 
   const form = useForm<z.infer<typeof QuestionFormSchema>>({
@@ -35,12 +44,23 @@ export function QuestionForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof QuestionFormSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionFormSchema>) {
     setIsSubmitting(true);
-    console.log(values);
-    setTimeout(() => {
+
+    try {
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(userId),
+        path: pathname,
+      });
+    } catch (error) {
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
+
+    router.push("/");
   }
 
   const handleTagsInputKeyDown = (
@@ -121,6 +141,10 @@ export function QuestionForm() {
                     // @ts-ignore
                     (editorRef.current = editor)
                   }
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => {
+                    field.onChange(content);
+                  }}
                   initialValue=""
                   init={{
                     height: 350,
