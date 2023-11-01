@@ -38,6 +38,7 @@ const LeftSidebar = () => {
                 width={20}
                 height={20}
                 className={`${isActive ? "" : "invert-colors"}`}
+                unoptimized
               />
               <p
                 className={`${
@@ -61,6 +62,7 @@ const LeftSidebar = () => {
                 width={20}
                 height={20}
                 className="invert-colors lg:hidden"
+                unoptimized
               />
               <span className="primary-text-gradient max-lg:hidden">
                 Log In
@@ -76,6 +78,7 @@ const LeftSidebar = () => {
                 width={20}
                 height={20}
                 className="invert-colors lg:hidden"
+                unoptimized
               />
               <span className="max-lg:hidden">Sign Up</span>
             </Button>
@@ -93,6 +96,7 @@ const LeftSidebar = () => {
                 width={20}
                 height={20}
                 className="invert-colors"
+                unoptimized
               />
               <p className="max-lg:hidden">Logout</p>
             </div>

@@ -40,6 +40,7 @@ const NavContent = () => {
                 width={20}
                 height={20}
                 className={`${isActive ? "" : "invert-colors"}`}
+                unoptimized
               />
               <p className={`${isActive ? "base-bold" : "base-medium"}`}>
                 {item.label}
@@ -62,6 +63,7 @@ const MobileNav = () => {
           height={36}
           alt="Menu"
           className="invert-colors sm:hidden"
+          unoptimized
         />
       </SheetTrigger>
       <SheetContent
@@ -105,6 +107,7 @@ const MobileNav = () => {
                       width={20}
                       height={20}
                       className="invert-colors"
+                      unoptimized
                     />
                     <p>Logout</p>
                   </div>

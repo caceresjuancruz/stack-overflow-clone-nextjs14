@@ -218,6 +218,7 @@ export function QuestionForm({ userId }: Props) {
                             height={12}
                             className="cursor-pointer object-contain invert-0 dark:invert"
                             onClick={() => removeTag(tag, field)}
+                            unoptimized
                           />
                         </Badge>
                       ))}

@@ -10,6 +10,7 @@ const Logo = () => {
         alt="DevFlow"
         width={23}
         height={23}
+        unoptimized
       />
       <p className="h2-semibold font-spaceGrotesk text-dark-100 dark:text-light-900 max-sm:hidden">
         Dev<span className="h2-bold text-primary-500">Overflow</span>

@@ -48,6 +48,7 @@ const RightSidebar = () => {
                   width={20}
                   height={20}
                   className="invert-colors"
+                  unoptimized
                 />
               </Link>
             ))}

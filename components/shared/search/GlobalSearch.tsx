@@ -11,6 +11,7 @@ const GlobalSearch = () => {
           width={24}
           height={24}
           className="cursor-pointer"
+          unoptimized
         />
         <Input
           type="text"

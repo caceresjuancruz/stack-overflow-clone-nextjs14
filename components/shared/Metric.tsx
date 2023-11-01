@@ -28,6 +28,7 @@ const Metric = ({
         width={16}
         height={16}
         className={`object-contain ${href ? "rounded-full" : ""}`}
+        unoptimized
       />
       <p className={`${textStyles} flex items-baseline gap-1`}>
         {value}

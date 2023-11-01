@@ -44,6 +44,7 @@ const ThemeSwitcher = () => {
                   width={16}
                   height={16}
                   className={`${mode === item.value && "active-theme"}`}
+                  unoptimized
                 />
                 <p
                   className={`body-semibold text-light-500 ${

@@ -9,6 +9,7 @@ const Moon = () => {
       width={20}
       height={20}
       className="active-theme"
+      unoptimized
     />
   );
 };
