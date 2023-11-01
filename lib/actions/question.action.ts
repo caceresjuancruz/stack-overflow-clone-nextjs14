@@ -4,7 +4,11 @@ import Question, { IQuestion } from "@/database/models/question.model";
 import { connectToDatabase } from "../../database/dbConnection";
 import Tag from "@/database/models/tag.model";
 import { revalidatePath } from "next/cache";
-import { CreateQuestionParams, GetQuestionsParams } from "./shared.types";
+import {
+  CreateQuestionParams,
+  GetQuestionByIdParams,
+  GetQuestionsParams,
+} from "./shared.types";
 import User from "@/database/models/user.model";
 
 export async function getQuestions(params: GetQuestionsParams) {
@@ -59,4 +63,29 @@ export async function createQuestion(params: CreateQuestionParams) {
 
     revalidatePath(path);
   } catch (error) {}
+}
+
+export async function getQuestionById(params: GetQuestionByIdParams) {
+  try {
+    connectToDatabase();
+
+    const { questionId } = params;
+
+    const question = await Question.findById(questionId)
+      .populate({ path: "tags", model: Tag, select: "_id name" })
+      .populate({
+        path: "author",
+        model: User,
+        select: "_id clerkId name avatar",
+      });
+
+    if (!question) {
+      throw new Error("Question not found");
+    }
+
+    return question;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }

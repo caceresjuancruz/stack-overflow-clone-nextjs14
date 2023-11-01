@@ -1,4 +1,3 @@
-import Image from "next/image";
 import RenderTag from "../shared/RenderTag";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 import Link from "next/link";
