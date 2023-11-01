@@ -1,6 +1,5 @@
+import { IUser } from "@/database/models/user.model";
 import { Schema } from "mongoose";
-
-import { IUser } from "@/mongodb";
 
 export interface CreateAnswerParams {
   content: string;
@@ -115,7 +114,7 @@ export interface CreateUserParams {
   name: string;
   username: string;
   email: string;
-  picture: string;
+  avatar: string;
 }
 
 export interface GetUserByIdParams {
