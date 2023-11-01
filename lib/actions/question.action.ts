@@ -1,6 +1,6 @@
 "use server";
 
-import Question from "@/database/models/question.model";
+import Question, { IQuestion } from "@/database/models/question.model";
 import { connectToDatabase } from "../../database/dbConnection";
 import Tag from "@/database/models/tag.model";
 import { revalidatePath } from "next/cache";
