@@ -4,9 +4,8 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 export default async function AskQuestionPage() {
-  //const { userId } = auth();
+  const { userId } = auth();
 
-  const userId = "123456789";
   if (!userId) redirect("/sign-in");
 
   const dbUser = await getUserById(userId);
