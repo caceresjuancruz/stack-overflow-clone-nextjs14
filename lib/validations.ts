@@ -1,4 +1,5 @@
 import * as z from "zod";
+
 export const QuestionFormSchema = z.object({
   title: z
     .string()
@@ -28,4 +29,10 @@ export const QuestionFormSchema = z.object({
     .max(3, {
       message: "You can only add a maximum of 3 tags.",
     }),
+});
+
+export const AnswerFormSchema = z.object({
+  answer: z.string().min(20, {
+    message: "Answer must be at least 20 characters.",
+  }),
 });

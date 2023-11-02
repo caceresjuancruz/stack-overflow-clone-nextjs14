@@ -1,3 +1,4 @@
+import AnswerForm from "@/components/forms/AnswerForm";
 import Metric from "@/components/shared/Metric";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
@@ -71,6 +72,8 @@ export default async function QuestionDetailPage({ params, searchParams }) {
           />
         ))}
       </div>
+
+      <AnswerForm />
     </>
   );
 }
