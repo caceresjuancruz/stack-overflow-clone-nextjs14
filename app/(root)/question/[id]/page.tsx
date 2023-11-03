@@ -3,6 +3,7 @@ import AllAnswers from "@/components/shared/AllAnswers";
 import Metric from "@/components/shared/Metric";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
+import Votes from "@/components/shared/Votes";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserById } from "@/lib/actions/user.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
@@ -12,6 +13,7 @@ import Link from "next/link";
 
 export default async function QuestionDetailPage({ params, searchParams }) {
   const { userId } = auth();
+
   const dbUser = await getUserById({ userId: userId as string });
 
   const question = await getQuestionById({ questionId: params.id });
@@ -35,7 +37,18 @@ export default async function QuestionDetailPage({ params, searchParams }) {
               {question.author.name}
             </p>
           </Link>
-          <div className="flex justify-end">VOTING</div>
+          <div className="flex justify-end">
+            <Votes
+              type="question"
+              itemId={JSON.parse(JSON.stringify(question._id))}
+              userId={JSON.parse(JSON.stringify(dbUser._id))}
+              upvotes={question.upvotes.length}
+              hasUpvoted={question.upvotes.includes(dbUser._id)}
+              downvotes={question.downvotes.length}
+              hasDownvoted={question.downvotes.includes(dbUser._id)}
+              hasSaved={dbUser.saved.includes(question._id)}
+            />
+          </div>
         </div>
         <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
           {question.title}
