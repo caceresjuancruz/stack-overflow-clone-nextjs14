@@ -24,11 +24,11 @@ import { createQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
 
-interface Props {
+interface QuestionFormProps {
   userId: string;
 }
 
-export function QuestionForm({ userId }: Props) {
+export function QuestionForm({ userId }: QuestionFormProps) {
   const editorRef = useRef(null);
   const { mode } = useTheme();
   const [isSubmitting, setIsSubmitting] = useState(false);

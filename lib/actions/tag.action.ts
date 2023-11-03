@@ -1,3 +1,5 @@
+"use server";
+
 import { connectToDatabase } from "@/database/dbConnection";
 import { GetAllTagsParams } from "./shared.types";
 import Tag from "@/database/models/tag.model";

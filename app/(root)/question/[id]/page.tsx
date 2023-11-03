@@ -1,13 +1,19 @@
 import AnswerForm from "@/components/forms/AnswerForm";
+import AllAnswers from "@/components/shared/AllAnswers";
 import Metric from "@/components/shared/Metric";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
 import { getQuestionById } from "@/lib/actions/question.action";
+import { getUserById } from "@/lib/actions/user.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
+import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function QuestionDetailPage({ params, searchParams }) {
+  const { userId } = auth();
+  const dbUser = await getUserById({ userId: userId as string });
+
   const question = await getQuestionById({ questionId: params.id });
 
   return (
@@ -73,7 +79,15 @@ export default async function QuestionDetailPage({ params, searchParams }) {
         ))}
       </div>
 
-      <AnswerForm />
+      <AllAnswers
+        questionId={params.id}
+        totalAnswers={question.answers.length}
+      />
+
+      <AnswerForm
+        authorId={JSON.stringify(dbUser._id)}
+        questionId={JSON.stringify(params.id)}
+      />
     </>
   );
 }

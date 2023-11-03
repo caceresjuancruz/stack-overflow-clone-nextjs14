@@ -8,7 +8,7 @@ export default async function AskQuestionPage() {
 
   if (!userId) redirect("/sign-in");
 
-  const dbUser = await getUserById(userId);
+  const dbUser = await getUserById({ userId });
 
   return (
     <div>
