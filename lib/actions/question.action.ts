@@ -121,9 +121,10 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
 
     //TODO: Add reputation logic
   } catch (error) {
-    revalidatePath(path);
     console.log(error);
     throw error;
+  } finally {
+    revalidatePath(path);
   }
 }
 
@@ -155,8 +156,9 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
 
     //TODO: Add reputation logic
   } catch (error) {
-    revalidatePath(path);
     console.log(error);
     throw error;
+  } finally {
+    revalidatePath(path);
   }
 }
