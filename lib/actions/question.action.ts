@@ -16,6 +16,8 @@ export async function getQuestions(params: GetQuestionsParams) {
   try {
     connectToDatabase();
 
+    const { page = 1, pageSize = 10, searchQuery, filter } = params;
+
     const questions = await Question.find({})
       .populate({ path: "tags", model: Tag })
       .populate({ path: "author", model: User })
@@ -92,10 +94,9 @@ export async function getQuestionById(params: GetQuestionByIdParams) {
 }
 
 export async function upvoteQuestion(params: QuestionVoteParams) {
+  const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
   try {
     connectToDatabase();
-
-    const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
 
     let query = {};
 
@@ -119,19 +120,17 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
     }
 
     //TODO: Add reputation logic
-
-    revalidatePath(path);
   } catch (error) {
+    revalidatePath(path);
     console.log(error);
     throw error;
   }
 }
 
 export async function downvoteQuestion(params: QuestionVoteParams) {
+  const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
   try {
     connectToDatabase();
-
-    const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
 
     let query = {};
 
@@ -155,9 +154,8 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
     }
 
     //TODO: Add reputation logic
-
-    revalidatePath(path);
   } catch (error) {
+    revalidatePath(path);
     console.log(error);
     throw error;
   }
