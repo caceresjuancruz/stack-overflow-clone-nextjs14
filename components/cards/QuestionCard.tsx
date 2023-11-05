@@ -78,7 +78,7 @@ const QuestionCard = ({
           <Metric
             imgUrl="/assets/icons/eye.svg"
             alt="Eye"
-            value={formatAndDivideNumber(answers.length)}
+            value={formatAndDivideNumber(views)}
             title={"Views"}
             textStyles="small-medium text-dark400_light800"
           />
