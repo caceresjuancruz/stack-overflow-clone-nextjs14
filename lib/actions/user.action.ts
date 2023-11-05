@@ -11,8 +11,10 @@ import {
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/models/question.model";
+import { getErrorMessage } from "../utils";
 
 export async function getAllUsers(params: GetAllUsersParams) {
+  const { page = 1, pageSize = 10, searchQuery, filter } = params;
   try {
     connectToDatabase();
 
@@ -20,24 +22,25 @@ export async function getAllUsers(params: GetAllUsersParams) {
 
     return { users };
   } catch (error) {
-    console.log(error);
-    throw error;
+    return {
+      message: getErrorMessage(error),
+    };
   }
 }
 
 export async function getUserById(params: GetUserByIdParams) {
+  const { userId } = params;
   try {
     connectToDatabase();
-
-    const { userId } = params;
 
     //Get the user
     const user = await User.findOne({ clerkId: userId });
 
     return user;
   } catch (error) {
-    console.log(error);
-    throw error;
+    return {
+      message: getErrorMessage(error),
+    };
   }
 }
 
@@ -50,35 +53,36 @@ export async function createUser(params: CreateUserParams) {
 
     return user;
   } catch (error) {
-    console.log(error);
-    throw error;
+    return {
+      message: getErrorMessage(error),
+    };
   }
 }
 
 export async function updateUser(params: UpdateUserParams) {
+  const { clerkId, updateData, path } = params;
   try {
     connectToDatabase();
-
-    const { clerkId, updateData, path } = params;
 
     //Update the user
     const user = await User.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
     });
 
-    revalidatePath(path);
     return user;
   } catch (error) {
-    console.log(error);
-    throw error;
+    return {
+      message: getErrorMessage(error),
+    };
+  } finally {
+    revalidatePath(path);
   }
 }
 
 export async function deleteUser(params: DeleteUserParams) {
+  const { clerkId } = params;
   try {
     connectToDatabase();
-
-    const { clerkId } = params;
 
     const user = await User.findOneAndDelete({ clerkId });
 
@@ -101,7 +105,8 @@ export async function deleteUser(params: DeleteUserParams) {
 
     return deletedUser;
   } catch (error) {
-    console.log(error);
-    throw error;
+    return {
+      message: getErrorMessage(error),
+    };
   }
 }

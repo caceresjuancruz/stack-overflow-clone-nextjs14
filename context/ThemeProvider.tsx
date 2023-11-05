@@ -1,9 +1,11 @@
 "use client";
 import React, { createContext, useEffect, useContext, useState } from "react";
 
+type ThemeMode = "light" | "dark";
+
 interface ThemeContextType {
-  mode: string;
-  setMode: (mode: string) => void;
+  mode: ThemeMode;
+  setMode: (mode: ThemeMode) => void;
 }
 
 export const ThemeContext = createContext<ThemeContextType | undefined>(
@@ -11,7 +13,7 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(
 );
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [mode, setMode] = useState("");
+  const [mode, setMode] = useState<ThemeMode>("light");
 
   const handleThemeChange = () => {
     if (

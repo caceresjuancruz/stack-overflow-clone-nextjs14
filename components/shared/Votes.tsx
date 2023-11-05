@@ -1,7 +1,9 @@
 "use client";
 
+import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
 import {
   downvoteQuestion,
+  toggleSaveQuestion,
   upvoteQuestion,
 } from "@/lib/actions/question.action";
 import { formatAndDivideNumber } from "@/lib/utils";
@@ -17,7 +19,7 @@ interface VotesProps {
   hasUpvoted: boolean;
   downvotes: number;
   hasDownvoted: boolean;
-  hasSaved: boolean;
+  hasSaved?: boolean;
 }
 const Votes = ({
   type,
@@ -63,6 +65,14 @@ const Votes = ({
     }
   );
 
+  //Optimistic UI for save
+  const [optimisticHasSaved, setOptimisticHasSaved] = useOptimistic(
+    hasSaved,
+    (state, newHasSaved: boolean) => {
+      return newHasSaved;
+    }
+  );
+
   //Optimistic UI functions
   const upvoteOptimistic = () => {
     if (!optimisticHasUpvoted && !optimisticHasDownvoted) {
@@ -91,6 +101,14 @@ const Votes = ({
     } else if (optimisticHasDownvoted) {
       addOptimisticDownvote(-1);
       setOptimisticHasDownvoted(false);
+    }
+  };
+
+  const toggleSaveOptimistic = () => {
+    if (optimisticHasSaved) {
+      setOptimisticHasSaved(false);
+    } else {
+      setOptimisticHasSaved(true);
     }
   };
   //--- Optimistic UI END ---
@@ -122,10 +140,45 @@ const Votes = ({
           path,
         });
       }
+    } else if (type === "answer") {
+      if (action === "upvote") {
+        upvoteOptimistic();
+        await upvoteAnswer({
+          answerId: itemId,
+          userId,
+          hasUpvoted: optimisticHasUpvoted,
+          hasDownvoted: optimisticHasDownvoted,
+          path,
+        });
+      }
+
+      if (action === "downvote") {
+        downvoteOptimistic();
+        await downvoteAnswer({
+          answerId: itemId,
+          userId,
+          hasUpvoted: optimisticHasUpvoted,
+          hasDownvoted: optimisticHasDownvoted,
+          path,
+        });
+      }
     }
   };
 
-  const handleSave = async () => {};
+  const handleSave = async () => {
+    if (!userId) {
+      return;
+    }
+
+    if (type === "question") {
+      toggleSaveOptimistic();
+      await toggleSaveQuestion({
+        questionId: itemId,
+        userId,
+        path,
+      });
+    }
+  };
 
   return (
     <div className="flex gap-5">
@@ -178,7 +231,7 @@ const Votes = ({
       {type === "question" && (
         <Image
           src={
-            hasSaved
+            optimisticHasSaved
               ? "/assets/icons/star-filled.svg"
               : "/assets/icons/star-red.svg"
           }

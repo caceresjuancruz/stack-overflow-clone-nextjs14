@@ -3,8 +3,10 @@
 import { connectToDatabase } from "@/database/dbConnection";
 import { GetAllTagsParams } from "./shared.types";
 import Tag from "@/database/models/tag.model";
+import { getErrorMessage } from "../utils";
 
 export async function getAllTags(params: GetAllTagsParams) {
+  const { page = 1, pageSize = 10, searchQuery, filter } = params;
   try {
     connectToDatabase();
 
@@ -12,7 +14,8 @@ export async function getAllTags(params: GetAllTagsParams) {
 
     return { tags };
   } catch (error) {
-    console.log(error);
-    throw error;
+    return {
+      message: getErrorMessage(error),
+    };
   }
 }

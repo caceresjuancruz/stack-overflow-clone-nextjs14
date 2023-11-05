@@ -1,6 +1,6 @@
 "use server";
 
-import Question, { IQuestion } from "@/database/models/question.model";
+import Question from "@/database/models/question.model";
 import { connectToDatabase } from "../../database/dbConnection";
 import Tag from "@/database/models/tag.model";
 import { revalidatePath } from "next/cache";
@@ -9,14 +9,15 @@ import {
   GetQuestionByIdParams,
   GetQuestionsParams,
   QuestionVoteParams,
+  ToggleSaveQuestionParams,
 } from "./shared.types";
 import User from "@/database/models/user.model";
+import { getErrorMessage } from "../utils";
 
 export async function getQuestions(params: GetQuestionsParams) {
+  const { page = 1, pageSize = 10, searchQuery, filter } = params;
   try {
     connectToDatabase();
-
-    const { page = 1, pageSize = 10, searchQuery, filter } = params;
 
     const questions = await Question.find({})
       .populate({ path: "tags", model: Tag })
@@ -25,16 +26,16 @@ export async function getQuestions(params: GetQuestionsParams) {
 
     return { questions };
   } catch (error) {
-    console.log(error);
-    throw error;
+    return {
+      message: getErrorMessage(error),
+    };
   }
 }
 
 export async function createQuestion(params: CreateQuestionParams) {
+  const { title, content, tags, author, path } = params;
   try {
     connectToDatabase();
-
-    const { title, content, tags, author, path } = params;
 
     //Create the question
     const question = await Question.create({
@@ -63,16 +64,19 @@ export async function createQuestion(params: CreateQuestionParams) {
     //Create an interaction record for the user's ask_question action
 
     //Increment author's reputation by +5 for creating question
-
+  } catch (error) {
+    return {
+      message: getErrorMessage(error),
+    };
+  } finally {
     revalidatePath(path);
-  } catch (error) {}
+  }
 }
 
 export async function getQuestionById(params: GetQuestionByIdParams) {
+  const { questionId } = params;
   try {
     connectToDatabase();
-
-    const { questionId } = params;
 
     const question = await Question.findById(questionId)
       .populate({ path: "tags", model: Tag, select: "_id name" })
@@ -88,8 +92,9 @@ export async function getQuestionById(params: GetQuestionByIdParams) {
 
     return question;
   } catch (error) {
-    console.log(error);
-    throw error;
+    return {
+      message: getErrorMessage(error),
+    };
   }
 }
 
@@ -121,8 +126,9 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
 
     //TODO: Add reputation logic
   } catch (error) {
-    console.log(error);
-    throw error;
+    return {
+      message: getErrorMessage(error),
+    };
   } finally {
     revalidatePath(path);
   }
@@ -156,8 +162,46 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
 
     //TODO: Add reputation logic
   } catch (error) {
-    console.log(error);
-    throw error;
+    return {
+      message: getErrorMessage(error),
+    };
+  } finally {
+    revalidatePath(path);
+  }
+}
+
+export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
+  const { questionId, userId, path } = params;
+  try {
+    connectToDatabase();
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const isQuestionSaved = user.saved.includes(questionId);
+
+    if (isQuestionSaved) {
+      //Remove question from user's saved list
+      await User.findByIdAndUpdate(
+        userId,
+        { $pull: { saved: questionId } },
+        { new: true }
+      );
+    } else {
+      //Add question to user's saved list
+      await User.findByIdAndUpdate(
+        userId,
+        { $push: { saved: questionId } },
+        { new: true }
+      );
+    }
+  } catch (error) {
+    return {
+      message: getErrorMessage(error),
+    };
   } finally {
     revalidatePath(path);
   }
