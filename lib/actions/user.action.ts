@@ -19,7 +19,7 @@ import { FilterQuery } from "mongoose";
 export async function getAllUsers(params: GetAllUsersParams) {
   const { page = 1, pageSize = 10, searchQuery, filter } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const users = await User.find({}).sort({ joinedAt: -1 });
 
@@ -34,7 +34,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
 export async function getUserById(params: GetUserByIdParams) {
   const { userId } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     //Get the user
     const user = await User.findOne({ clerkId: userId });
@@ -49,7 +49,7 @@ export async function getUserById(params: GetUserByIdParams) {
 
 export async function createUser(params: CreateUserParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     //Create the user
     const user = await User.create(params);
@@ -65,7 +65,7 @@ export async function createUser(params: CreateUserParams) {
 export async function updateUser(params: UpdateUserParams) {
   const { clerkId, updateData, path } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     //Update the user
     const user = await User.findOneAndUpdate({ clerkId }, updateData, {
@@ -85,7 +85,7 @@ export async function updateUser(params: UpdateUserParams) {
 export async function deleteUser(params: DeleteUserParams) {
   const { clerkId } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const user = await User.findOneAndDelete({ clerkId });
 
@@ -117,7 +117,7 @@ export async function deleteUser(params: DeleteUserParams) {
 export async function getSavedQuestions(params: GetSavedQuestionsParams) {
   const { clerkId, page = 1, pageSize = 10, filter, searchQuery } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const query: FilterQuery<typeof Question> = searchQuery
       ? { title: { $regex: new RegExp(searchQuery, "i") } }

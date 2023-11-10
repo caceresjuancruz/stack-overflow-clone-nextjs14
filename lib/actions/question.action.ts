@@ -17,7 +17,7 @@ import { getErrorMessage } from "../utils";
 export async function getQuestions(params: GetQuestionsParams) {
   const { page = 1, pageSize = 10, searchQuery, filter } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const questions = await Question.find({})
       .populate({ path: "tags", model: Tag })
@@ -35,7 +35,7 @@ export async function getQuestions(params: GetQuestionsParams) {
 export async function createQuestion(params: CreateQuestionParams) {
   const { title, content, tags, author, path } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     //Create the question
     const question = await Question.create({
@@ -76,7 +76,7 @@ export async function createQuestion(params: CreateQuestionParams) {
 export async function getQuestionById(params: GetQuestionByIdParams) {
   const { questionId } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const question = await Question.findById(questionId)
       .populate({ path: "tags", model: Tag, select: "_id name" })
@@ -101,7 +101,7 @@ export async function getQuestionById(params: GetQuestionByIdParams) {
 export async function upvoteQuestion(params: QuestionVoteParams) {
   const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     let query = {};
 
@@ -137,7 +137,7 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
 export async function downvoteQuestion(params: QuestionVoteParams) {
   const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     let query = {};
 
@@ -173,7 +173,7 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
 export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
   const { questionId, userId, path } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const user = await User.findById(userId);
 

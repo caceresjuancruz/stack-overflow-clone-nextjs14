@@ -8,7 +8,7 @@ import { getErrorMessage } from "../utils";
 export async function getAllTags(params: GetAllTagsParams) {
   const { page = 1, pageSize = 10, searchQuery, filter } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const tags = await Tag.find({}).sort({ createdOn: -1 });
 

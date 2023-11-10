@@ -1,6 +1,7 @@
 "use client";
 
 import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
+import { viewQuestion } from "@/lib/actions/interaction.action";
 import {
   downvoteQuestion,
   toggleSaveQuestion,
@@ -8,8 +9,8 @@ import {
 } from "@/lib/actions/question.action";
 import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useOptimistic } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useOptimistic } from "react";
 
 interface VotesProps {
   type: string;
@@ -32,6 +33,7 @@ const Votes = ({
   hasSaved,
 }: VotesProps) => {
   const path = usePathname();
+  const router = useRouter();
 
   //--- Optimistic UI START ---
 
@@ -179,6 +181,15 @@ const Votes = ({
       });
     }
   };
+
+  useEffect(() => {
+    if (type === "question") {
+      viewQuestion({
+        questionId: itemId,
+        userId: userId ? userId : undefined,
+      });
+    }
+  }, [itemId, userId, path, type, router]);
 
   return (
     <div className="flex gap-5">

@@ -14,7 +14,7 @@ import { getErrorMessage } from "../utils";
 export async function getAnswers(params: GetAnswersParams) {
   const { questionId } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     //Get the answers
     const answers = await Answer.find({ question: questionId })
@@ -34,7 +34,7 @@ export async function getAnswers(params: GetAnswersParams) {
 export async function createAnswer(params: CreateAnswerParams) {
   const { question, content, author, path } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     //Create the answer
     const answer = await Answer.create({
@@ -61,7 +61,7 @@ export async function createAnswer(params: CreateAnswerParams) {
 export async function upvoteAnswer(params: AnswerVoteParams) {
   const { answerId, userId, hasUpvoted, hasDownvoted, path } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     let query = {};
 
@@ -95,7 +95,7 @@ export async function upvoteAnswer(params: AnswerVoteParams) {
 export async function downvoteAnswer(params: AnswerVoteParams) {
   const { answerId, userId, hasUpvoted, hasDownvoted, path } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     let query = {};
 
