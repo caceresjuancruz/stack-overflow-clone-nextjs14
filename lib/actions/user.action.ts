@@ -15,6 +15,7 @@ import Question from "@/database/models/question.model";
 import { getErrorMessage } from "../utils";
 import Tag from "@/database/models/tag.model";
 import { FilterQuery } from "mongoose";
+import Answer from "@/database/models/answer.model";
 
 export async function getAllUsers(params: GetAllUsersParams) {
   const { page = 1, pageSize = 10, searchQuery, filter } = params;
@@ -39,7 +40,37 @@ export async function getUserById(params: GetUserByIdParams) {
     //Get the user
     const user = await User.findOne({ clerkId: userId });
 
+    if (!user) {
+      throw new Error("User not found");
+    }
+
     return user;
+  } catch (error) {
+    return {
+      message: getErrorMessage(error),
+    };
+  }
+}
+
+export async function getUserInfo(params: GetUserByIdParams) {
+  const { userId } = params;
+  try {
+    await connectToDatabase();
+
+    const user = await User.findOne({ clerkId: userId });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const totalQuestions = await Question.countDocuments({ author: user._id });
+    const totalAnswers = await Answer.countDocuments({ author: user._id });
+
+    return {
+      user,
+      totalQuestions,
+      totalAnswers,
+    };
   } catch (error) {
     return {
       message: getErrorMessage(error),

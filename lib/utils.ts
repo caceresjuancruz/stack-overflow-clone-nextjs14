@@ -68,3 +68,18 @@ export const getErrorMessage = (error: unknown): string => {
 
   return message;
 };
+
+export const getJoinedDate = (date: Date): string => {
+  // Extract the month and year from the Date object
+  const month = date.toLocaleString("en-US", { month: "long" });
+
+  // Convert the first letter of the month to uppercase
+  const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
+
+  const year = date.getFullYear();
+
+  // Create the joined date string (e.g., "September 2023")
+  const joinedDate = `${capitalizedMonth} ${year}`;
+
+  return joinedDate;
+};
