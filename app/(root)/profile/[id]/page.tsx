@@ -8,6 +8,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import ProfileLink from "@/components/shared/ProfileLink";
 import Stats from "@/components/shared/Stats";
+import QuestionTab from "@/components/shared/QuestionTab";
+import AnswerTab from "@/components/shared/AnswerTab";
 
 export default async function ProfilePage({ params, searchParams }: URLProps) {
   const { userId: clerkId } = auth();
@@ -89,9 +91,11 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
               Answers
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="top-posts">QUESTIONS</TabsContent>
+          <TabsContent value="top-posts">
+            <QuestionTab userId={result.user._id} />
+          </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
-            ANSWERS
+            <AnswerTab userId={result.user._id} />
           </TabsContent>
         </Tabs>
       </div>
