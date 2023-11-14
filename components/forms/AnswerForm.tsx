@@ -84,7 +84,7 @@ const AnswerForm = ({ authorId, questionId }: AnswerFormProps) => {
 
       <Form {...form}>
         <form
-          className="mt-6 flex w-full flex-col gap-10"
+          className="text-dark300_light900 mt-6 flex w-full flex-col gap-10 "
           onSubmit={form.handleSubmit(handleCreateAnswer)}
         >
           <FormField

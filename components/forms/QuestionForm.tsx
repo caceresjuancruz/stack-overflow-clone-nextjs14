@@ -118,7 +118,10 @@ export function QuestionForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="text-dark300_light900 space-y-8 "
+      >
         {/* Question Title field start */}
         <FormField
           control={form.control}

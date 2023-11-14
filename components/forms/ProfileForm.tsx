@@ -69,7 +69,7 @@ const ProfileForm = ({ clerkId, user }: ProfileFormProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-9 flex w-full flex-col gap-9"
+        className="text-dark300_light900 mt-9 flex w-full flex-col gap-9 "
       >
         <FormField
           control={form.control}
@@ -165,7 +165,15 @@ const ProfileForm = ({ clerkId, user }: ProfileFormProps) => {
           )}
         />
 
-        <div className="mt-7 flex justify-end">
+        <div className="mt-7 flex justify-end gap-3">
+          <Button
+            type="button"
+            className="btn-secondary text-dark300_light900 w-fit"
+            disabled={isSubmitting}
+            onClick={() => router.back()}
+          >
+            Go Back
+          </Button>
           <Button
             type="submit"
             className="primary-gradient w-fit"
