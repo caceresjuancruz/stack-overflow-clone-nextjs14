@@ -25,7 +25,7 @@ const EditDeleteAction = ({ type, itemId }: EditDeleteActionProps) => {
   return (
     <div className="flex items-center justify-end gap-3 max-sm:w-full">
       {type === "question" && (
-        <Link href={`/question/edit/${itemId}`}>
+        <Link href={`/question/edit/${JSON.parse(itemId)}`}>
           <Image
             src="/assets/icons/edit.svg"
             alt="Edit"

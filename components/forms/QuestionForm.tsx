@@ -20,29 +20,38 @@ import { Input } from "@/components/ui/input";
 import { QuestionFormSchema } from "@/lib/validations";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
-import { createQuestion } from "@/lib/actions/question.action";
+import { createQuestion, editQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
 
 interface QuestionFormProps {
   userId: string;
+  formType: string;
+  questionDetails?: any;
 }
 
-export function QuestionForm({ userId }: QuestionFormProps) {
+export function QuestionForm({
+  userId,
+  formType,
+  questionDetails,
+}: QuestionFormProps) {
   const editorRef = useRef(null);
   const { mode } = useTheme();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
-  const formType: any = "create";
+  const parsedQuestionDetails =
+    questionDetails && JSON.parse(questionDetails || "");
+
+  const groupedTags = parsedQuestionDetails?.tags.map((tag: any) => tag.name);
 
   const form = useForm<z.infer<typeof QuestionFormSchema>>({
     resolver: zodResolver(QuestionFormSchema),
     defaultValues: {
-      title: "",
-      explanation: "",
-      tags: [],
+      title: parsedQuestionDetails?.title || "",
+      explanation: parsedQuestionDetails?.content || "",
+      tags: groupedTags || [],
     },
   });
 
@@ -50,19 +59,28 @@ export function QuestionForm({ userId }: QuestionFormProps) {
     setIsSubmitting(true);
 
     try {
-      await createQuestion({
-        title: values.title,
-        content: values.explanation,
-        tags: values.tags,
-        author: JSON.parse(userId),
-        path: pathname,
-      });
+      let question: any = null;
+      if (formType === "create") {
+        question = await createQuestion({
+          title: values.title,
+          content: values.explanation,
+          tags: values.tags,
+          author: JSON.parse(userId),
+          path: pathname,
+        });
+      } else if (formType === "edit") {
+        question = await editQuestion({
+          questionId: parsedQuestionDetails._id,
+          title: values.title,
+          content: values.explanation,
+          path: pathname,
+        });
+      }
+      router.push(`/question/${question._id}`);
     } catch (error) {
     } finally {
       setIsSubmitting(false);
     }
-
-    router.push("/");
   }
 
   const handleTagsInputKeyDown = (
@@ -147,7 +165,7 @@ export function QuestionForm({ userId }: QuestionFormProps) {
                   onEditorChange={(content) => {
                     field.onChange(content);
                   }}
-                  initialValue=""
+                  initialValue={parsedQuestionDetails?.content || ""}
                   init={{
                     height: 350,
                     menubar: false,
@@ -200,6 +218,7 @@ export function QuestionForm({ userId }: QuestionFormProps) {
               <FormControl className="mt-3.5">
                 <>
                   <Input
+                    disabled={formType === "edit"}
                     className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
                     placeholder="e.g. reactjs, javascript, typescript"
                     onKeyDown={(e) => {
@@ -215,15 +234,21 @@ export function QuestionForm({ userId }: QuestionFormProps) {
                           className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
                         >
                           {tag}
-                          <Image
-                            src="/assets/icons/close.svg"
-                            alt="close"
-                            width={12}
-                            height={12}
-                            className="cursor-pointer object-contain invert-0 dark:invert"
-                            onClick={() => removeTag(tag, field)}
-                            unoptimized
-                          />
+                          {formType !== "edit" && (
+                            <Image
+                              src="/assets/icons/close.svg"
+                              alt="close"
+                              width={12}
+                              height={12}
+                              className="cursor-pointer object-contain invert-0 dark:invert"
+                              onClick={() =>
+                                formType !== "edit"
+                                  ? removeTag(tag, field)
+                                  : null
+                              }
+                              unoptimized
+                            />
+                          )}
                         </Badge>
                       ))}
                     </div>
@@ -246,9 +271,9 @@ export function QuestionForm({ userId }: QuestionFormProps) {
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <>{formType === "create" ? "Creating" : "Updating"} Question...</>
+            <>{formType === "create" ? "Creating" : "Editing"} Question...</>
           ) : (
-            <>{formType === "create" ? "Ask" : "Update"} Question</>
+            <>{formType === "create" ? "Ask" : "Edit"} Question</>
           )}
         </Button>
       </form>

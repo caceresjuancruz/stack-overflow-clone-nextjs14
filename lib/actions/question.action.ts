@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import {
   CreateQuestionParams,
   DeleteQuestionParams,
+  EditQuestionParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
   QuestionVoteParams,
@@ -67,6 +68,8 @@ export async function createQuestion(params: CreateQuestionParams) {
     //Create an interaction record for the user's ask_question action
 
     //Increment author's reputation by +5 for creating question
+
+    return question;
   } catch (error) {
     return {
       message: getErrorMessage(error),
@@ -213,7 +216,7 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
 export async function deleteQuestion(params: DeleteQuestionParams) {
   const { questionId, path } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     await Question.deleteOne({ _id: questionId });
     await Answer.deleteMany({ question: questionId });
@@ -222,6 +225,33 @@ export async function deleteQuestion(params: DeleteQuestionParams) {
       { questions: questionId },
       { $pull: { questions: questionId } }
     );
+  } catch (error) {
+    return {
+      message: getErrorMessage(error),
+    };
+  } finally {
+    revalidatePath(path);
+  }
+}
+
+export async function editQuestion(params: EditQuestionParams) {
+  const { questionId, title, content, path } = params;
+  try {
+    await connectToDatabase();
+
+    const question = await Question.findById(questionId);
+
+    if (!question) {
+      throw new Error("Question not found");
+    }
+
+    //Update the question
+    question.title = title;
+    question.content = content;
+
+    await question.save();
+
+    return question;
   } catch (error) {
     return {
       message: getErrorMessage(error),

@@ -131,7 +131,7 @@ export async function downvoteAnswer(params: AnswerVoteParams) {
 export async function deleteAnswer(params: DeleteAnswerParams) {
   const { answerId, path } = params;
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const answer = await Answer.findById(answerId);
 
