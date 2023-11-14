@@ -3,9 +3,10 @@ import QuestionCard from "../cards/QuestionCard";
 
 interface QuestionTabProps {
   userId: string;
+  clerkId?: string | null;
 }
 
-const QuestionTab = async ({ userId }: QuestionTabProps) => {
+const QuestionTab = async ({ userId, clerkId }: QuestionTabProps) => {
   const result = await getUserQuestions({ userId, page: 1 });
 
   return (
@@ -15,6 +16,7 @@ const QuestionTab = async ({ userId }: QuestionTabProps) => {
           <QuestionCard
             key={question._id}
             _id={question._id}
+            clerkId={clerkId}
             title={question.title}
             tags={question.tags}
             author={question.author}

@@ -6,6 +6,7 @@ import Tag from "@/database/models/tag.model";
 import { revalidatePath } from "next/cache";
 import {
   CreateQuestionParams,
+  DeleteQuestionParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
   QuestionVoteParams,
@@ -13,6 +14,8 @@ import {
 } from "./shared.types";
 import User from "@/database/models/user.model";
 import { getErrorMessage } from "../utils";
+import Answer from "@/database/models/answer.model";
+import Interaction from "@/database/models/interaction.model";
 
 export async function getQuestions(params: GetQuestionsParams) {
   const { page = 1, pageSize = 10, searchQuery, filter } = params;
@@ -198,6 +201,27 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
         { new: true }
       );
     }
+  } catch (error) {
+    return {
+      message: getErrorMessage(error),
+    };
+  } finally {
+    revalidatePath(path);
+  }
+}
+
+export async function deleteQuestion(params: DeleteQuestionParams) {
+  const { questionId, path } = params;
+  try {
+    connectToDatabase();
+
+    await Question.deleteOne({ _id: questionId });
+    await Answer.deleteMany({ question: questionId });
+    await Interaction.deleteMany({ question: questionId });
+    await Tag.updateMany(
+      { questions: questionId },
+      { $pull: { questions: questionId } }
+    );
   } catch (error) {
     return {
       message: getErrorMessage(error),

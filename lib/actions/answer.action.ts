@@ -4,12 +4,14 @@ import { connectToDatabase } from "@/database/dbConnection";
 import {
   AnswerVoteParams,
   CreateAnswerParams,
+  DeleteAnswerParams,
   GetAnswersParams,
 } from "./shared.types";
 import Answer from "@/database/models/answer.model";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/models/question.model";
 import { getErrorMessage } from "../utils";
+import Interaction from "@/database/models/interaction.model";
 
 export async function getAnswers(params: GetAnswersParams) {
   const { questionId } = params;
@@ -117,6 +119,32 @@ export async function downvoteAnswer(params: AnswerVoteParams) {
     }
 
     //TODO: Add reputation logic
+  } catch (error) {
+    return {
+      message: getErrorMessage(error),
+    };
+  } finally {
+    revalidatePath(path);
+  }
+}
+
+export async function deleteAnswer(params: DeleteAnswerParams) {
+  const { answerId, path } = params;
+  try {
+    connectToDatabase();
+
+    const answer = await Answer.findById(answerId);
+
+    if (!answer) {
+      throw new Error("Answer not found");
+    }
+
+    await Answer.deleteOne({ _id: answerId });
+    await Question.updateMany(
+      { _id: answer.question },
+      { $pull: { answers: answerId } }
+    );
+    await Interaction.deleteMany({ answer: answerId });
   } catch (error) {
     return {
       message: getErrorMessage(error),

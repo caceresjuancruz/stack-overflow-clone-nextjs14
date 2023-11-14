@@ -92,10 +92,10 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="top-posts" className="flex w-full flex-col gap-6">
-            <QuestionTab userId={result.user._id} />
+            <QuestionTab userId={result.user._id} clerkId={clerkId} />
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
-            <AnswerTab userId={result.user._id} />
+            <AnswerTab userId={result.user._id} clerkId={clerkId} />
           </TabsContent>
         </Tabs>
       </div>
