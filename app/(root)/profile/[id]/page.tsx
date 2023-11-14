@@ -47,7 +47,7 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
               {result.user.location && (
                 <ProfileLink
                   imgUrl="/assets/icons/location.svg"
-                  title="Location"
+                  title={result.user.location}
                 />
               )}
 
