@@ -18,7 +18,7 @@ const RightSidebar = async () => {
   const popularTags = await getPopularTags();
 
   return (
-    <section className="background-light900_dark200 light-border custom-scrollbar shadow-light100_dark100 sticky right-0 top-0 z-40 flex h-screen w-[350px] flex-col justify-between overflow-y-auto border-l px-6 pb-12 pt-6 max-xl:hidden lg:z-50">
+    <section className="background-light900_dark200 light-border custom-scrollbar shadow-light100_dark100 sticky right-0 top-0 z-40 flex h-screen w-[350px] flex-col gap-16 overflow-y-auto border-l px-6 pb-12 pt-6 max-xl:hidden lg:z-50">
       <div>
         <UserMenu />
       </div>
