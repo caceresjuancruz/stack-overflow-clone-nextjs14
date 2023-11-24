@@ -4,9 +4,12 @@ import NoResults from "@/components/shared/NoResults";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { TagFilters } from "@/constants/filters";
 import { getAllTags } from "@/lib/actions/tag.action";
+import { SearchParamsProps } from "@/types";
 
-export default async function TagsPage() {
-  const result = await getAllTags({});
+export default async function TagsPage({ searchParams }: SearchParamsProps) {
+  const result = await getAllTags({
+    searchQuery: searchParams.q,
+  });
 
   return (
     <div>
@@ -26,8 +29,10 @@ export default async function TagsPage() {
       </div>
 
       <section className="mt-12 flex flex-wrap gap-4">
-        {result.tags.length > 0 ? (
-          result.tags.map((tag) => <TagCard key={tag._id} tag={tag} />)
+        {result.tags && result.tags.length > 0 ? (
+          result.tags.map((tag) => (
+            <TagCard key={tag._id} tag={JSON.parse(JSON.stringify(tag))} />
+          ))
         ) : (
           <NoResults
             title="No tags yet 😢"

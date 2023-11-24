@@ -49,7 +49,16 @@ export async function getAllTags(params: GetAllTagsParams) {
   try {
     await connectToDatabase();
 
-    const tags = await Tag.find({}).sort({ createdOn: -1 });
+    const query: FilterQuery<typeof Tag> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        { name: { $regex: new RegExp(searchQuery, "i") } },
+        { description: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+
+    const tags = await Tag.find(query).sort({ createdOn: -1 });
 
     return { tags };
   } catch (error) {

@@ -1,8 +1,6 @@
 import QuestionCard from "@/components/cards/QuestionCard";
-import Filter from "@/components/shared/Filter";
 import NoResults from "@/components/shared/NoResults";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
-import { QuestionFilters } from "@/constants/filters";
 import { getQuestionsByTagId } from "@/lib/actions/tag.action";
 import { URLProps } from "@/types";
 
@@ -25,7 +23,7 @@ export default async function TagDetailsPage({
           placeholder="Search tag questions"
           iconPosition="left"
           iconSrc="/assets/icons/search.svg"
-          route="/"
+          route={`/tags/${params.id}`}
           otherClasses="flex-1"
         />
       </div>

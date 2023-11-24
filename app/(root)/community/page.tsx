@@ -4,9 +4,14 @@ import NoResults from "@/components/shared/NoResults";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";
+import { SearchParamsProps } from "@/types";
 
-export default async function CommunityPage() {
-  const result = await getAllUsers({});
+export default async function CommunityPage({
+  searchParams,
+}: SearchParamsProps) {
+  const result = await getAllUsers({
+    searchQuery: searchParams.q,
+  });
 
   return (
     <div>
@@ -27,7 +32,9 @@ export default async function CommunityPage() {
 
       <section className="mt-12 flex flex-wrap gap-4">
         {result.users && result.users.length > 0 ? (
-          result.users.map((user) => <UserCard key={user._id} user={user} />)
+          result.users.map((user) => (
+            <UserCard key={user._id} user={JSON.parse(JSON.stringify(user))} />
+          ))
         ) : (
           <NoResults
             title="No users yet 😢"
