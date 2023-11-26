@@ -2,6 +2,7 @@ import { getAnswers } from "@/lib/actions/answer.action";
 import Filter from "./Filter";
 import { AnswerFilters } from "@/constants/filters";
 import Answer from "./Answer";
+import Pagination from "./Pagination";
 
 interface AllAnswersProps {
   questionId: string;
@@ -37,6 +38,12 @@ const AllAnswers = async ({
         ) : (
           <></>
         )}
+      </div>
+      <div className="mt-10 w-full">
+        <Pagination
+          pageNumber={page ? +page : 1}
+          isNext={result.isNext || false}
+        />
       </div>
     </div>
   );

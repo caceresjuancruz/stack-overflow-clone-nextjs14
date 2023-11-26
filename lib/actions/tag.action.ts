@@ -9,7 +9,7 @@ import Question from "@/database/models/question.model";
 import User from "@/database/models/user.model";
 
 export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
-  const { tagId, page = 1, pageSize = 10, searchQuery } = params;
+  const { tagId, page = 1, pageSize = 1, searchQuery } = params;
   try {
     await connectToDatabase();
 
@@ -23,6 +23,8 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
         : {},
       options: {
         sort: { createdAt: -1 },
+        skip: (page - 1) * pageSize,
+        limit: pageSize + 1,
       },
       populate: [
         { path: "tags", model: Tag, select: "_id name" },
@@ -36,7 +38,19 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
 
     const questions = tag.questions;
 
-    return { tagTitle: tag.name, questions };
+    const totalResults = await Question.countDocuments({
+      _id: { $in: tag.questions },
+    });
+
+    const isNext = tag.questions.length > pageSize;
+
+    return {
+      tagTitle: tag.name,
+      questions,
+      isNext,
+      totalResults,
+      showingResults: questions.length,
+    };
   } catch (error) {
     return {
       message: getErrorMessage(error),
@@ -45,7 +59,7 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
 }
 
 export async function getAllTags(params: GetAllTagsParams) {
-  const { page = 1, pageSize = 10, searchQuery, filter } = params;
+  const { page = 1, pageSize = 20, searchQuery, filter } = params;
   try {
     await connectToDatabase();
 
@@ -77,9 +91,16 @@ export async function getAllTags(params: GetAllTagsParams) {
         break;
     }
 
-    const tags = await Tag.find(query).sort(sortOptions);
+    const tags = await Tag.find(query)
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .sort(sortOptions);
 
-    return { tags };
+    const totalResults = await Tag.countDocuments(query);
+
+    const isNext = totalResults > (page - 1) * pageSize + tags.length;
+
+    return { tags, isNext, totalResults, showingResults: tags.length };
   } catch (error) {
     return {
       message: getErrorMessage(error),

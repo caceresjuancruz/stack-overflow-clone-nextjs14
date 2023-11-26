@@ -1,5 +1,6 @@
 import QuestionCard from "@/components/cards/QuestionCard";
 import NoResults from "@/components/shared/NoResults";
+import Pagination from "@/components/shared/Pagination";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { getQuestionsByTagId } from "@/lib/actions/tag.action";
 import { URLProps } from "@/types";
@@ -10,12 +11,12 @@ export default async function TagDetailsPage({
 }: URLProps) {
   const result = await getQuestionsByTagId({
     tagId: params.id,
-    page: 1,
+    page: searchParams.page ? +searchParams.page : 1,
     searchQuery: searchParams.q,
   });
 
   return (
-    <div>
+    <>
       <h1 className="h1-bold text-dark100_light900">{result.tagTitle}</h1>
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
@@ -52,6 +53,12 @@ export default async function TagDetailsPage({
           />
         )}
       </section>
-    </div>
+      <div className="mt-10">
+        <Pagination
+          pageNumber={searchParams.page ? +searchParams.page : 1}
+          isNext={result.isNext || false}
+        />
+      </div>
+    </>
   );
 }

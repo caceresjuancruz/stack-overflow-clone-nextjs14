@@ -14,7 +14,7 @@ import { getErrorMessage } from "../utils";
 import Interaction from "@/database/models/interaction.model";
 
 export async function getAnswers(params: GetAnswersParams) {
-  const { questionId, sortBy } = params;
+  const { questionId, sortBy, page = 1, pageSize = 10 } = params;
   try {
     await connectToDatabase();
 
@@ -40,9 +40,14 @@ export async function getAnswers(params: GetAnswersParams) {
     //Get the answers
     const answers = await Answer.find({ question: questionId })
       .populate("author", "_id clerkId name avatar")
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
       .sort(sortOptions);
 
-    return { answers };
+    const totalResults = await Answer.countDocuments({ question: questionId });
+    const isNext = totalResults > (page - 1) * pageSize + answers.length;
+
+    return { answers, isNext, totalResults, showingResults: answers.length };
   } catch (error) {
     return {
       message: getErrorMessage(error),

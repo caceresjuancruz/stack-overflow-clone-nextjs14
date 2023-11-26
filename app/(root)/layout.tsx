@@ -4,7 +4,7 @@ import Navbar from "@/components/shared/navbar/Navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="background-light850_dark100 relative">
+    <main className="background-main-gradient relative">
       <Navbar />
       <div className="flex">
         <LeftSidebar />

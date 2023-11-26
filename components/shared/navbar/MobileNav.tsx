@@ -30,9 +30,9 @@ const NavContent = () => {
               href={item.route}
               className={`${
                 isActive
-                  ? "primary-gradient rounded-lg text-light-900"
+                  ? "primary-gradient  text-light-900"
                   : "text-dark300_light900"
-              } flex items-center justify-start gap-4 bg-transparent p-4`}
+              } hover:background-hover flex items-center justify-start gap-4 rounded-lg bg-transparent p-4`}
             >
               <Image
                 src={item.imgURL}

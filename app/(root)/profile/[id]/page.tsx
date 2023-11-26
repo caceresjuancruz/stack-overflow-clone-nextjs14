@@ -24,7 +24,7 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
             alt="Avatar"
             width={140}
             height={140}
-            className="rounded-full object-cover"
+            className="rounded-full border-4 border-primary-500 object-cover"
           />
 
           <div className="mt-3">
@@ -71,7 +71,7 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
           <SignedIn>
             {clerkId === result?.user?.clerkId && (
               <Link href="/profile/edit">
-                <Button className="paragraph-medium btn-secondary text-dark300_light900 min-h-[46px] min-w-[175px] px-4 py-3">
+                <Button className="paragraph-medium btn-secondary text-dark300_light900  min-h-[46px] min-w-[175px] border px-4 py-3">
                   Edit Profile
                 </Button>
               </Link>
@@ -94,10 +94,18 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="top-posts" className="flex w-full flex-col gap-6">
-            <QuestionTab userId={result?.user?._id} clerkId={clerkId} />
+            <QuestionTab
+              userId={result?.user?._id}
+              clerkId={clerkId}
+              searchParams={searchParams}
+            />
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
-            <AnswerTab userId={result?.user?._id} clerkId={clerkId} />
+            <AnswerTab
+              userId={result?.user?._id}
+              clerkId={clerkId}
+              searchParams={searchParams}
+            />
           </TabsContent>
         </Tabs>
       </div>

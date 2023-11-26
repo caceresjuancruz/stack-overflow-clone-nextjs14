@@ -68,7 +68,7 @@ const AnswerForm = ({ authorId, questionId }: AnswerFormProps) => {
         </h4>
 
         <Button
-          className="btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 shadow-none dark:text-primary-500"
+          className="btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 shadow-none"
           onClick={() => {}}
         >
           <Image
@@ -78,7 +78,7 @@ const AnswerForm = ({ authorId, questionId }: AnswerFormProps) => {
             height={12}
             className="object-contain"
           />
-          Generate an AI Answer
+          <span className="primary-text-gradient">Generate an AI Answer</span>
         </Button>
       </div>
 
