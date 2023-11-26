@@ -1,7 +1,6 @@
 "use client";
+import { ThemeMode } from "@/constants";
 import React, { createContext, useEffect, useContext, useState } from "react";
-
-type ThemeMode = "light" | "dark";
 
 interface ThemeContextType {
   mode: ThemeMode;

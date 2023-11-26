@@ -1,10 +1,52 @@
+"use client";
+
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
+import GlobalResult from "./GlobalResult";
 
 const GlobalSearch = () => {
+  const router = useRouter();
+  const path = usePathname();
+  const searchParams = useSearchParams();
+
+  const query = searchParams.get("q");
+
+  const [search, setSearch] = useState(query || "");
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {}, [path]);
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      if (search) {
+        const newUrl = formUrlQuery({
+          params: searchParams.toString(),
+          key: "global",
+          value: search,
+        });
+
+        router.push(newUrl, { scroll: false });
+      } else {
+        if (query) {
+          const newUrl = removeKeysFromQuery({
+            params: searchParams.toString(),
+            keysToRemove: ["global", "type"],
+          });
+
+          router.push(newUrl, { scroll: false });
+        }
+      }
+    }, 300);
+
+    return () => clearTimeout(delayDebounce);
+  }, [search, path, router, searchParams, query]);
+
   return (
     <div className="relative w-full max-w-[400px] max-lg:hidden xl:max-w-[600px]">
-      <div className="background-light800_darkgradient relative flex min-h-[56px] grow items-center gap-1 rounded-xl px-4">
+      <div className="background-light800_darkgradient light-border-2 relative flex min-h-[56px] grow items-center gap-1 rounded-xl border px-4">
         <Image
           src={"/assets/icons/search.svg"}
           alt="Search"
@@ -15,10 +57,18 @@ const GlobalSearch = () => {
         />
         <Input
           type="text"
+          value={search}
           placeholder="Search globally"
+          onChange={(e) => {
+            setSearch(e.target.value);
+            if (!isOpen) setIsOpen(true);
+            if ((!e.target.value || e.target.value === "") && isOpen)
+              setIsOpen(false);
+          }}
           className="paragraph-regular no-focus placeholder text-dark300_light900 border-none bg-transparent shadow-none outline-none"
         />
       </div>
+      {isOpen && <GlobalResult />}
     </div>
   );
 };
