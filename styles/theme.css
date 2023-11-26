@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer utilities {
+  .background-hover {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+
   .background-light850_dark100 {
     @apply bg-light-850 dark:bg-dark-100;
   }

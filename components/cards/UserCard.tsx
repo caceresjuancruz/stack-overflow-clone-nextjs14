@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
@@ -15,7 +13,7 @@ interface UserCardProps {
   };
 }
 
-const UserCard = ({ user }: UserCardProps) => {
+const UserCard = async ({ user }: UserCardProps) => {
   const interactedTags = [
     { _id: "1", name: "tag" },
     { _id: "2", name: "tag2" },
@@ -46,7 +44,7 @@ const UserCard = ({ user }: UserCardProps) => {
         </div>
 
         <div className="mt-5">
-          {interactedTags.length > 0 ? (
+          {interactedTags && interactedTags.length > 0 ? (
             <div className="flex items-center gap-2">
               {interactedTags.map((tag) => (
                 <RenderTag key={tag._id} _id={tag._id} name={tag.name} />

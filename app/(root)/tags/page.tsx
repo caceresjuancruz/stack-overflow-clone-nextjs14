@@ -9,6 +9,7 @@ import { SearchParamsProps } from "@/types";
 export default async function TagsPage({ searchParams }: SearchParamsProps) {
   const result = await getAllTags({
     searchQuery: searchParams.q,
+    filter: searchParams.filter,
   });
 
   return (
@@ -21,6 +22,7 @@ export default async function TagsPage({ searchParams }: SearchParamsProps) {
           iconPosition="left"
           iconSrc="/assets/icons/search.svg"
           route="/tags"
+          otherClasses="flex-1"
         />
         <Filter
           filters={TagFilters}

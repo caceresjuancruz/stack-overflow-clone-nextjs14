@@ -99,6 +99,8 @@ export default async function QuestionDetailPage({
       <AllAnswers
         questionId={params.id}
         totalAnswers={question.answers.length}
+        page={searchParams?.page}
+        filter={searchParams?.filter}
       />
 
       <AnswerForm

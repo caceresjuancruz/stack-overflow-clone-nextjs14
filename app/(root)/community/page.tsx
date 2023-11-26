@@ -11,10 +11,11 @@ export default async function CommunityPage({
 }: SearchParamsProps) {
   const result = await getAllUsers({
     searchQuery: searchParams.q,
+    filter: searchParams.filter,
   });
 
   return (
-    <div>
+    <>
       <h1 className="h1-bold text-dark100_light900">Community</h1>
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
@@ -23,6 +24,7 @@ export default async function CommunityPage({
           iconPosition="left"
           iconSrc="/assets/icons/search.svg"
           route="/community"
+          otherClasses="flex-1"
         />
         <Filter
           filters={UserFilters}
@@ -44,6 +46,6 @@ export default async function CommunityPage({
           />
         )}
       </section>
-    </div>
+    </>
   );
 }

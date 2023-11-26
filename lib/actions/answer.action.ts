@@ -14,16 +14,33 @@ import { getErrorMessage } from "../utils";
 import Interaction from "@/database/models/interaction.model";
 
 export async function getAnswers(params: GetAnswersParams) {
-  const { questionId } = params;
+  const { questionId, sortBy } = params;
   try {
     await connectToDatabase();
+
+    let sortOptions = {};
+
+    switch (sortBy) {
+      case "highestUpvotes":
+        sortOptions = { upvotes: -1 };
+        break;
+      case "lowestUpvotes":
+        sortOptions = { upvotes: 1 };
+        break;
+      case "recent":
+        sortOptions = { createdAt: -1 };
+        break;
+      case "old":
+        sortOptions = { createdAt: 1 };
+        break;
+      default:
+        break;
+    }
 
     //Get the answers
     const answers = await Answer.find({ question: questionId })
       .populate("author", "_id clerkId name avatar")
-      .sort({
-        createdAt: -1,
-      });
+      .sort(sortOptions);
 
     return { answers };
   } catch (error) {

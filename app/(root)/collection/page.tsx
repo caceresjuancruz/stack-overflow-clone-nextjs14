@@ -18,6 +18,7 @@ export default async function CollectionsPage({
   const result = await getSavedQuestions({
     clerkId: userId as string,
     searchQuery: searchParams.q,
+    filter: searchParams.filter,
   });
 
   return (
