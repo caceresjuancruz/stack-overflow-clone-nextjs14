@@ -71,7 +71,7 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
           <SignedIn>
             {clerkId === result?.user?.clerkId && (
               <Link href="/profile/edit">
-                <Button className="paragraph-medium btn-secondary text-dark300_light900  min-h-[46px] min-w-[175px] border px-4 py-3">
+                <Button className="paragraph-medium btn-secondary text-dark300_light900  light-border-2 min-h-[46px] min-w-[175px] border px-4 py-3">
                   Edit Profile
                 </Button>
               </Link>

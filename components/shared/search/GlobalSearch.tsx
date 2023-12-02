@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 import GlobalResult from "./GlobalResult";
 
@@ -11,13 +11,30 @@ const GlobalSearch = () => {
   const router = useRouter();
   const path = usePathname();
   const searchParams = useSearchParams();
+  const searchContainerRef = useRef<HTMLDivElement>(null);
 
   const query = searchParams.get("q");
 
   const [search, setSearch] = useState(query || "");
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {}, [path]);
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current?.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+        setSearch("");
+      }
+    };
+
+    setIsOpen(false);
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => document.removeEventListener("click", handleOutsideClick);
+  }, [path]);
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {

@@ -6,16 +6,13 @@ import GlobalFilters from "./GlobalFilters";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import Image from "next/image";
+import { globalSearch } from "@/lib/actions/global.action";
 
 const GlobalResult = () => {
   const searchParams = useSearchParams();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState([
-    { type: "question", id: 1, title: "How to use Next.js with Tailwind CSS?" },
-    { type: "tag", id: 1, title: "Nextjs" },
-    { type: "user", id: 1, title: "caceresjuan" },
-  ]);
+  const [result, setResult] = useState<any>();
 
   const global = searchParams.get("global");
   const type = searchParams.get("type");
@@ -26,14 +23,33 @@ const GlobalResult = () => {
       setIsLoading(true);
 
       try {
-        //search
+        const result = await globalSearch({ query: global!, type });
+
+        setResult(JSON.parse(result));
       } catch (error) {
         console.log(error);
       } finally {
         setIsLoading(false);
       }
     };
+
+    if (global) fetchResult();
   }, [global, type]);
+
+  const renderLink = (type: string, id: string) => {
+    switch (type) {
+      case "question":
+        return `/questions/${id}`;
+      case "answer":
+        return `/question/${id}`;
+      case "user":
+        return `/profile/${id}`;
+      case "tag":
+        return `/tags/${id}`;
+      default:
+        return "/";
+    }
+  };
 
   return (
     <div className="absolute top-full z-10 mt-3 w-full rounded-xl bg-light-800 py-5 shadow-sm dark:bg-dark-400">
@@ -55,10 +71,10 @@ const GlobalResult = () => {
           </div>
         ) : (
           <div className="flex flex-col gap-2">
-            {result.length > 0 ? (
+            {result && result.length > 0 ? (
               result.map((item: any, index: number) => (
                 <Link
-                  href={""}
+                  href={renderLink(item.type, item.id)}
                   key={item.type + item.id + index}
                   className="flex w-full cursor-pointer items-start gap-3 px-5 py-2.5 hover:bg-light-700/50 dark:hover:bg-dark-500/50"
                 >
