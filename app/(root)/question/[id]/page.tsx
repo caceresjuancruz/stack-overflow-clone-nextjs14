@@ -9,8 +9,13 @@ import { getUserById } from "@/lib/actions/user.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 import { URLProps } from "@/types";
 import { auth } from "@clerk/nextjs";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Question | Dev Overflow",
+};
 
 export default async function QuestionDetailPage({
   params,
@@ -45,12 +50,20 @@ export default async function QuestionDetailPage({
             <Votes
               type="question"
               itemId={JSON.parse(JSON.stringify(question._id))}
-              userId={JSON.parse(JSON.stringify(dbUser._id))}
+              userId={
+                dbUser._id !== undefined
+                  ? JSON.parse(JSON.stringify(dbUser._id))
+                  : null
+              }
               upvotes={question.upvotes.length}
               hasUpvoted={question.upvotes.includes(dbUser._id)}
               downvotes={question.downvotes.length}
               hasDownvoted={question.downvotes.includes(dbUser._id)}
-              hasSaved={dbUser.saved.includes(question._id)}
+              hasSaved={
+                dbUser._id !== undefined
+                  ? dbUser.saved.includes(question._id)
+                  : false
+              }
             />
           </div>
         </div>

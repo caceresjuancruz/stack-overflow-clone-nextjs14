@@ -131,3 +131,21 @@ export async function getPopularTags() {
     };
   }
 }
+
+export async function getTagById(tagId: string) {
+  try {
+    await connectToDatabase();
+
+    const tag = await Tag.findById(tagId);
+
+    if (!tag) {
+      throw new Error("Tag not found");
+    }
+
+    return tag;
+  } catch (error) {
+    return {
+      message: getErrorMessage(error),
+    };
+  }
+}

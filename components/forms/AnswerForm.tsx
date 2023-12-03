@@ -3,7 +3,7 @@
 import { useTheme } from "@/context/ThemeProvider";
 import { AnswerFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef, useState } from "react";
+import { use, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
@@ -18,6 +18,8 @@ import {
 import { Editor } from "@tinymce/tinymce-react";
 import { createAnswer } from "@/lib/actions/answer.action";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
+import { toast } from "../ui/use-toast";
 
 interface AnswerFormProps {
   question: string;
@@ -31,6 +33,7 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
   const { mode } = useTheme();
   const editorRef = useRef(null);
   const pathname = usePathname();
+  const { userId } = useAuth();
 
   const form = useForm<z.infer<typeof AnswerFormSchema>>({
     resolver: zodResolver(AnswerFormSchema),
@@ -40,6 +43,13 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
   });
 
   async function handleCreateAnswer(values: z.infer<typeof AnswerFormSchema>) {
+    if (!userId) {
+      return toast({
+        title: "Please log in",
+        description: "You must be logged in to perform this action",
+      });
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -64,6 +74,13 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
   }
 
   const generateAIAnswer = async () => {
+    if (!userId) {
+      return toast({
+        title: "Please log in",
+        description: "You must be logged in to perform this action",
+      });
+    }
+
     if (!authorId || !questionId) return;
 
     setIsGeneratingAIAnswer(true);

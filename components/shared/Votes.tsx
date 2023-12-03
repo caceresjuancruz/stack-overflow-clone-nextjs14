@@ -11,6 +11,7 @@ import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useOptimistic } from "react";
+import { toast } from "../ui/use-toast";
 
 interface VotesProps {
   type: string;
@@ -117,7 +118,10 @@ const Votes = ({
 
   const handleVote = async (action: string) => {
     if (!userId) {
-      return;
+      return toast({
+        title: "Please log in",
+        description: "You must be logged in to perform this action",
+      });
     }
 
     if (type === "question") {
@@ -130,6 +134,11 @@ const Votes = ({
           hasDownvoted: optimisticHasDownvoted,
           path,
         });
+
+        return toast({
+          title: `Upvote ${!optimisticHasUpvoted ? "successful" : "removed"}`,
+          variant: !optimisticHasUpvoted ? "default" : "destructive",
+        });
       }
 
       if (action === "downvote") {
@@ -140,6 +149,13 @@ const Votes = ({
           hasUpvoted: optimisticHasUpvoted,
           hasDownvoted: optimisticHasDownvoted,
           path,
+        });
+
+        return toast({
+          title: `Downvote ${
+            !optimisticHasDownvoted ? "successful" : "removed"
+          }`,
+          variant: !optimisticHasDownvoted ? "default" : "destructive",
         });
       }
     } else if (type === "answer") {
@@ -152,6 +168,11 @@ const Votes = ({
           hasDownvoted: optimisticHasDownvoted,
           path,
         });
+
+        return toast({
+          title: `Upvote ${!optimisticHasUpvoted ? "successful" : "removed"}`,
+          variant: !optimisticHasUpvoted ? "default" : "destructive",
+        });
       }
 
       if (action === "downvote") {
@@ -163,13 +184,23 @@ const Votes = ({
           hasDownvoted: optimisticHasDownvoted,
           path,
         });
+
+        return toast({
+          title: `Downvote ${
+            !optimisticHasDownvoted ? "successful" : "removed"
+          }`,
+          variant: !optimisticHasDownvoted ? "default" : "destructive",
+        });
       }
     }
   };
 
   const handleSave = async () => {
     if (!userId) {
-      return;
+      return toast({
+        title: "Please log in",
+        description: "You must be logged in to perform this action",
+      });
     }
 
     if (type === "question") {
@@ -180,6 +211,13 @@ const Votes = ({
         path,
       });
     }
+
+    return toast({
+      title: `Question ${
+        !optimisticHasSaved ? "saved in" : "removed from"
+      } your collection`,
+      variant: !optimisticHasSaved ? "default" : "destructive",
+    });
   };
 
   useEffect(() => {

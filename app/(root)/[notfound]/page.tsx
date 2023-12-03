@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "404 | Dev Overflow",
+};
 
 export default function NotFoundPage() {
   return (

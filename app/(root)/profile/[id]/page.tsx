@@ -1,4 +1,4 @@
-import { getUserInfo } from "@/lib/actions/user.action";
+import { getUserById, getUserInfo } from "@/lib/actions/user.action";
 import { URLProps } from "@/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SignedIn, auth } from "@clerk/nextjs";
@@ -10,6 +10,18 @@ import ProfileLink from "@/components/shared/ProfileLink";
 import Stats from "@/components/shared/Stats";
 import QuestionTab from "@/components/shared/QuestionTab";
 import AnswerTab from "@/components/shared/AnswerTab";
+import { Metadata, ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+  { params, searchParams }: URLProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const userId = params.id;
+  const user = await getUserById({ userId });
+  return {
+    title: `${user.name} | Dev Overflow`,
+  };
+}
 
 export default async function ProfilePage({ params, searchParams }: URLProps) {
   const { userId: clerkId } = auth();

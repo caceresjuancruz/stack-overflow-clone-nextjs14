@@ -2,8 +2,20 @@ import QuestionCard from "@/components/cards/QuestionCard";
 import NoResults from "@/components/shared/NoResults";
 import Pagination from "@/components/shared/Pagination";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
-import { getQuestionsByTagId } from "@/lib/actions/tag.action";
+import { getQuestionsByTagId, getTagById } from "@/lib/actions/tag.action";
 import { URLProps } from "@/types";
+import { Metadata, ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+  { params, searchParams }: URLProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const tagId = params.id;
+  const tag = await getTagById(tagId);
+  return {
+    title: `${tag.name} | Dev Overflow`,
+  };
+}
 
 export default async function TagDetailsPage({
   params,
