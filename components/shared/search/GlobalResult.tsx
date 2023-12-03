@@ -26,7 +26,7 @@ const GlobalResult = () => {
       try {
         const result = await globalSearch({ query: global!, type });
 
-        setResult(JSON.parse(result));
+        setResult(typeof result === "string" ? JSON.parse(result) : "");
       } catch (error) {
         return toast({
           title: "Something went wrong",
