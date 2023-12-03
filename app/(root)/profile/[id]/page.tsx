@@ -107,7 +107,10 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
               Answers
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="top-posts" className="flex w-full flex-col gap-6">
+          <TabsContent
+            value="top-posts"
+            className="mt-5 flex w-full flex-col gap-6"
+          >
             <QuestionTab
               userId={result?.user?._id}
               clerkId={clerkId}

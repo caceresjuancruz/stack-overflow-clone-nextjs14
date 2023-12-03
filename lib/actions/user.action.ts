@@ -60,6 +60,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
 
     return { users, isNext, totalResults, showingResults: users.length };
   } catch (error) {
+    console.log(error);
     return {
       message: getErrorMessage(error),
     };
@@ -215,7 +216,7 @@ export async function deleteUser(params: DeleteUserParams) {
   try {
     await connectToDatabase();
 
-    const user = await User.findOneAndDelete({ clerkId });
+    const user = await User.findOne({ clerkId });
 
     if (!user) {
       throw new Error("User not found");

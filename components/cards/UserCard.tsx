@@ -10,14 +10,18 @@ interface UserCardProps {
     avatar: string;
     name: string;
     username: string;
+    interactedTags: {
+      _id: string;
+      name: string;
+    }[];
   };
 }
 
 const UserCard = async ({ user }: UserCardProps) => {
-  const interactedTags = [
-    { _id: "1", name: "tag" },
-    { _id: "2", name: "tag2" },
-  ];
+  // const interactedTags = [
+  //   { _id: "1", name: "tag" },
+  //   { _id: "2", name: "tag2" },
+  // ];
 
   return (
     <Link
@@ -44,14 +48,16 @@ const UserCard = async ({ user }: UserCardProps) => {
         </div>
 
         <div className="mt-5">
-          {interactedTags && interactedTags.length > 0 ? (
+          {user.interactedTags && user.interactedTags.length > 0 ? (
             <div className="flex items-center gap-2">
-              {interactedTags.map((tag) => (
+              {user.interactedTags.map((tag) => (
                 <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
               ))}
             </div>
           ) : (
-            <Badge>No tags yet</Badge>
+            <Badge className="subtle-medium background-light800_dark300 text-light400_light500 rounded-md border-none px-4 py-2 uppercase">
+              No tags yet
+            </Badge>
           )}
         </div>
       </article>
