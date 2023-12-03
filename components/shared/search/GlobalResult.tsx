@@ -7,6 +7,7 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import Image from "next/image";
 import { globalSearch } from "@/lib/actions/global.action";
+import { toast } from "@/components/ui/use-toast";
 
 const GlobalResult = () => {
   const searchParams = useSearchParams();
@@ -27,7 +28,10 @@ const GlobalResult = () => {
 
         setResult(JSON.parse(result));
       } catch (error) {
-        console.log(error);
+        return toast({
+          title: "Something went wrong",
+          description: "Please try again later",
+        });
       } finally {
         setIsLoading(false);
       }

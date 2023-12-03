@@ -23,6 +23,7 @@ import Image from "next/image";
 import { createQuestion, editQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
+import { toast } from "../ui/use-toast";
 
 interface QuestionFormProps {
   userId: string;
@@ -78,6 +79,10 @@ export function QuestionForm({
       }
       router.push(`/question/${question._id}`);
     } catch (error) {
+      return toast({
+        title: "Something went wrong",
+        description: "Please try again later",
+      });
     } finally {
       setIsSubmitting(false);
     }

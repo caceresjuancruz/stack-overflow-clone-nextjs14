@@ -3,7 +3,7 @@
 import { useTheme } from "@/context/ThemeProvider";
 import { AnswerFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { use, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
@@ -67,7 +67,10 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
         editorRef.current.setContent("");
       }
     } catch (error) {
-      console.log(error);
+      return toast({
+        title: "Something went wrong",
+        description: "Please try again later",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -105,8 +108,22 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
         editor.setContent(formattedAnswer);
       }
 
-      //Toast
+      return toast({
+        title: `AI Answer Generated ${(
+          <Image
+            src="/assets/icons/stars.svg"
+            alt="star"
+            width={12}
+            height={12}
+            className="object-contain"
+          />
+        )}`,
+      });
     } catch (error) {
+      return toast({
+        title: "Something went wrong",
+        description: "Please try again later",
+      });
     } finally {
       setIsGeneratingAIAnswer(false);
     }

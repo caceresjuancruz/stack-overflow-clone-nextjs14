@@ -19,6 +19,7 @@ import { z } from "zod";
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { updateUser } from "@/lib/actions/user.action";
+import { toast } from "../ui/use-toast";
 
 interface ProfileFormProps {
   clerkId: string;
@@ -60,6 +61,10 @@ const ProfileForm = ({ clerkId, user }: ProfileFormProps) => {
 
       router.back();
     } catch (error) {
+      return toast({
+        title: "Something went wrong",
+        description: "Please try again later",
+      });
     } finally {
       setIsSubmitting(false);
     }
