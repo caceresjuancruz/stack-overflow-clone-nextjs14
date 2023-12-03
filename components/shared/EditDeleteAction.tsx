@@ -32,6 +32,7 @@ const EditDeleteAction = ({ type, itemId }: EditDeleteActionProps) => {
             width={14}
             height={14}
             className="cursor-pointer object-contain"
+            unoptimized
           />
         </Link>
       )}
@@ -42,6 +43,7 @@ const EditDeleteAction = ({ type, itemId }: EditDeleteActionProps) => {
         height={14}
         className="cursor-pointer object-contain"
         onClick={handleDelete}
+        unoptimized
       />
     </div>
   );

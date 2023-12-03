@@ -116,6 +116,7 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
             width={12}
             height={12}
             className="object-contain"
+            unoptimized
           />
         )}`,
       });
@@ -150,6 +151,7 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
                 width={12}
                 height={12}
                 className="object-contain"
+                unoptimized
               />
               <span className="primary-text-gradient">Generate AI Answer</span>
             </>

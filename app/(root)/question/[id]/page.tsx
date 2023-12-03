@@ -41,6 +41,7 @@ export default async function QuestionDetailPage({
               width={22}
               height={22}
               className="rounded-full"
+              unoptimized
             />
             <p className="paragraph-semibold text-dark300_light700">
               {question.author.name}

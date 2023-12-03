@@ -37,6 +37,7 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
             width={140}
             height={140}
             className="rounded-full border-4 border-primary-500 object-cover"
+            unoptimized
           />
 
           <div className="mt-3">

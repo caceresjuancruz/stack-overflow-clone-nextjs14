@@ -37,6 +37,7 @@ const Answer = ({ answer }: AnswerProps) => {
             width={18}
             height={18}
             className="rounded-full object-cover max-sm:mt-0.5"
+            unoptimized
           />
           <div className="flex flex-col sm:flex-row sm:items-center">
             <p className="body-semibold text-dark300_light700">
