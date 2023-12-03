@@ -12,6 +12,7 @@ import { revalidatePath } from "next/cache";
 import Question from "@/database/models/question.model";
 import { getErrorMessage } from "../utils";
 import Interaction from "@/database/models/interaction.model";
+import User from "@/database/models/user.model";
 
 export async function getAnswers(params: GetAnswersParams) {
   const { questionId, sortBy, page = 1, pageSize = 10 } = params;
@@ -68,11 +69,19 @@ export async function createAnswer(params: CreateAnswerParams) {
     });
 
     //Add the answer to the question answers array
-    await Question.findByIdAndUpdate(question, {
+    const questionObject = await Question.findByIdAndUpdate(question, {
       $push: { answers: answer._id },
     });
 
-    return answer;
+    await Interaction.create({
+      user: author,
+      action: "answer",
+      question,
+      answer: answer._id,
+      tags: questionObject.tags,
+    });
+
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 10 } });
   } catch (error) {
     return {
       message: getErrorMessage(error),
@@ -106,7 +115,16 @@ export async function upvoteAnswer(params: AnswerVoteParams) {
       throw new Error("Answer not found");
     }
 
-    //TODO: Add reputation logic
+    if (updatedAnswer.author.toString() !== userId) {
+      // Increment author's reputation
+      await User.findByIdAndUpdate(userId, {
+        $inc: { reputation: hasUpvoted ? -2 : 2 },
+      });
+
+      await User.findByIdAndUpdate(updatedAnswer.author, {
+        $inc: { reputation: hasUpvoted ? -10 : 10 },
+      });
+    }
   } catch (error) {
     return {
       message: getErrorMessage(error),
@@ -140,7 +158,16 @@ export async function downvoteAnswer(params: AnswerVoteParams) {
       throw new Error("Answer not found");
     }
 
-    //TODO: Add reputation logic
+    if (updatedAnswer.author.toString() !== userId) {
+      // Increment author's reputation
+      await User.findByIdAndUpdate(userId, {
+        $inc: { reputation: hasDownvoted ? -2 : 2 },
+      });
+
+      await User.findByIdAndUpdate(updatedAnswer.author, {
+        $inc: { reputation: hasDownvoted ? -10 : 10 },
+      });
+    }
   } catch (error) {
     return {
       message: getErrorMessage(error),
@@ -167,6 +194,8 @@ export async function deleteAnswer(params: DeleteAnswerParams) {
       { $pull: { answers: answerId } }
     );
     await Interaction.deleteMany({ answer: answerId });
+
+    await User.findByIdAndUpdate(answer.author, { $inc: { reputation: -10 } });
   } catch (error) {
     return {
       message: getErrorMessage(error),

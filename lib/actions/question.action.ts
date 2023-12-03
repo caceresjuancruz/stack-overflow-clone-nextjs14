@@ -104,9 +104,16 @@ export async function createQuestion(params: CreateQuestionParams) {
       $push: { tags: { $each: tagDocuments } },
     });
 
-    //Create an interaction record for the user's ask_question action
+    // Create an interaction record for the user's ask_question action
+    await Interaction.create({
+      user: author,
+      action: "ask_question",
+      question: question._id,
+      tags: tagDocuments,
+    });
 
-    //Increment author's reputation by +5 for creating question
+    // Increment author's reputation by +5 for creating a question
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } });
 
     return question;
   } catch (error) {
@@ -169,7 +176,17 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
       throw new Error("Question not found");
     }
 
-    //TODO: Add reputation logic
+    if (updatedQuestion.author.toString() !== userId) {
+      // Increment author's reputation by +1/-1 for upvoting/revoking an upvote to the question
+      await User.findByIdAndUpdate(userId, {
+        $inc: { reputation: hasUpvoted ? -1 : 1 },
+      });
+
+      // Increment author's reputation by +10/-10 for recieving an upvote/downvote to the question
+      await User.findByIdAndUpdate(updatedQuestion.author, {
+        $inc: { reputation: hasUpvoted ? -10 : 10 },
+      });
+    }
   } catch (error) {
     return {
       message: getErrorMessage(error),
@@ -205,7 +222,16 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
       throw new Error("Question not found");
     }
 
-    //TODO: Add reputation logic
+    if (updatedQuestion.author.toString() !== userId) {
+      // Increment author's reputation
+      await User.findByIdAndUpdate(userId, {
+        $inc: { reputation: hasDownvoted ? -2 : 2 },
+      });
+
+      await User.findByIdAndUpdate(updatedQuestion.author, {
+        $inc: { reputation: hasDownvoted ? -10 : 10 },
+      });
+    }
   } catch (error) {
     return {
       message: getErrorMessage(error),
@@ -257,6 +283,12 @@ export async function deleteQuestion(params: DeleteQuestionParams) {
   try {
     await connectToDatabase();
 
+    const question = await Question.findById(questionId);
+
+    if (!question) {
+      throw new Error("Question not found");
+    }
+
     await Question.deleteOne({ _id: questionId });
     await Answer.deleteMany({ question: questionId });
     await Interaction.deleteMany({ question: questionId });
@@ -264,6 +296,8 @@ export async function deleteQuestion(params: DeleteQuestionParams) {
       { questions: questionId },
       { $pull: { questions: questionId } }
     );
+
+    await User.findByIdAndUpdate(question.author, { $inc: { reputation: -5 } });
   } catch (error) {
     return {
       message: getErrorMessage(error),

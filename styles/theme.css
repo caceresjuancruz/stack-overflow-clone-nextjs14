@@ -212,7 +212,7 @@
   }
 
   .dark-gradient2 {
-    background-image: linear-gradient(
+    background: linear-gradient(
       232deg,
       rgba(5, 10, 15, 0.95) 0%,
       rgba(3, 5, 10, 1) 100%

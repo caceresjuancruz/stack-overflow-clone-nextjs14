@@ -82,6 +82,8 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
       <Stats
         totalQuestions={result?.totalQuestions || 0}
         totalAnswers={result?.totalAnswers || 0}
+        badges={result?.badgeCounts!}
+        reputation={result?.reputation || 0}
       />
       <div className="mt-10 flex gap-10">
         <Tabs defaultValue="top-posts" className="flex-1">
