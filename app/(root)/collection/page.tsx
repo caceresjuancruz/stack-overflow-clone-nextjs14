@@ -1,5 +1,4 @@
 import QuestionCard from "@/components/cards/QuestionCard";
-import UserCard from "@/components/cards/UserCard";
 import Filter from "@/components/shared/Filter";
 import NoResults from "@/components/shared/NoResults";
 import Pagination from "@/components/shared/Pagination";

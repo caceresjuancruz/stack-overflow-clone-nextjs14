@@ -9,7 +9,7 @@ import Question from "@/database/models/question.model";
 import User from "@/database/models/user.model";
 
 export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
-  const { tagId, page = 1, pageSize = 1, searchQuery } = params;
+  const { tagId, page = 1, pageSize = 10, searchQuery } = params;
   try {
     await connectToDatabase();
 

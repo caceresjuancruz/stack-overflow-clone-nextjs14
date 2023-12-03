@@ -39,7 +39,7 @@ const GlobalResult = () => {
   const renderLink = (type: string, id: string) => {
     switch (type) {
       case "question":
-        return `/questions/${id}`;
+        return `/question/${id}`;
       case "answer":
         return `/question/${id}`;
       case "user":
@@ -71,7 +71,7 @@ const GlobalResult = () => {
           </div>
         ) : (
           <div className="flex flex-col gap-2">
-            {result && result.length > 0 ? (
+            {result && result.length > 0 && !isLoading ? (
               result.map((item: any, index: number) => (
                 <Link
                   href={renderLink(item.type, item.id)}

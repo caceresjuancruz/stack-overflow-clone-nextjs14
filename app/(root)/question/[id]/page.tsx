@@ -106,6 +106,7 @@ export default async function QuestionDetailPage({
       <AnswerForm
         authorId={JSON.stringify(dbUser._id)}
         questionId={JSON.stringify(params.id)}
+        question={question.content}
       />
     </>
   );
