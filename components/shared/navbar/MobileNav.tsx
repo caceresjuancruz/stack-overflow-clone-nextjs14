@@ -13,6 +13,7 @@ import { SignOutButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { sidebarLinks } from "@/constants";
+import { motion } from "framer-motion";
 
 const NavContent = () => {
   const pathname = usePathname();
@@ -29,22 +30,28 @@ const NavContent = () => {
             <Link
               href={item.route}
               className={`${
-                isActive
-                  ? "primary-gradient  text-light-900"
-                  : "text-dark300_light900"
-              } flex items-center justify-start gap-4 rounded-lg bg-transparent p-4`}
+                isActive ? " text-light-900" : "text-dark300_light900"
+              } relative rounded-lg bg-transparent`}
             >
-              <Image
-                src={item.imgURL}
-                alt={item.label}
-                width={20}
-                height={20}
-                className={`${isActive ? "" : "invert-colors"}`}
-                unoptimized
-              />
-              <p className={`${isActive ? "base-bold" : "base-medium"}`}>
-                {item.label}
-              </p>
+              {isActive && (
+                <motion.div
+                  layoutId="active-item-mobile"
+                  className="primary-gradient absolute inset-0 rounded-lg"
+                />
+              )}
+              <span className=" relative z-10 flex items-center justify-start gap-4 p-4">
+                <Image
+                  src={item.imgURL}
+                  alt={item.label}
+                  width={20}
+                  height={20}
+                  className={`${isActive ? "" : "invert-colors"}`}
+                  unoptimized
+                />
+                <p className={`${isActive ? "base-bold" : "base-medium"}`}>
+                  {item.label}
+                </p>
+              </span>
             </Link>
           </SheetClose>
         );
@@ -98,7 +105,7 @@ const MobileNav = () => {
 
           <SignedIn>
             <SheetClose asChild>
-              <div className="small-medium text-dark400_light900 w-full cursor-pointer py-3">
+              <div className="small-medium text-dark400_light900 mt-12 w-full cursor-pointer py-3">
                 <SignOutButton>
                   <div className="base-medium flex items-center justify-start gap-4 bg-transparent p-4">
                     <Image
