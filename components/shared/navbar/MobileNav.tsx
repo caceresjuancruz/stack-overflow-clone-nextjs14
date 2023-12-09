@@ -13,6 +13,7 @@ import { SignOutButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { sidebarLinks } from "@/constants";
+import { motion } from "framer-motion";
 
 const NavContent = () => {
   const pathname = usePathname();
@@ -29,22 +30,28 @@ const NavContent = () => {
             <Link
               href={item.route}
               className={`${
-                isActive
-                  ? "primary-gradient  text-light-900"
-                  : "text-dark300_light900"
-              } hover:background-hover flex items-center justify-start gap-4 rounded-lg bg-transparent p-4`}
+                isActive ? " text-light-900" : "text-dark300_light900"
+              } relative rounded-lg bg-transparent`}
             >
-              <Image
-                src={item.imgURL}
-                alt={item.label}
-                width={20}
-                height={20}
-                className={`${isActive ? "" : "invert-colors"}`}
-                unoptimized
-              />
-              <p className={`${isActive ? "base-bold" : "base-medium"}`}>
-                {item.label}
-              </p>
+              {isActive && (
+                <motion.div
+                  layoutId="active-item-mobile"
+                  className="primary-gradient absolute inset-0 rounded-lg"
+                />
+              )}
+              <span className=" relative z-10 flex items-center justify-start gap-4 p-4">
+                <Image
+                  src={item.imgURL}
+                  alt={item.label}
+                  width={20}
+                  height={20}
+                  className={`${isActive ? "" : "invert-colors"}`}
+                  unoptimized
+                />
+                <p className={`${isActive ? "base-bold" : "base-medium"}`}>
+                  {item.label}
+                </p>
+              </span>
             </Link>
           </SheetClose>
         );
@@ -77,10 +84,10 @@ const MobileNav = () => {
           </SheetClose>
 
           <SignedOut>
-            <div className="flex flex-col gap-3 pb-6">
+            <div className="mt-12 flex flex-col gap-3 pb-6">
               <SheetClose asChild>
                 <Link href="/sign-in">
-                  <Button className="small-medium btn-secondary no-focus min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
+                  <Button className="small-medium light-border-2 btn-secondary no-focus min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none">
                     <span className="primary-text-gradient">Log In</span>
                   </Button>
                 </Link>
@@ -88,7 +95,7 @@ const MobileNav = () => {
 
               <SheetClose asChild>
                 <Link href="/sign-up">
-                  <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 no-focus min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
+                  <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 no-focus min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none">
                     Sign Up
                   </Button>
                 </Link>
@@ -98,7 +105,7 @@ const MobileNav = () => {
 
           <SignedIn>
             <SheetClose asChild>
-              <div className="small-medium text-dark400_light900 w-full cursor-pointer py-3">
+              <div className="small-medium text-dark400_light900 mt-12 w-full cursor-pointer py-3">
                 <SignOutButton>
                   <div className="base-medium flex items-center justify-start gap-4 bg-transparent p-4">
                     <Image

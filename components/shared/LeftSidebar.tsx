@@ -7,12 +7,15 @@ import Image from "next/image";
 import { SignOutButton, SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import Logo from "./navbar/Logo";
+import { motion } from "framer-motion";
 
 const LeftSidebar = () => {
   const { userId } = useAuth();
+
   const pathname = usePathname();
 
   return (
+    // eslint-disable-next-line tailwindcss/migration-from-tailwind-2
     <section className="light-border custom-scrollbar shadow-light100_dark100 sticky left-0 top-0  z-40 flex h-screen flex-col justify-between overflow-y-auto border-r bg-opacity-50 px-4 pb-12 pt-6 backdrop-blur-xl max-sm:hidden lg:z-50 lg:w-[266px]">
       <div className="hidden lg:block">
         <Logo />
@@ -36,26 +39,32 @@ const LeftSidebar = () => {
               href={item.route}
               key={item.route}
               className={`${
-                isActive
-                  ? "primary-gradient  text-light-900"
-                  : "text-dark300_light900"
-              } hover:background-hover flex items-center justify-start gap-4 rounded-lg bg-transparent p-4`}
+                isActive ? "text-light-900" : "text-dark300_light900"
+              } hover:background-hover relative rounded-lg bg-transparent`}
             >
-              <Image
-                src={item.imgURL}
-                alt={item.label}
-                width={20}
-                height={20}
-                className={`${isActive ? "" : "invert-colors"}`}
-                unoptimized
-              />
-              <p
-                className={`${
-                  isActive ? "base-bold" : "base-medium"
-                } max-lg:hidden`}
-              >
-                {item.label}
-              </p>
+              {isActive && (
+                <motion.div
+                  layoutId="active-item"
+                  className="primary-gradient absolute inset-0 rounded-lg"
+                />
+              )}
+              <span className=" relative z-10 flex items-center justify-start gap-4 p-4">
+                <Image
+                  src={item.imgURL}
+                  alt={item.label}
+                  width={20}
+                  height={20}
+                  className={`${isActive ? "" : "invert-colors"}`}
+                  unoptimized
+                />
+                <p
+                  className={`${
+                    isActive ? "base-bold" : "base-medium"
+                  } max-lg:hidden`}
+                >
+                  {item.label}
+                </p>
+              </span>
             </Link>
           );
         })}
@@ -64,7 +73,7 @@ const LeftSidebar = () => {
       <SignedOut>
         <div className="flex flex-col gap-3">
           <Link href="/sign-in">
-            <Button className="small-medium btn-secondary no-focus min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
+            <Button className="small-medium light-border-2 btn-secondary no-focus min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none">
               <Image
                 src="/assets/icons/account.svg"
                 alt="login"
@@ -80,7 +89,7 @@ const LeftSidebar = () => {
           </Link>
 
           <Link href="/sign-up">
-            <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 no-focus min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
+            <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 no-focus min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none">
               <Image
                 src="/assets/icons/sign-up.svg"
                 alt="sign up"
