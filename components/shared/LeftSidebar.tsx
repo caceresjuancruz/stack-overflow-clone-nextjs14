@@ -7,6 +7,7 @@ import Image from "next/image";
 import { SignOutButton, SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import Logo from "./navbar/Logo";
+import { motion } from "framer-motion";
 
 const LeftSidebar = () => {
   const { userId } = useAuth();
@@ -38,26 +39,32 @@ const LeftSidebar = () => {
               href={item.route}
               key={item.route}
               className={`${
-                isActive
-                  ? "primary-gradient  text-light-900"
-                  : "text-dark300_light900"
-              } hover:background-hover flex items-center justify-start gap-4 rounded-lg bg-transparent p-4`}
+                isActive ? "text-light-900" : "text-dark300_light900"
+              } hover:background-hover relative rounded-lg bg-transparent`}
             >
-              <Image
-                src={item.imgURL}
-                alt={item.label}
-                width={20}
-                height={20}
-                className={`${isActive ? "" : "invert-colors"}`}
-                unoptimized
-              />
-              <p
-                className={`${
-                  isActive ? "base-bold" : "base-medium"
-                } max-lg:hidden`}
-              >
-                {item.label}
-              </p>
+              {isActive && (
+                <motion.div
+                  layoutId="active-item"
+                  className="primary-gradient absolute inset-0 rounded-lg"
+                />
+              )}
+              <span className=" relative z-10 flex items-center justify-start gap-4 p-4">
+                <Image
+                  src={item.imgURL}
+                  alt={item.label}
+                  width={20}
+                  height={20}
+                  className={`${isActive ? "" : "invert-colors"}`}
+                  unoptimized
+                />
+                <p
+                  className={`${
+                    isActive ? "base-bold" : "base-medium"
+                  } max-lg:hidden`}
+                >
+                  {item.label}
+                </p>
+              </span>
             </Link>
           );
         })}
