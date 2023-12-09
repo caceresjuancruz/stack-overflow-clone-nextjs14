@@ -43,9 +43,6 @@ Enhance the user interface with smooth animations and transitions using Framer M
 ### Full Responsive Design
 DevOverflow is fully responsive, providing a consistent and enjoyable experience across various devices.
 
-## Project Duration
-The development of DevOverflow spanned approximately two months, during which our dedicated team crafted and refined the platform to meet the highest standards of performance and user experience.
-
 ## Getting Started
 To get started with DevOverflow, follow these steps:
 
