@@ -13,6 +13,7 @@ interface TagCardProps {
 const TagCard = ({ tag }: TagCardProps) => {
   return (
     <Link
+      aria-label="Tag card"
       href={`/tags/${tag._id}`}
       className="shadow-light100_darknone rounded-2xl"
     >

@@ -4,7 +4,11 @@ import React from "react";
 
 const Logo = () => {
   return (
-    <Link href="/" className="flex items-center gap-1">
+    <Link
+      aria-label="DevOverflow logo"
+      href="/"
+      className="flex items-center gap-1"
+    >
       <Image
         src="/assets/images/site-logo.svg"
         alt="DevFlow"

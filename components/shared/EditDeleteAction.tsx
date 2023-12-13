@@ -25,7 +25,10 @@ const EditDeleteAction = ({ type, itemId }: EditDeleteActionProps) => {
   return (
     <div className="flex items-center justify-end gap-3 max-sm:w-full">
       {type === "question" && (
-        <Link href={`/question/edit/${JSON.parse(itemId)}`}>
+        <Link
+          aria-label="Edit button"
+          href={`/question/edit/${JSON.parse(itemId)}`}
+        >
           <Image
             src="/assets/icons/edit.svg"
             alt="Edit"
@@ -43,6 +46,7 @@ const EditDeleteAction = ({ type, itemId }: EditDeleteActionProps) => {
         height={14}
         className="cursor-pointer object-contain"
         onClick={handleDelete}
+        aria-label="Delete button"
         unoptimized
       />
     </div>

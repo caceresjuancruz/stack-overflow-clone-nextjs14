@@ -20,12 +20,36 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "DevFlow",
+  title: "DevOverflow",
+  applicationName: "DevOverflow",
+  authors: {
+    name: "Juan Cruz Cáceres",
+    url: "https://caceresjuan.vercel.app/",
+  },
+  creator: "Juan Cruz Cáceres",
+  publisher: "Juan Cruz Cáceres",
   description:
-    "DevFlow is a platform for developers to share their knowledge and learn from others.",
+    "DevOverflow is a platform for developers to share their knowledge and learn from others.",
   icons: {
     icon: "assets/images/site-logo.svg",
   },
+  generator: "DevOverflow NextJS 14",
+  referrer: "no-referrer",
+  keywords: [
+    "Nextjs",
+    "Next.js 14",
+    "React",
+    "TypeScript",
+    "TailwindCSS",
+    "MongoDB",
+    "Vercel",
+    "Clerk",
+    "Vercel Analytics",
+    "Vercel Speed Insights",
+    "StackoverflowClone",
+    "DevOverflow",
+    "Juan Cruz Cáceres",
+  ],
 };
 
 export default function RootLayout({
