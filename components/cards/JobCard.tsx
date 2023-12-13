@@ -43,6 +43,7 @@ const JobCard = ({ job }: JobCardProps) => {
       <div className="flex items-center gap-6">
         {employer_logo ? (
           <Link
+            aria-label="Company website"
             href={employer_website ?? "/jobs"}
             target="_blank"
             className="background-light800_dark400 relative h-16 w-16 rounded-xl"

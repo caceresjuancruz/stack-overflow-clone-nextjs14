@@ -21,6 +21,7 @@ const UserCard = async ({ user }: UserCardProps) => {
   return (
     <Link
       href={`/profile/${user.clerkId}`}
+      aria-label="User profile"
       className="shadow-light100_darknone w-full rounded-2xl max-xs:min-w-full xs:w-[260px]"
     >
       <article className="background-light900_dark200 light-border flex w-full flex-col items-center justify-center rounded-2xl border p-8">
