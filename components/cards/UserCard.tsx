@@ -18,11 +18,6 @@ interface UserCardProps {
 }
 
 const UserCard = async ({ user }: UserCardProps) => {
-  // const interactedTags = [
-  //   { _id: "1", name: "tag" },
-  //   { _id: "2", name: "tag2" },
-  // ];
-
   return (
     <Link
       href={`/profile/${user.clerkId}`}
@@ -49,8 +44,8 @@ const UserCard = async ({ user }: UserCardProps) => {
 
         <div className="mt-5">
           {user.interactedTags && user.interactedTags.length > 0 ? (
-            <div className="flex items-center gap-2">
-              {user.interactedTags.map((tag) => (
+            <div className="flex items-center justify-center gap-2 overflow-hidden text-ellipsis">
+              {user.interactedTags.map((tag: any) => (
                 <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
               ))}
             </div>
