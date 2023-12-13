@@ -14,6 +14,7 @@ const ProfileLink = ({ imgUrl, href, title }: ProfileLinkProps) => {
 
       {href ? (
         <Link
+          aria-label={title}
           href={href}
           target="_blank"
           className="paragraph-medium text-blue-500"

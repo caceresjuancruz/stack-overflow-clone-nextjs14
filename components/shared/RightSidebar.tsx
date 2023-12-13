@@ -31,6 +31,7 @@ const RightSidebar = async () => {
             hotQuestions.length > 0 ? (
               hotQuestions.map((question: any) => (
                 <Link
+                  aria-label="Question card"
                   href={`/questions/${question._id}`}
                   key={question._id}
                   className="hover:background-hover flex min-h-[41px] cursor-pointer items-center justify-between gap-7 rounded-lg p-2"

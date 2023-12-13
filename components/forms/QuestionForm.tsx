@@ -239,13 +239,14 @@ export function QuestionForm({
                       {field.value.map((tag: any) => (
                         <Badge
                           key={tag}
+                          aria-label="Tag"
                           className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
                         >
                           {tag}
                           {formType !== "edit" && (
                             <Image
                               src="/assets/icons/close.svg"
-                              alt="close"
+                              alt="Remove tag"
                               width={12}
                               height={12}
                               className="cursor-pointer object-contain invert-0 dark:invert"
