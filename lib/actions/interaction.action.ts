@@ -13,7 +13,7 @@ export async function viewQuestion(params: ViewQuestionParams) {
     await connectToDatabase();
 
     //Update view count for the question
-    await Question.findByIdAndUpdate(questionId, {
+    const question = await Question.findByIdAndUpdate(questionId, {
       $inc: { views: 1 },
     });
 
@@ -29,6 +29,7 @@ export async function viewQuestion(params: ViewQuestionParams) {
           user: userId,
           question: questionId,
           action: "view",
+          tags: question.tags,
         });
       }
     }
