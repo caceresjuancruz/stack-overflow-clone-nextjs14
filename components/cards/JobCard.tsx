@@ -63,6 +63,7 @@ const JobCard = ({ job }: JobCardProps) => {
             width={64}
             height={64}
             className="rounded-[10px]"
+            unoptimized
           />
         )}
       </div>
@@ -91,7 +92,7 @@ const JobCard = ({ job }: JobCardProps) => {
             <div className="flex items-center gap-2">
               <Image
                 src="/assets/icons/clock.svg"
-                alt="clock"
+                alt="Clock"
                 width={20}
                 height={20}
                 unoptimized
@@ -104,7 +105,7 @@ const JobCard = ({ job }: JobCardProps) => {
             <div className="flex items-center gap-2">
               <Image
                 src="/assets/icons/currency-dollar-circle.svg"
-                alt="dollar symbol"
+                alt="Dollar symbol"
                 width={20}
                 height={20}
                 unoptimized
@@ -117,12 +118,13 @@ const JobCard = ({ job }: JobCardProps) => {
             href={job_apply_link ?? "/jobs"}
             className="flex items-center gap-2"
             target="_blank"
+            aria-label="View job"
           >
             <p className="body-semibold primary-text-gradient">View job</p>
 
             <Image
               src="/assets/icons/arrow-up-right.svg"
-              alt="arrow up right"
+              alt="Arrow up right"
               width={20}
               height={20}
               unoptimized

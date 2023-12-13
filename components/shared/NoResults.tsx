@@ -35,7 +35,7 @@ const NoResults = ({ title, description, link, linkTitle }: NoResultsProps) => {
         {description}
       </p>
 
-      <Link href={link}>
+      <Link aria-label={linkTitle} href={link}>
         <Button className="paragraph-medium mt-5 min-h-[46px] rounded-lg bg-primary-500 px-4 py-3 text-light-900 hover:bg-primary-500 dark:bg-primary-500 ">
           {linkTitle}
         </Button>
