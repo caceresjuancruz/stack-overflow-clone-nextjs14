@@ -18,6 +18,57 @@ import Tag from "@/database/models/tag.model";
 import { FilterQuery } from "mongoose";
 import Answer from "@/database/models/answer.model";
 import { BadgeCriteriaType } from "@/types";
+import Interaction from "@/database/models/interaction.model";
+
+// export async function getAllUsers(params: GetAllUsersParams) {
+//   const { page = 1, pageSize = 20, searchQuery, filter } = params;
+//   try {
+//     await connectToDatabase();
+
+//     const query: FilterQuery<typeof User> = {};
+
+//     if (searchQuery) {
+//       query.$or = [
+//         { name: { $regex: new RegExp(searchQuery, "i") } },
+//         { username: { $regex: new RegExp(searchQuery, "i") } },
+//       ];
+//     }
+
+//     let sortOptions = {};
+
+//     switch (filter) {
+//       case "new_users":
+//         sortOptions = { joinedAt: -1 };
+//         break;
+//       case "old_users":
+//         sortOptions = { joinedAt: 1 };
+//         break;
+//       case "top_contributors":
+//         sortOptions = { reputation: -1 };
+//         break;
+//       default:
+//         break;
+//     }
+
+//     const users = await User.find(query)
+//       .skip((page - 1) * pageSize)
+//       .limit(pageSize)
+//       .sort(sortOptions);
+
+//     console.log(users);
+
+//     const totalResults = await User.countDocuments(query);
+
+//     const isNext = totalResults > (page - 1) * pageSize + users.length;
+
+//     return { users, isNext, totalResults, showingResults: users.length };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       message: getErrorMessage(error),
+//     };
+//   }
+// }
 
 export async function getAllUsers(params: GetAllUsersParams) {
   const { page = 1, pageSize = 20, searchQuery, filter } = params;
@@ -54,13 +105,78 @@ export async function getAllUsers(params: GetAllUsersParams) {
       .limit(pageSize)
       .sort(sortOptions);
 
+    const userIds = users.map((user) => user._id);
+
+    const interactionsAggregation = await Interaction.aggregate([
+      {
+        $match: { user: { $in: userIds } },
+      },
+      {
+        $unwind: "$tags",
+      },
+      {
+        $group: {
+          _id: { user: "$user", tag: "$tags" },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { count: -1 },
+      },
+      {
+        $group: {
+          _id: "$_id.user",
+          interactedTags: { $push: { tag: "$_id.tag", count: "$count" } },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          interactedTags: { $slice: ["$interactedTags", 3] },
+        },
+      },
+    ]);
+
+    // Obtener información detallada de las etiquetas
+    const tagIds = interactionsAggregation
+      .map((result) => result.interactedTags)
+      .flat()
+      .map((tag) => tag.tag);
+
+    const tagsInfo = await Tag.find({ _id: { $in: tagIds } });
+
+    // Mapear resultados de interacciones y tags al usuario correspondiente
+    const usersWithInteractions = users.map((user) => {
+      const interactionResult = interactionsAggregation.find(
+        (result) => result._id.toString() === user._id.toString()
+      );
+
+      const interactedTagsInfo = interactionResult
+        ? interactionResult.interactedTags.map((tag: any) => {
+            const tagInfo = tagsInfo.find(
+              (t) => t._id.toString() === tag.tag.toString()
+            );
+            return { _id: tagInfo._id, name: tagInfo.name, count: tag.count };
+          })
+        : [];
+
+      return {
+        ...user.toJSON(),
+        interactedTags: interactedTagsInfo,
+      };
+    });
+
     const totalResults = await User.countDocuments(query);
 
     const isNext = totalResults > (page - 1) * pageSize + users.length;
 
-    return { users, isNext, totalResults, showingResults: users.length };
+    return {
+      users: usersWithInteractions,
+      isNext,
+      totalResults,
+      showingResults: usersWithInteractions.length,
+    };
   } catch (error) {
-    console.log(error);
     return {
       message: getErrorMessage(error),
     };

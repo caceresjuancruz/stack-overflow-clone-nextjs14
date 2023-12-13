@@ -23,7 +23,7 @@ export default async function EditQuestionPage({ params }: ParamsProps) {
 
       <div className="mt-9">
         <QuestionForm
-          userId={user._id}
+          userId={JSON.stringify(user._id)}
           formType="edit"
           questionDetails={JSON.stringify(question)}
         />
