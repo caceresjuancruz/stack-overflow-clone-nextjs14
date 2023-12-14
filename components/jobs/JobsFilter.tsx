@@ -48,7 +48,7 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
         <SelectTrigger className="body-regular light-border-2 background-light800_dark300 text-dark500_light700 line-clamp-1 flex min-h-[56px] items-center gap-3 border p-4 focus:ring-0 focus:ring-offset-0 sm:max-w-[210px]">
           <Image
             src="/assets/icons/carbon-location.svg"
-            alt="location"
+            alt="Location"
             width={18}
             height={18}
             unoptimized
@@ -65,7 +65,7 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
                 <SelectItem
                   key={country.name.common}
                   value={country.name.common}
-                  className="cursor-pointer px-4 py-3 hover:bg-light-800 dark:hover:bg-dark-400"
+                  className="cursor-pointer px-6 py-3 hover:bg-light-800 dark:hover:bg-dark-400"
                 >
                   {country.name.common}
                 </SelectItem>

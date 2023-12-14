@@ -109,16 +109,7 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
       }
 
       return toast({
-        title: `AI Answer Generated ${(
-          <Image
-            src="/assets/icons/stars.svg"
-            alt="star"
-            width={12}
-            height={12}
-            className="object-contain"
-            unoptimized
-          />
-        )}`,
+        title: `AI answer generated successfully`,
       });
     } catch (error) {
       return toast({
@@ -138,6 +129,7 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
         </h4>
 
         <Button
+          aria-label="Generate AI Answer"
           className="btn light-border-2 min-w-[12rem] gap-1.5 rounded-md border px-4 py-2.5 shadow-none md:w-48"
           onClick={generateAIAnswer}
         >
@@ -147,7 +139,7 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
             <>
               <Image
                 src="/assets/icons/stars.svg"
-                alt="star"
+                alt="Star"
                 width={12}
                 height={12}
                 className="object-contain"

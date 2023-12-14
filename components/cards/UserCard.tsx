@@ -20,6 +20,7 @@ interface UserCardProps {
 const UserCard = async ({ user }: UserCardProps) => {
   return (
     <Link
+      aria-label="User card"
       href={`/profile/${user.clerkId}`}
       className="shadow-light100_darknone w-full rounded-2xl max-xs:min-w-full xs:w-[260px]"
     >

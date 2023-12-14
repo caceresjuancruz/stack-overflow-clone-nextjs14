@@ -1,11 +1,5 @@
-import UserCard from "@/components/cards/UserCard";
-import Filter from "@/components/shared/Filter";
 import NoResults from "@/components/shared/NoResults";
 import Pagination from "@/components/shared/Pagination";
-import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
-import { UserFilters } from "@/constants/filters";
-import { getAllUsers } from "@/lib/actions/user.action";
-import { SearchParamsProps } from "@/types";
 import { Metadata } from "next";
 
 import {
@@ -18,6 +12,10 @@ import { Job } from "@/types";
 import JobsFilter from "@/components/jobs/JobsFilter";
 import JobCard from "@/components/cards/JobCard";
 
+export const metadata: Metadata = {
+  title: "Jobs | Dev Overflow",
+};
+
 interface JobsPageProps {
   searchParams: {
     q: string;
@@ -25,10 +23,6 @@ interface JobsPageProps {
     page: string;
   };
 }
-
-export const metadata: Metadata = {
-  title: "Jobs | Dev Overflow",
-};
 
 export default async function JobsPage({ searchParams }: JobsPageProps) {
   const userLocation = await fetchLocation();
@@ -60,8 +54,6 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
           <NoResults
             title="No jobs available"
             description="There are no jobs available at the moment. Please check back later."
-            link="/"
-            linkTitle="Go home"
           />
         )}
       </section>

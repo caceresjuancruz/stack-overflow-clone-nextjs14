@@ -6,7 +6,7 @@ import { auth } from "@clerk/nextjs";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Question | Dev Overflow",
+  title: "Edit Question | Dev Overflow",
 };
 
 export default async function EditQuestionPage({ params }: ParamsProps) {

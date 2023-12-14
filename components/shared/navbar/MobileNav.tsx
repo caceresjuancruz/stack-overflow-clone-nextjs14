@@ -30,16 +30,12 @@ const NavContent = () => {
             <Link
               href={item.route}
               className={`${
-                isActive ? " text-light-900" : "text-dark300_light900"
-              } relative rounded-lg bg-transparent`}
+                isActive
+                  ? "primary-gradient text-light-900"
+                  : "text-dark300_light900"
+              } rounded-lg bg-transparent`}
             >
-              {isActive && (
-                <motion.div
-                  layoutId="active-item-mobile"
-                  className="primary-gradient absolute inset-0 rounded-lg"
-                />
-              )}
-              <span className=" relative z-10 flex items-center justify-start gap-4 p-4">
+              <span className="flex items-center justify-start gap-4 p-4">
                 <Image
                   src={item.imgURL}
                   alt={item.label}

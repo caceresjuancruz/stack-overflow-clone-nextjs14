@@ -37,7 +37,7 @@ export default async function QuestionDetailPage({
           >
             <Image
               src={question.author.avatar}
-              alt="profile"
+              alt="Profile"
               width={22}
               height={22}
               className="rounded-full"

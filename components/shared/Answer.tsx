@@ -28,12 +28,13 @@ const Answer = ({ answer }: AnswerProps) => {
     >
       <div className="mb-8 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
         <Link
+          aria-label="User profile"
           href={`/profile/${answer.author.clerkId}`}
           className="flex flex-1 items-start gap-1 sm:items-center"
         >
           <Image
             src={answer.author.avatar}
-            alt="profile"
+            alt="Profile"
             width={18}
             height={18}
             className="rounded-full object-cover max-sm:mt-0.5"

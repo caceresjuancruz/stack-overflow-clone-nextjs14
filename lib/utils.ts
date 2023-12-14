@@ -142,7 +142,7 @@ interface BadgeParam {
   }[];
 }
 
-export const assignBadges = (params: BadgeParam) => {
+export const assignBadges = (params: BadgeParam): BadgeCounts => {
   const badgeCounts: BadgeCounts = {
     GOLD: 0,
     SILVER: 0,
