@@ -109,16 +109,7 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
       }
 
       return toast({
-        title: `AI Answer Generated ${(
-          <Image
-            src="/assets/icons/stars.svg"
-            alt="Star"
-            width={12}
-            height={12}
-            className="object-contain"
-            unoptimized
-          />
-        )}`,
+        title: `AI answer generated successfully`,
       });
     } catch (error) {
       return toast({

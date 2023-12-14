@@ -54,8 +54,6 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
           <NoResults
             title="No jobs available"
             description="There are no jobs available at the moment. Please check back later."
-            link="/"
-            linkTitle="Go home"
           />
         )}
       </section>

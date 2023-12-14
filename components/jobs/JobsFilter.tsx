@@ -65,7 +65,7 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
                 <SelectItem
                   key={country.name.common}
                   value={country.name.common}
-                  className="cursor-pointer px-4 py-3 hover:bg-light-800 dark:hover:bg-dark-400"
+                  className="cursor-pointer px-6 py-3 hover:bg-light-800 dark:hover:bg-dark-400"
                 >
                   {country.name.common}
                 </SelectItem>
