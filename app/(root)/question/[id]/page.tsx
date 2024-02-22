@@ -50,7 +50,7 @@ export default async function QuestionDetailPage({
           <div className="flex justify-end">
             <Votes
               type="question"
-              itemId={JSON.parse(JSON.stringify(question._id))}
+              itemId={question ?? JSON.parse(JSON.stringify(question._id))}
               userId={
                 dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null
               }
