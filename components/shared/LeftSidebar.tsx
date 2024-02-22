@@ -8,6 +8,7 @@ import { SignOutButton, SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import Logo from "./navbar/Logo";
 import { motion } from "framer-motion";
+import { SidebarLink } from "@/types";
 
 const LeftSidebar = () => {
   const { userId } = useAuth();
@@ -21,7 +22,7 @@ const LeftSidebar = () => {
         <Logo />
       </div>
       <div className="flex h-full flex-1 flex-col gap-3 pt-20 lg:pt-16">
-        {sidebarLinks.map((item) => {
+        {sidebarLinks.map((item: SidebarLink) => {
           const isActive =
             (pathname.includes(item.route) && item.route.length > 1) ||
             pathname === item.route;
@@ -52,7 +53,7 @@ const LeftSidebar = () => {
               <span className=" relative z-10 flex items-center justify-start gap-4 p-4">
                 <Image
                   src={item.imgURL}
-                  alt={item.label}
+                  alt={`${item.label} menu icon`}
                   width={20}
                   height={20}
                   className={`${isActive ? "" : "invert-colors"}`}
