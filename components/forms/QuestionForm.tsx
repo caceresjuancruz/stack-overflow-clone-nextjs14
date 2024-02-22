@@ -281,6 +281,7 @@ export function QuestionForm({
         {/* Tags field end */}
 
         <Button
+          title="Ask question"
           type="submit"
           className="primary-gradient w-fit !text-light-900"
           disabled={isSubmitting}

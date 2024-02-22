@@ -20,7 +20,10 @@ export default function NotFoundPage() {
         href="/"
         className="cursor-pointer text-primary-500 hover:underline"
       >
-        <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
+        <Button
+          title="Navigate to homepage"
+          className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900"
+        >
           Go to Home
         </Button>
       </Link>

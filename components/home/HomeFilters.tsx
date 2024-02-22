@@ -38,6 +38,7 @@ const HomeFilters = () => {
     <div className="mt-10 hidden flex-wrap gap-3 md:flex">
       {HomePageFilters.map((item) => (
         <Button
+          title="Select filter type"
           key={item.value}
           onClickCapture={() => handleTypeClick(item.value)}
           className={`body-medium  rounded-lg px-6 py-3 capitalize shadow-none dark:bg-dark-300 ${
