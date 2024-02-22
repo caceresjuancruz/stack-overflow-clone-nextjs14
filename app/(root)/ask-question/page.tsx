@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AskQuestionPage() {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) redirect("/sign-in");
 
