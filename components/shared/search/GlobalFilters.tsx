@@ -3,7 +3,7 @@
 import { GlobalSearchFilters } from "@/constants/filters";
 import { formUrlQuery } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const GlobalFilters = () => {
   const router = useRouter();
@@ -43,6 +43,7 @@ const GlobalFilters = () => {
       <div className="flex gap-3">
         {GlobalSearchFilters.map((item) => (
           <button
+            title="Select filter type"
             type="button"
             key={item.value}
             className={`light-border-2 small-medium rounded-2xl px-5 py-2 capitalize dark:text-light-800  ${

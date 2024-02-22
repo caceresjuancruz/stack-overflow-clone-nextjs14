@@ -172,6 +172,7 @@ const ProfileForm = ({ clerkId, user }: ProfileFormProps) => {
 
         <div className="mt-7 flex justify-end gap-3">
           <Button
+            title="Go Back"
             type="button"
             className="btn-secondary text-dark300_light900 w-fit"
             disabled={isSubmitting}
@@ -180,6 +181,7 @@ const ProfileForm = ({ clerkId, user }: ProfileFormProps) => {
             Go Back
           </Button>
           <Button
+            title="Save profile"
             type="submit"
             className="primary-gradient w-fit"
             disabled={isSubmitting}

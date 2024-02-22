@@ -68,11 +68,9 @@ export default function RootLayout({
             },
           }}
         >
-          <ThemeProvider>
-            {children}
-            <SpeedInsights />
-            <Analytics />
-          </ThemeProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+          <SpeedInsights />
+          <Analytics />
         </ClerkProvider>
       </body>
     </html>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import GlobalFilters from "./GlobalFilters";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
@@ -68,7 +68,7 @@ const GlobalResult = () => {
 
         {isLoading ? (
           <div className="flex-center flex-col px-5">
-            <ReloadIcon className="my-2 h-10 w-10 animate-spin text-primary-500" />
+            <ReloadIcon className="my-2 size-10 animate-spin text-primary-500" />
             <p className="text-dark200_light800 body-regular">
               Browsing the entire database
             </p>

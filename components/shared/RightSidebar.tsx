@@ -17,7 +17,7 @@ const RightSidebar = async () => {
       </div>
       <div className="">
         <div>
-          <h3 className="h3-bold text-dark200_light900">Top Questions</h3>
+          <p className="h3-bold text-dark200_light900">Top Questions</p>
           <div className="mt-7 flex w-full flex-col gap-4">
             {hotQuestions &&
             Array.isArray(hotQuestions) &&
@@ -48,7 +48,7 @@ const RightSidebar = async () => {
           </div>
         </div>
         <div className="mt-16">
-          <h3 className="h3-bold text-dark200_light900">Popular Tags</h3>
+          <p className="h3-bold text-dark200_light900">Popular Tags</p>
           <div className="mt-7 flex flex-col gap-4">
             {popularTags &&
             Array.isArray(popularTags) &&

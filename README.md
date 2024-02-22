@@ -1,6 +1,11 @@
-# DevOverflow
+# ![DevOverflow](public/assets/images/logo.png?raw=true "DevOverflow")
 
 Welcome to DevOverflow, a powerful platform for developers built with cutting-edge technologies. This project leverages Next.js 14, Tailwind CSS, TypeScript, MongoDB, Clerk, and Zod to create a seamless experience for users.
+
+## Core Web Vitals
+<p align="center">
+ <img src="CoreWebVitals.png" alt="Core Web Vitals" />
+</p>
 
 ## Features
 
