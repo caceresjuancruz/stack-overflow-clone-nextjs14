@@ -13,7 +13,6 @@ import { SignOutButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { sidebarLinks } from "@/constants";
-import { motion } from "framer-motion";
 
 const NavContent = () => {
   const pathname = usePathname();
