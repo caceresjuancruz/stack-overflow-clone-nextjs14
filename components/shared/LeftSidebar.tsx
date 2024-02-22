@@ -93,7 +93,7 @@ const LeftSidebar = () => {
             <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 no-focus min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none">
               <Image
                 src="/assets/icons/sign-up.svg"
-                alt="sign up"
+                alt="Sign up"
                 width={20}
                 height={20}
                 className="invert-colors lg:hidden"

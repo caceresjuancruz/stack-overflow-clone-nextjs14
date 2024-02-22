@@ -2,7 +2,12 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
 import { BADGE_CRITERIA } from "@/constants";
-import { BadgeCounts } from "@/types";
+import {
+  BadgeCounts,
+  BadgeParam,
+  RemoveUrlQueryParams,
+  UrlQueryParams,
+} from "@/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -87,12 +92,6 @@ export const getJoinedDate = (date: Date): string => {
   return joinedDate;
 };
 
-interface UrlQueryParams {
-  params: string;
-  key: string;
-  value: string | null;
-}
-
 export const formUrlQuery = ({
   params,
   key,
@@ -110,11 +109,6 @@ export const formUrlQuery = ({
     { skipNull: true }
   );
 };
-
-interface RemoveUrlQueryParams {
-  params: string;
-  keysToRemove: string[];
-}
 
 export const removeKeysFromQuery = ({
   params,
@@ -134,13 +128,6 @@ export const removeKeysFromQuery = ({
     { skipNull: true }
   );
 };
-
-interface BadgeParam {
-  criteria: {
-    type: keyof typeof BADGE_CRITERIA;
-    count: number;
-  }[];
-}
 
 export const assignBadges = (params: BadgeParam): BadgeCounts => {
   const badgeCounts: BadgeCounts = {

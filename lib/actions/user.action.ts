@@ -20,56 +20,6 @@ import Answer from "@/database/models/answer.model";
 import { BadgeCriteriaType } from "@/types";
 import Interaction from "@/database/models/interaction.model";
 
-// export async function getAllUsers(params: GetAllUsersParams) {
-//   const { page = 1, pageSize = 20, searchQuery, filter } = params;
-//   try {
-//     await connectToDatabase();
-
-//     const query: FilterQuery<typeof User> = {};
-
-//     if (searchQuery) {
-//       query.$or = [
-//         { name: { $regex: new RegExp(searchQuery, "i") } },
-//         { username: { $regex: new RegExp(searchQuery, "i") } },
-//       ];
-//     }
-
-//     let sortOptions = {};
-
-//     switch (filter) {
-//       case "new_users":
-//         sortOptions = { joinedAt: -1 };
-//         break;
-//       case "old_users":
-//         sortOptions = { joinedAt: 1 };
-//         break;
-//       case "top_contributors":
-//         sortOptions = { reputation: -1 };
-//         break;
-//       default:
-//         break;
-//     }
-
-//     const users = await User.find(query)
-//       .skip((page - 1) * pageSize)
-//       .limit(pageSize)
-//       .sort(sortOptions);
-
-//     console.log(users);
-
-//     const totalResults = await User.countDocuments(query);
-
-//     const isNext = totalResults > (page - 1) * pageSize + users.length;
-
-//     return { users, isNext, totalResults, showingResults: users.length };
-//   } catch (error) {
-//     console.log(error);
-//     return {
-//       message: getErrorMessage(error),
-//     };
-//   }
-// }
-
 export async function getAllUsers(params: GetAllUsersParams) {
   const { page = 1, pageSize = 20, searchQuery, filter } = params;
   try {
@@ -137,7 +87,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
       },
     ]);
 
-    // Obtener información detallada de las etiquetas
+    // Obtain detailed information about the tags
     const tagIds = interactionsAggregation
       .map((result) => result.interactedTags)
       .flat()
@@ -145,7 +95,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
 
     const tagsInfo = await Tag.find({ _id: { $in: tagIds } });
 
-    // Mapear resultados de interacciones y tags al usuario correspondiente
+    // Map the interactions with the tags
     const usersWithInteractions = users.map((user) => {
       const interactionResult = interactionsAggregation.find(
         (result) => result._id.toString() === user._id.toString()
@@ -188,7 +138,6 @@ export async function getUserById(params: GetUserByIdParams) {
   try {
     await connectToDatabase();
 
-    //Get the user
     const user = await User.findOne({ clerkId: userId });
 
     if (!user) {
@@ -296,7 +245,6 @@ export async function createUser(params: CreateUserParams) {
   try {
     await connectToDatabase();
 
-    //Create the user
     const user = await User.create(params);
 
     return user;
@@ -312,7 +260,6 @@ export async function updateUser(params: UpdateUserParams) {
   try {
     await connectToDatabase();
 
-    //Update the user
     const user = await User.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
     });
@@ -338,20 +285,11 @@ export async function deleteUser(params: DeleteUserParams) {
       throw new Error("User not found");
     }
 
-    //Delete user from database
-    //and Questions, Answers, Comments, Votes, etc.
-
-    //get user question ids
-    // const userQuestions = await Question.find({ author: user._id });
-
-    // delete user questions
     await Question.deleteMany({ author: user._id });
+    await Answer.deleteMany({ author: user._id });
+    await Interaction.deleteMany({ user: user._id });
 
-    //TODO: delete user answers, comments, etc.
-
-    const deletedUser = await User.findByIdAndDelete(user._id);
-
-    return deletedUser;
+    return await User.findByIdAndDelete(user._id);
   } catch (error) {
     return {
       message: getErrorMessage(error),
