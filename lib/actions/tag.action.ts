@@ -1,11 +1,7 @@
 "use server";
 
 import { connectToDatabase } from "@/database/dbConnection";
-import {
-  GetAllTagsParams,
-  GetQuestionsByTagIdParams,
-  GetTopInteractedTagsParams,
-} from "./shared.types";
+import { GetAllTagsParams, GetQuestionsByTagIdParams } from "./shared.types";
 import Tag, { ITag } from "@/database/models/tag.model";
 import { getErrorMessage } from "../utils";
 import { FilterQuery } from "mongoose";

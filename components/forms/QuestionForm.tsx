@@ -138,6 +138,10 @@ export function QuestionForm({
               </FormLabel>
               <FormControl className="mt-3.5">
                 <Input
+                  min={5}
+                  max={130}
+                  required
+                  placeholder="Enter your question title here..."
                   className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
                   {...field}
                 />
@@ -226,6 +230,8 @@ export function QuestionForm({
               <FormControl className="mt-3.5">
                 <>
                   <Input
+                    min={1}
+                    max={15}
                     disabled={formType === "edit"}
                     className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
                     placeholder="e.g. reactjs, javascript, typescript"
@@ -275,6 +281,7 @@ export function QuestionForm({
         {/* Tags field end */}
 
         <Button
+          title="Ask question"
           type="submit"
           className="primary-gradient w-fit !text-light-900"
           disabled={isSubmitting}

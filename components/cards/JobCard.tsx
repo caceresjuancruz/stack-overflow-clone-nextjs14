@@ -1,14 +1,5 @@
-import RenderTag from "../shared/RenderTag";
-import {
-  formatAndDivideNumber,
-  getTimestamp,
-  processJobTitle,
-} from "@/lib/utils";
+import { processJobTitle } from "@/lib/utils";
 import Link from "next/link";
-import Metric from "../shared/Metric";
-import { toast } from "../ui/use-toast";
-import { title } from "process";
-import QuestionCard from "./QuestionCard";
 import { Job } from "@/types";
 import Image from "next/image";
 import JobLocation from "../jobs/JobLocation";
@@ -46,13 +37,13 @@ const JobCard = ({ job }: JobCardProps) => {
             aria-label="Company website"
             href={employer_website ?? "/jobs"}
             target="_blank"
-            className="background-light800_dark400 relative h-16 w-16 rounded-xl"
+            className="background-light800_dark400 relative size-16 rounded-xl"
           >
             <Image
               src={employer_logo}
               alt="Company logo"
               fill
-              className="h-full w-full object-contain p-2"
+              className="size-full object-contain p-2"
               unoptimized
             />
           </Link>
