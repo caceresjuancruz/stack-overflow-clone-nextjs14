@@ -36,6 +36,7 @@ const QuestionCard = ({
   const showActionButtons = clerkId && clerkId === author.clerkId;
 
   return (
+    // eslint-disable-next-line tailwindcss/migration-from-tailwind-2
     <div className="card-wrapper light-border rounded-[10px] border p-9 dark:bg-opacity-80 dark:backdrop-blur-xl sm:px-11">
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
         <div>
