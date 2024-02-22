@@ -65,9 +65,13 @@ const Answer = async ({ answer }: AnswerProps) => {
                 : null
             }
             upvotes={answer.upvotes.length}
-            hasUpvoted={answer.upvotes.includes(answer.author._id)}
+            hasUpvoted={answer.upvotes.includes(
+              JSON.parse(JSON.stringify(dbUser._id))
+            )}
             downvotes={answer.downvotes.length}
-            hasDownvoted={answer.downvotes.includes(answer.author._id)}
+            hasDownvoted={answer.downvotes.includes(
+              JSON.parse(JSON.stringify(dbUser._id))
+            )}
           />
         </div>
       </div>
