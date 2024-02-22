@@ -21,7 +21,7 @@ export default async function QuestionDetailPage({
   params,
   searchParams,
 }: URLProps) {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   const dbUser = await getUserById({ userId: userId as string });
 
@@ -57,9 +57,17 @@ export default async function QuestionDetailPage({
                   : null
               }
               upvotes={question.upvotes.length}
-              hasUpvoted={question.upvotes.includes(dbUser._id)}
+              hasUpvoted={
+                dbUser._id !== undefined
+                  ? question.upvotes.includes(dbUser._id)
+                  : false
+              }
               downvotes={question.downvotes.length}
-              hasDownvoted={question.downvotes.includes(dbUser._id)}
+              hasDownvoted={
+                dbUser._id !== undefined
+                  ? question.downvotes.includes(dbUser._id)
+                  : false
+              }
               hasSaved={
                 dbUser._id !== undefined
                   ? dbUser.saved.includes(question._id)
