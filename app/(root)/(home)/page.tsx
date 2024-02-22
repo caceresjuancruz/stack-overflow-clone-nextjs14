@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   let result;
 

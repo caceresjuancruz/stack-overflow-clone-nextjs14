@@ -3,6 +3,8 @@ import ParseHTML from "./ParseHTML";
 import { getTimestamp } from "@/lib/utils";
 import Image from "next/image";
 import Votes from "./Votes";
+import { auth } from "@clerk/nextjs";
+import { getUserById } from "@/lib/actions/user.action";
 
 interface AnswerProps {
   answer: {
@@ -20,7 +22,10 @@ interface AnswerProps {
   };
 }
 
-const Answer = ({ answer }: AnswerProps) => {
+const Answer = async ({ answer }: AnswerProps) => {
+  const { userId } = await auth();
+
+  const dbUser = await getUserById({ userId: userId as string });
   return (
     <article
       key={answer._id}
@@ -54,7 +59,11 @@ const Answer = ({ answer }: AnswerProps) => {
           <Votes
             type="answer"
             itemId={JSON.parse(JSON.stringify(answer._id))}
-            userId={JSON.parse(JSON.stringify(answer.author._id))}
+            userId={
+              dbUser._id !== undefined
+                ? JSON.parse(JSON.stringify(dbUser._id))
+                : null
+            }
             upvotes={answer.upvotes.length}
             hasUpvoted={answer.upvotes.includes(answer.author._id)}
             downvotes={answer.downvotes.length}

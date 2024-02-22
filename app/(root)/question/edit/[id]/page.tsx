@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function EditQuestionPage({ params }: ParamsProps) {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) return null;
 

@@ -21,7 +21,7 @@ export default async function QuestionDetailPage({
   params,
   searchParams,
 }: URLProps) {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   const dbUser = await getUserById({ userId: userId as string });
 
