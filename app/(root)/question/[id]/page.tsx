@@ -52,26 +52,18 @@ export default async function QuestionDetailPage({
               type="question"
               itemId={JSON.parse(JSON.stringify(question._id))}
               userId={
-                dbUser._id !== undefined
-                  ? JSON.parse(JSON.stringify(dbUser._id))
-                  : null
+                dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null
               }
               upvotes={question.upvotes.length}
               hasUpvoted={
-                dbUser._id !== undefined
-                  ? question.upvotes.includes(dbUser._id)
-                  : false
+                dbUser?._id ? question.upvotes.includes(dbUser._id) : false
               }
               downvotes={question.downvotes.length}
               hasDownvoted={
-                dbUser._id !== undefined
-                  ? question.downvotes.includes(dbUser._id)
-                  : false
+                dbUser?._id ? question.downvotes.includes(dbUser._id) : false
               }
               hasSaved={
-                dbUser._id !== undefined
-                  ? dbUser.saved.includes(question._id)
-                  : false
+                dbUser?._id ? dbUser.saved.includes(question._id) : false
               }
             />
           </div>
