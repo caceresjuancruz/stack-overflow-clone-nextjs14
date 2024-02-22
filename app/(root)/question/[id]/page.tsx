@@ -21,7 +21,7 @@ export default async function QuestionDetailPage({
   params,
   searchParams,
 }: URLProps) {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   const dbUser = await getUserById({ userId: userId as string });
 
@@ -50,20 +50,20 @@ export default async function QuestionDetailPage({
           <div className="flex justify-end">
             <Votes
               type="question"
-              itemId={JSON.parse(JSON.stringify(question._id))}
+              itemId={question ?? JSON.parse(JSON.stringify(question._id))}
               userId={
-                dbUser._id !== undefined
-                  ? JSON.parse(JSON.stringify(dbUser._id))
-                  : null
+                dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null
               }
               upvotes={question.upvotes.length}
-              hasUpvoted={question.upvotes.includes(dbUser._id)}
+              hasUpvoted={
+                dbUser?._id ? question.upvotes.includes(dbUser._id) : false
+              }
               downvotes={question.downvotes.length}
-              hasDownvoted={question.downvotes.includes(dbUser._id)}
+              hasDownvoted={
+                dbUser?._id ? question.downvotes.includes(dbUser._id) : false
+              }
               hasSaved={
-                dbUser._id !== undefined
-                  ? dbUser.saved.includes(question._id)
-                  : false
+                dbUser?._id ? dbUser.saved.includes(question._id) : false
               }
             />
           </div>

@@ -20,7 +20,7 @@ const LeftSidebar = () => {
       <div className="hidden lg:block">
         <Logo />
       </div>
-      <div className="flex h-full flex-1 flex-col gap-6 pt-20 lg:pt-16">
+      <div className="flex h-full flex-1 flex-col gap-3 pt-20 lg:pt-16">
         {sidebarLinks.map((item) => {
           const isActive =
             (pathname.includes(item.route) && item.route.length > 1) ||

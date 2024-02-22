@@ -24,7 +24,7 @@ export async function generateMetadata(
 }
 
 export default async function ProfilePage({ params, searchParams }: URLProps) {
-  const { userId: clerkId } = auth();
+  const { userId: clerkId } = await auth();
   const result = await getUserInfo({ userId: params.id });
 
   return (
