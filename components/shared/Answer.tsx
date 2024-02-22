@@ -59,19 +59,23 @@ const Answer = async ({ answer }: AnswerProps) => {
           <Votes
             type="answer"
             itemId={JSON.parse(JSON.stringify(answer._id))}
-            userId={
-              dbUser._id !== undefined
-                ? JSON.parse(JSON.stringify(dbUser._id))
-                : null
-            }
+            userId={dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null}
             upvotes={answer.upvotes.length}
-            hasUpvoted={answer.upvotes.includes(
-              JSON.parse(JSON.stringify(dbUser._id))
-            )}
+            hasUpvoted={
+              dbUser?._id
+                ? answer.upvotes.includes(
+                    JSON.parse(JSON.stringify(dbUser._id))
+                  )
+                : false
+            }
             downvotes={answer.downvotes.length}
-            hasDownvoted={answer.downvotes.includes(
-              JSON.parse(JSON.stringify(dbUser._id))
-            )}
+            hasDownvoted={
+              dbUser?._id
+                ? answer.downvotes.includes(
+                    JSON.parse(JSON.stringify(dbUser._id))
+                  )
+                : false
+            }
           />
         </div>
       </div>
