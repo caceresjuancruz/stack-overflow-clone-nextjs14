@@ -18,7 +18,7 @@ import { ProfileFormSchema } from "@/lib/validations";
 import { z } from "zod";
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { updateUser } from "@/lib/actions/user.action";
+import { updateUser } from "@/database/actions/user.action";
 import { toast } from "../ui/use-toast";
 
 interface ProfileFormProps {

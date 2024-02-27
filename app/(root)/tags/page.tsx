@@ -4,7 +4,8 @@ import NoResults from "@/components/shared/NoResults";
 import Pagination from "@/components/shared/Pagination";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { TagFilters } from "@/constants/filters";
-import { getAllTags } from "@/lib/actions/tag.action";
+import { images } from "@/constants/images";
+import { getAllTags } from "@/database/actions/tag.action";
 import { SearchParamsProps } from "@/types";
 import { Metadata } from "next";
 
@@ -27,7 +28,7 @@ export default async function TagsPage({ searchParams }: SearchParamsProps) {
         <LocalSearchbar
           placeholder="Search by tag name..."
           iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
+          iconSrc={images.search}
           route="/tags"
           otherClasses="flex-1"
         />

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "404 | Dev Overflow",
 };
 
-export default function NotFoundPage() {
+export default async function NotFoundPage() {
   return (
     <div className="text-dark100_light900 mt-36 flex flex-col items-center justify-center gap-3">
       <ExclamationTriangleIcon className="size-20 text-primary-500" />

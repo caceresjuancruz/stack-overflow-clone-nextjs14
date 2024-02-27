@@ -16,10 +16,11 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Editor } from "@tinymce/tinymce-react";
-import { createAnswer } from "@/lib/actions/answer.action";
+import { createAnswer } from "@/database/actions/answer.action";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import { toast } from "../ui/use-toast";
+import { images } from "@/constants/images";
 
 interface AnswerFormProps {
   question: string;
@@ -139,7 +140,7 @@ const AnswerForm = ({ question, authorId, questionId }: AnswerFormProps) => {
           ) : (
             <>
               <Image
-                src="/assets/icons/stars.svg"
+                src={images.stars}
                 alt="Star"
                 width={12}
                 height={12}

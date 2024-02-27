@@ -4,7 +4,8 @@ import NoResults from "@/components/shared/NoResults";
 import Pagination from "@/components/shared/Pagination";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { QuestionFilters } from "@/constants/filters";
-import { getSavedQuestions } from "@/lib/actions/user.action";
+import { images } from "@/constants/images";
+import { getSavedQuestions } from "@/database/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import { Metadata } from "next";
@@ -35,7 +36,7 @@ export default async function CollectionsPage({
         <LocalSearchbar
           placeholder="Search for saved questions"
           iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
+          iconSrc={images.search}
           route="/collection"
         />
         <Filter

@@ -10,7 +10,7 @@ import {
 import Answer from "@/database/models/answer.model";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/models/question.model";
-import { getErrorMessage } from "../utils";
+import { getErrorMessage } from "../../lib/utils";
 import Interaction from "@/database/models/interaction.model";
 import User from "@/database/models/user.model";
 

@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function Loading() {
+export default async function Loading() {
   return (
     <section>
       <Skeleton className="h-12 w-52" />

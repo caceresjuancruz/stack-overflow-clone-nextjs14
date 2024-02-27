@@ -2,7 +2,8 @@ import QuestionCard from "@/components/cards/QuestionCard";
 import NoResults from "@/components/shared/NoResults";
 import Pagination from "@/components/shared/Pagination";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
-import { getQuestionsByTagId, getTagById } from "@/lib/actions/tag.action";
+import { images } from "@/constants/images";
+import { getQuestionsByTagId, getTagById } from "@/database/actions/tag.action";
 import { URLProps } from "@/types";
 import { Metadata, ResolvingMetadata } from "next";
 
@@ -35,7 +36,7 @@ export default async function TagDetailsPage({
         <LocalSearchbar
           placeholder="Search tag questions"
           iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
+          iconSrc={images.search}
           route={`/tags/${params.id}`}
           otherClasses="flex-1"
         />

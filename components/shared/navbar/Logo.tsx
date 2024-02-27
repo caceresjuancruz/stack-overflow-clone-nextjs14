@@ -1,3 +1,4 @@
+import { images } from "@/constants/images";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,7 +10,7 @@ const Logo = () => {
       className="flex items-center gap-1"
     >
       <Image
-        src="/assets/images/site-logo.svg"
+        src={images.logo}
         alt="DevFlow"
         width={23}
         height={23}

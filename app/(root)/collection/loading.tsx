@@ -1,7 +1,8 @@
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { images } from "@/constants/images";
 
-export default function Loading() {
+export default async function Loading() {
   return (
     <section>
       <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
@@ -10,7 +11,7 @@ export default function Loading() {
         <LocalSearchbar
           placeholder="Search for saved questions"
           iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
+          iconSrc={images.search}
           route="/collection"
         />
         <Skeleton className="h-14 w-28" />

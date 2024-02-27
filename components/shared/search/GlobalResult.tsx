@@ -6,7 +6,7 @@ import GlobalFilters from "./GlobalFilters";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import Image from "next/image";
-import { globalSearch } from "@/lib/actions/global.action";
+import { globalSearch } from "@/database/actions/global.action";
 import { toast } from "@/components/ui/use-toast";
 
 const GlobalResult = () => {

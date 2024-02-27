@@ -9,11 +9,12 @@ import NoResults from "@/components/shared/NoResults";
 import {
   getQuestions,
   getRecommendedQuestions,
-} from "@/lib/actions/question.action";
+} from "@/database/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/Pagination";
 import { Metadata } from "next";
 import { auth } from "@clerk/nextjs";
+import { images } from "@/constants/images";
 
 export const metadata: Metadata = {
   title: "Home | Dev Overflow",
@@ -64,7 +65,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         <LocalSearchbar
           placeholder="Search questions"
           iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
+          iconSrc={images.search}
           route="/"
         />
         <Filter

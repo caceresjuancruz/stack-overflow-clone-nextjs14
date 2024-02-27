@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import Image from "next/image";
+import { images } from "@/constants/images";
 
 interface JobsFilterProps {
   countriesList: Country[];
@@ -39,7 +40,7 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
       <LocalSearchbar
         route={path}
         iconPosition="left"
-        iconSrc="/assets/icons/search.svg"
+        iconSrc={images.search}
         placeholder="Job Title, Company, or Keywords"
         otherClasses="flex-1 max-sm:w-full"
       />
@@ -47,7 +48,7 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
       <Select onValueChange={(value) => handleUpdateParams(value)}>
         <SelectTrigger className="body-regular light-border-2 background-light800_dark300 text-dark500_light700 line-clamp-1 flex min-h-[56px] items-center gap-3 border p-4 focus:ring-0 focus:ring-offset-0 sm:max-w-[210px]">
           <Image
-            src="/assets/icons/carbon-location.svg"
+            src={images.location}
             alt="Location"
             width={18}
             height={18}

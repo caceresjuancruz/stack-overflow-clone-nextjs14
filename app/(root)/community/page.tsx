@@ -4,7 +4,8 @@ import NoResults from "@/components/shared/NoResults";
 import Pagination from "@/components/shared/Pagination";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { UserFilters } from "@/constants/filters";
-import { getAllUsers } from "@/lib/actions/user.action";
+import { images } from "@/constants/images";
+import { getAllUsers } from "@/database/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import { Metadata } from "next";
 
@@ -29,7 +30,7 @@ export default async function CommunityPage({
         <LocalSearchbar
           placeholder="Search for amazing minds"
           iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
+          iconSrc={images.search}
           route="/community"
           otherClasses="flex-1"
         />

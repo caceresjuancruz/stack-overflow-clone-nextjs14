@@ -2,8 +2,9 @@ import Link from "next/link";
 import UserMenu from "./navbar/UserMenu";
 import Image from "next/image";
 import RenderTag from "./RenderTag";
-import { getHotQuestions } from "@/lib/actions/question.action";
-import { getPopularTags } from "@/lib/actions/tag.action";
+import { getHotQuestions } from "@/database/actions/question.action";
+import { getPopularTags } from "@/database/actions/tag.action";
+import { images } from "@/constants/images";
 
 const RightSidebar = async () => {
   const hotQuestions = await getHotQuestions();
@@ -33,7 +34,7 @@ const RightSidebar = async () => {
                     {question.title}
                   </p>
                   <Image
-                    src="/assets/icons/chevron-right.svg"
+                    src={images.chevronRight}
                     alt="chevron"
                     width={20}
                     height={20}

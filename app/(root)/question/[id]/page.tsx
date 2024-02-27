@@ -4,8 +4,9 @@ import Metric from "@/components/shared/Metric";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
 import Votes from "@/components/shared/Votes";
-import { getQuestionById } from "@/lib/actions/question.action";
-import { getUserById } from "@/lib/actions/user.action";
+import { images } from "@/constants/images";
+import { getQuestionById } from "@/database/actions/question.action";
+import { getUserById } from "@/database/actions/user.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 import { URLProps } from "@/types";
 import { auth } from "@clerk/nextjs";
@@ -75,7 +76,7 @@ export default async function QuestionDetailPage({
 
       <div className="mb-8 mt-5 flex flex-wrap gap-4">
         <Metric
-          imgUrl="/assets/icons/clock.svg"
+          imgUrl={images.clock}
           alt="clock icon"
           value={` Asked ${getTimestamp(question.createdAt)}`}
           title=""

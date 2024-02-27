@@ -6,7 +6,7 @@ import {
   fetchCountries,
   fetchJobs,
   fetchLocation,
-} from "@/lib/actions/job.action";
+} from "@/database/actions/job.action";
 
 import { Job } from "@/types";
 import JobsFilter from "@/components/jobs/JobsFilter";

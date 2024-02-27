@@ -1,4 +1,4 @@
-import { getUserAnswers } from "@/lib/actions/user.action";
+import { getUserAnswers } from "@/database/actions/user.action";
 import AnswerCard from "../cards/AnswerCard";
 import { SearchParamsProps } from "@/types";
 import Pagination from "./Pagination";

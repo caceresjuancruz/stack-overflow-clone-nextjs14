@@ -2,8 +2,9 @@ import LeftSidebar from "@/components/shared/LeftSidebar";
 import RightSidebar from "@/components/shared/RightSidebar";
 import Navbar from "@/components/shared/navbar/Navbar";
 import { Toaster } from "@/components/ui/toaster";
+import { LayoutProps } from "@/types";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: LayoutProps) {
   return (
     <main className="background-main-gradient relative">
       <Navbar />

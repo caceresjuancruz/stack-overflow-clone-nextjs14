@@ -39,6 +39,10 @@ export interface URLProps {
   searchParams: { [key: string]: string | undefined };
 }
 
+export interface LayoutProps {
+  children: React.ReactNode;
+}
+
 export interface BadgeCounts {
   GOLD: number;
   SILVER: number;

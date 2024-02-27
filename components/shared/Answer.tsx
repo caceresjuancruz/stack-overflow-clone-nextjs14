@@ -4,7 +4,7 @@ import { getTimestamp } from "@/lib/utils";
 import Image from "next/image";
 import Votes from "./Votes";
 import { auth } from "@clerk/nextjs";
-import { getUserById } from "@/lib/actions/user.action";
+import { getUserById } from "@/database/actions/user.action";
 
 interface AnswerProps {
   answer: {

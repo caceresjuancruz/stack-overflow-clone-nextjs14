@@ -13,6 +13,7 @@ import { SignOutButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { sidebarLinks } from "@/constants";
+import { images } from "@/constants/images";
 
 const NavContent = () => {
   const pathname = usePathname();
@@ -60,7 +61,7 @@ const MobileNav = () => {
     <Sheet>
       <SheetTrigger asChild>
         <Image
-          src="/assets/icons/hamburger.svg"
+          src={images.hamburger}
           width={36}
           height={36}
           alt="Menu"
@@ -110,7 +111,7 @@ const MobileNav = () => {
                 <SignOutButton>
                   <div className="base-medium flex items-center justify-start gap-4 bg-transparent p-4">
                     <Image
-                      src="/assets/icons/logout.svg"
+                      src={images.logOut}
                       alt="LogOut"
                       width={20}
                       height={20}

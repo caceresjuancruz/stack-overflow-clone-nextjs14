@@ -1,7 +1,7 @@
 "use server";
 
 import Question from "@/database/models/question.model";
-import { connectToDatabase } from "../../database/dbConnection";
+import { connectToDatabase } from "../dbConnection";
 import Tag from "@/database/models/tag.model";
 import { revalidatePath } from "next/cache";
 import {
@@ -15,7 +15,7 @@ import {
   ToggleSaveQuestionParams,
 } from "./shared.types";
 import User from "@/database/models/user.model";
-import { getErrorMessage } from "../utils";
+import { getErrorMessage } from "../../lib/utils";
 import Answer from "@/database/models/answer.model";
 import Interaction from "@/database/models/interaction.model";
 import { FilterQuery } from "mongoose";

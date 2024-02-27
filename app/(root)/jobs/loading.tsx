@@ -1,7 +1,8 @@
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { images } from "@/constants/images";
 
-const Loading = () => {
+export default async function Loading() {
   return (
     <section>
       <h1 className="h1-bold text-dark100_light900">Jobs</h1>
@@ -10,7 +11,7 @@ const Loading = () => {
         <LocalSearchbar
           placeholder="Job Title, Company, or Keywords"
           iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
+          iconSrc={images.search}
           route="/jobs"
           otherClasses="flex-1"
         />
@@ -24,6 +25,4 @@ const Loading = () => {
       </div>
     </section>
   );
-};
-
-export default Loading;
+}

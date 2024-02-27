@@ -1,4 +1,4 @@
-import { getAnswers } from "@/lib/actions/answer.action";
+import { getAnswers } from "@/database/actions/answer.action";
 import Filter from "./Filter";
 import { AnswerFilters } from "@/constants/filters";
 import Answer from "./Answer";

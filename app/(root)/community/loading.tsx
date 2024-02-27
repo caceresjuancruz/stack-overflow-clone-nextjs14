@@ -1,8 +1,9 @@
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { images } from "@/constants/images";
 import React from "react";
 
-export default function Loading() {
+export default async function Loading() {
   return (
     <section>
       <h1 className="h1-bold text-dark100_light900">Community</h1>
@@ -11,7 +12,7 @@ export default function Loading() {
         <LocalSearchbar
           placeholder="Search for amazing minds"
           iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
+          iconSrc={images.search}
           route="/community"
           otherClasses="flex-1"
         />

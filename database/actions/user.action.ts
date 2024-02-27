@@ -13,7 +13,7 @@ import {
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/models/question.model";
-import { assignBadges, getErrorMessage } from "../utils";
+import { assignBadges, getErrorMessage } from "../../lib/utils";
 import Tag from "@/database/models/tag.model";
 import { FilterQuery } from "mongoose";
 import Answer from "@/database/models/answer.model";

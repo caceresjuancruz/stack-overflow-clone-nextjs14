@@ -1,9 +1,10 @@
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { images } from "@/constants/images";
 import Link from "next/link";
 
-export default function Loading() {
+export default async function Loading() {
   return (
     <section>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -23,7 +24,7 @@ export default function Loading() {
         <LocalSearchbar
           placeholder="Search questions"
           iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
+          iconSrc={images.search}
           route="/"
         />
         <div className="hidden max-md:block">
