@@ -5,6 +5,6 @@ export const metadata: Metadata = {
   title: "Sign In | Dev Overflow",
 };
 
-export default async function SignInPage() {
+export default function SignInPage() {
   return <SignIn />;
 }

@@ -8,6 +8,7 @@ import { images } from "@/constants/images";
 import { getAllTags } from "@/database/actions/tag.action";
 import { SearchParamsProps } from "@/types";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Tags | Dev Overflow",
@@ -25,17 +26,21 @@ export default async function TagsPage({ searchParams }: SearchParamsProps) {
       <h1 className="h1-bold text-dark100_light900">Tags</h1>
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-        <LocalSearchbar
-          placeholder="Search by tag name..."
-          iconPosition="left"
-          iconSrc={images.search}
-          route="/tags"
-          otherClasses="flex-1"
-        />
-        <Filter
-          filters={TagFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
-        />
+        <Suspense>
+          <LocalSearchbar
+            placeholder="Search by tag name..."
+            iconPosition="left"
+            iconSrc={images.search}
+            route="/tags"
+            otherClasses="flex-1"
+          />
+        </Suspense>
+        <Suspense>
+          <Filter
+            filters={TagFilters}
+            otherClasses="min-h-[56px] sm:min-w-[170px]"
+          />
+        </Suspense>
       </div>
 
       <section className="mt-12 flex flex-wrap gap-4">
@@ -53,10 +58,12 @@ export default async function TagsPage({ searchParams }: SearchParamsProps) {
         )}
       </section>
       <div className="mt-10">
-        <Pagination
-          pageNumber={searchParams.page ? +searchParams.page : 1}
-          isNext={result.isNext || false}
-        />
+        <Suspense>
+          <Pagination
+            pageNumber={searchParams.page ? +searchParams.page : 1}
+            isNext={result.isNext || false}
+          />
+        </Suspense>
       </div>
     </>
   );

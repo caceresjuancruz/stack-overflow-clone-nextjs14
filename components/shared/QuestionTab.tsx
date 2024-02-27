@@ -2,6 +2,7 @@ import { getUserQuestions } from "@/database/actions/user.action";
 import QuestionCard from "../cards/QuestionCard";
 import Pagination from "./Pagination";
 import { SearchParamsProps } from "@/types";
+import { Suspense } from "react";
 
 interface QuestionTabProps extends SearchParamsProps {
   userId: string;
@@ -38,10 +39,12 @@ const QuestionTab = async ({
       ) : (
         <p>No results</p>
       )}
-      <Pagination
-        pageNumber={searchParams.page ? +searchParams.page : 1}
-        isNext={result.isNext || false}
-      />
+      <Suspense>
+        <Pagination
+          pageNumber={searchParams.page ? +searchParams.page : 1}
+          isNext={result.isNext || false}
+        />
+      </Suspense>
     </>
   );
 };

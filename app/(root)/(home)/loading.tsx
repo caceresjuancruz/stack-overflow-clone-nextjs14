@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { images } from "@/constants/images";
 import Link from "next/link";
+import { Suspense } from "react";
 
-export default async function Loading() {
+export default function Loading() {
   return (
     <section>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -21,12 +22,14 @@ export default async function Loading() {
       </div>
 
       <div className="mb-12 mt-11 flex flex-wrap items-center justify-between gap-5">
-        <LocalSearchbar
-          placeholder="Search questions"
-          iconPosition="left"
-          iconSrc={images.search}
-          route="/"
-        />
+        <Suspense>
+          <LocalSearchbar
+            placeholder="Search questions"
+            iconPosition="left"
+            iconSrc={images.search}
+            route="/"
+          />
+        </Suspense>
         <div className="hidden max-md:block">
           <Skeleton className="h-14 w-28" />
         </div>

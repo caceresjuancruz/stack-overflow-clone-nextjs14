@@ -13,6 +13,7 @@ import { auth } from "@clerk/nextjs";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Question | Dev Overflow",
@@ -49,24 +50,26 @@ export default async function QuestionDetailPage({
             </p>
           </Link>
           <div className="flex justify-end">
-            <Votes
-              type="question"
-              itemId={question ?? JSON.parse(JSON.stringify(question._id))}
-              userId={
-                dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null
-              }
-              upvotes={question.upvotes.length}
-              hasUpvoted={
-                dbUser?._id ? question.upvotes.includes(dbUser._id) : false
-              }
-              downvotes={question.downvotes.length}
-              hasDownvoted={
-                dbUser?._id ? question.downvotes.includes(dbUser._id) : false
-              }
-              hasSaved={
-                dbUser?._id ? dbUser.saved.includes(question._id) : false
-              }
-            />
+            <Suspense>
+              <Votes
+                type="question"
+                itemId={question ?? JSON.parse(JSON.stringify(question._id))}
+                userId={
+                  dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null
+                }
+                upvotes={question.upvotes.length}
+                hasUpvoted={
+                  dbUser?._id ? question.upvotes.includes(dbUser._id) : false
+                }
+                downvotes={question.downvotes.length}
+                hasDownvoted={
+                  dbUser?._id ? question.downvotes.includes(dbUser._id) : false
+                }
+                hasSaved={
+                  dbUser?._id ? dbUser.saved.includes(question._id) : false
+                }
+              />
+            </Suspense>
           </div>
         </div>
         <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
@@ -118,11 +121,13 @@ export default async function QuestionDetailPage({
         filter={searchParams?.filter}
       />
 
-      <AnswerForm
-        authorId={JSON.stringify(dbUser._id)}
-        questionId={JSON.stringify(params.id)}
-        question={question.content}
-      />
+      <Suspense>
+        <AnswerForm
+          authorId={JSON.stringify(dbUser._id)}
+          questionId={JSON.stringify(params.id)}
+          question={question.content}
+        />
+      </Suspense>
     </>
   );
 }

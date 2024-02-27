@@ -15,6 +15,7 @@ import Pagination from "@/components/shared/Pagination";
 import { Metadata } from "next";
 import { auth } from "@clerk/nextjs";
 import { images } from "@/constants/images";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Home | Dev Overflow",
@@ -62,20 +63,25 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       </div>
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-        <LocalSearchbar
-          placeholder="Search questions"
-          iconPosition="left"
-          iconSrc={images.search}
-          route="/"
-        />
-        <Filter
-          filters={HomePageFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
-          containerClasses="hidden max-md:flex"
-        />
+        <Suspense>
+          <LocalSearchbar
+            placeholder="Search questions"
+            iconPosition="left"
+            iconSrc={images.search}
+            route="/"
+          />
+        </Suspense>
+        <Suspense>
+          <Filter
+            filters={HomePageFilters}
+            otherClasses="min-h-[56px] sm:min-w-[170px]"
+            containerClasses="hidden max-md:flex"
+          />
+        </Suspense>
       </div>
-      <HomeFilters />
-
+      <Suspense>
+        <HomeFilters />
+      </Suspense>
       <div className="mt-10 flex w-full flex-col gap-6">
         {result.questions && result.questions.length > 0 ? (
           result.questions.map((question) => (
@@ -101,10 +107,12 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         )}
       </div>
       <div className="mt-10">
-        <Pagination
-          pageNumber={searchParams.page ? +searchParams.page : 1}
-          isNext={result.isNext || false}
-        />
+        <Suspense>
+          <Pagination
+            pageNumber={searchParams.page ? +searchParams.page : 1}
+            isNext={result.isNext || false}
+          />
+        </Suspense>
       </div>
     </>
   );

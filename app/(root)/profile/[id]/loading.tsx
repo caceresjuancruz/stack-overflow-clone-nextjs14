@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default async function Loading() {
+export default function Loading() {
   return (
     <section>
       <div className="flex flex-col items-start gap-4 lg:flex-row">

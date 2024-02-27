@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   ],
 };
 
-export default async function RootLayout({ children }: LayoutProps) {
+export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${spaceGrotesk.variable}`}>

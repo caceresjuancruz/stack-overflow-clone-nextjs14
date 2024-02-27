@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import GlobalSearch from "../search/GlobalSearch";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
@@ -8,8 +9,9 @@ const Navbar = () => {
       <div className="block lg:invisible xl:hidden">
         <Logo />
       </div>
-      <GlobalSearch />
-
+      <Suspense>
+        <GlobalSearch />
+      </Suspense>
       <div className="block xl:hidden">
         <UserMenu />
       </div>

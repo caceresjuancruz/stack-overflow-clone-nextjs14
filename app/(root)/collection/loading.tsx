@@ -1,19 +1,22 @@
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { images } from "@/constants/images";
+import { Suspense } from "react";
 
-export default async function Loading() {
+export default function Loading() {
   return (
     <section>
       <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
 
       <div className="mb-12 mt-11 flex flex-wrap gap-5">
-        <LocalSearchbar
-          placeholder="Search for saved questions"
-          iconPosition="left"
-          iconSrc={images.search}
-          route="/collection"
-        />
+        <Suspense>
+          <LocalSearchbar
+            placeholder="Search for saved questions"
+            iconPosition="left"
+            iconSrc={images.search}
+            route="/collection"
+          />
+        </Suspense>
         <Skeleton className="h-14 w-28" />
       </div>
 

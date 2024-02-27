@@ -6,6 +6,7 @@ import { images } from "@/constants/images";
 import { getQuestionsByTagId, getTagById } from "@/database/actions/tag.action";
 import { URLProps } from "@/types";
 import { Metadata, ResolvingMetadata } from "next";
+import { Suspense } from "react";
 
 export async function generateMetadata(
   { params, searchParams }: URLProps,
@@ -33,13 +34,15 @@ export default async function TagDetailsPage({
       <h1 className="h1-bold text-dark100_light900">{result.tagTitle}</h1>
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-        <LocalSearchbar
-          placeholder="Search tag questions"
-          iconPosition="left"
-          iconSrc={images.search}
-          route={`/tags/${params.id}`}
-          otherClasses="flex-1"
-        />
+        <Suspense>
+          <LocalSearchbar
+            placeholder="Search tag questions"
+            iconPosition="left"
+            iconSrc={images.search}
+            route={`/tags/${params.id}`}
+            otherClasses="flex-1"
+          />
+        </Suspense>
       </div>
 
       <section className="mt-10 flex w-full flex-col gap-6">
@@ -67,10 +70,12 @@ export default async function TagDetailsPage({
         )}
       </section>
       <div className="mt-10">
-        <Pagination
-          pageNumber={searchParams.page ? +searchParams.page : 1}
-          isNext={result.isNext || false}
-        />
+        <Suspense>
+          <Pagination
+            pageNumber={searchParams.page ? +searchParams.page : 1}
+            isNext={result.isNext || false}
+          />
+        </Suspense>
       </div>
     </>
   );
