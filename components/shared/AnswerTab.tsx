@@ -1,7 +1,8 @@
-import { getUserAnswers } from "@/lib/actions/user.action";
+import { getUserAnswers } from "@/database/actions/user.action";
 import AnswerCard from "../cards/AnswerCard";
 import { SearchParamsProps } from "@/types";
 import Pagination from "./Pagination";
+import { Suspense } from "react";
 
 interface AnswerTabProps extends SearchParamsProps {
   userId: string;
@@ -29,12 +30,16 @@ const AnswerTab = async ({ searchParams, userId, clerkId }: AnswerTabProps) => {
           />
         ))
       ) : (
-        <p>No results</p>
+        <p className="h3-semibold text-dark100_light900">
+          No answers found! 🥲
+        </p>
       )}
-      <Pagination
-        pageNumber={searchParams.page ? +searchParams.page : 1}
-        isNext={result.isNext || false}
-      />
+      <Suspense>
+        <Pagination
+          pageNumber={searchParams.page ? +searchParams.page : 1}
+          isNext={result.isNext || false}
+        />
+      </Suspense>
     </>
   );
 };

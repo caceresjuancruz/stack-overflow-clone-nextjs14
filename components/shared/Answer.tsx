@@ -4,7 +4,8 @@ import { getTimestamp } from "@/lib/utils";
 import Image from "next/image";
 import Votes from "./Votes";
 import { auth } from "@clerk/nextjs";
-import { getUserById } from "@/lib/actions/user.action";
+import { getUserById } from "@/database/actions/user.action";
+import { Suspense } from "react";
 
 interface AnswerProps {
   answer: {
@@ -56,27 +57,31 @@ const Answer = async ({ answer }: AnswerProps) => {
           </div>
         </Link>
         <div className="flex justify-end">
-          <Votes
-            type="answer"
-            itemId={JSON.parse(JSON.stringify(answer._id))}
-            userId={dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null}
-            upvotes={answer.upvotes.length}
-            hasUpvoted={
-              dbUser?._id
-                ? answer.upvotes.includes(
-                    JSON.parse(JSON.stringify(dbUser._id))
-                  )
-                : false
-            }
-            downvotes={answer.downvotes.length}
-            hasDownvoted={
-              dbUser?._id
-                ? answer.downvotes.includes(
-                    JSON.parse(JSON.stringify(dbUser._id))
-                  )
-                : false
-            }
-          />
+          <Suspense>
+            <Votes
+              type="answer"
+              itemId={JSON.parse(JSON.stringify(answer._id))}
+              userId={
+                dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null
+              }
+              upvotes={answer.upvotes.length}
+              hasUpvoted={
+                dbUser?._id
+                  ? answer.upvotes.includes(
+                      JSON.parse(JSON.stringify(dbUser._id))
+                    )
+                  : false
+              }
+              downvotes={answer.downvotes.length}
+              hasDownvoted={
+                dbUser?._id
+                  ? answer.downvotes.includes(
+                      JSON.parse(JSON.stringify(dbUser._id))
+                    )
+                  : false
+              }
+            />
+          </Suspense>
         </div>
       </div>
 

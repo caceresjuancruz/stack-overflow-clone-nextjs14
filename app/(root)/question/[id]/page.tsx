@@ -4,14 +4,16 @@ import Metric from "@/components/shared/Metric";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
 import Votes from "@/components/shared/Votes";
-import { getQuestionById } from "@/lib/actions/question.action";
-import { getUserById } from "@/lib/actions/user.action";
+import { images } from "@/constants/images";
+import { getQuestionById } from "@/database/actions/question.action";
+import { getUserById } from "@/database/actions/user.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 import { URLProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Question | Dev Overflow",
@@ -48,24 +50,26 @@ export default async function QuestionDetailPage({
             </p>
           </Link>
           <div className="flex justify-end">
-            <Votes
-              type="question"
-              itemId={question ?? JSON.parse(JSON.stringify(question._id))}
-              userId={
-                dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null
-              }
-              upvotes={question.upvotes.length}
-              hasUpvoted={
-                dbUser?._id ? question.upvotes.includes(dbUser._id) : false
-              }
-              downvotes={question.downvotes.length}
-              hasDownvoted={
-                dbUser?._id ? question.downvotes.includes(dbUser._id) : false
-              }
-              hasSaved={
-                dbUser?._id ? dbUser.saved.includes(question._id) : false
-              }
-            />
+            <Suspense>
+              <Votes
+                type="question"
+                itemId={question ?? JSON.parse(JSON.stringify(question._id))}
+                userId={
+                  dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null
+                }
+                upvotes={question.upvotes.length}
+                hasUpvoted={
+                  dbUser?._id ? question.upvotes.includes(dbUser._id) : false
+                }
+                downvotes={question.downvotes.length}
+                hasDownvoted={
+                  dbUser?._id ? question.downvotes.includes(dbUser._id) : false
+                }
+                hasSaved={
+                  dbUser?._id ? dbUser.saved.includes(question._id) : false
+                }
+              />
+            </Suspense>
           </div>
         </div>
         <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
@@ -75,7 +79,7 @@ export default async function QuestionDetailPage({
 
       <div className="mb-8 mt-5 flex flex-wrap gap-4">
         <Metric
-          imgUrl="/assets/icons/clock.svg"
+          imgUrl={images.clock}
           alt="clock icon"
           value={` Asked ${getTimestamp(question.createdAt)}`}
           title=""
@@ -117,11 +121,13 @@ export default async function QuestionDetailPage({
         filter={searchParams?.filter}
       />
 
-      <AnswerForm
-        authorId={JSON.stringify(dbUser._id)}
-        questionId={JSON.stringify(params.id)}
-        question={question.content}
-      />
+      <Suspense>
+        <AnswerForm
+          authorId={JSON.stringify(dbUser._id)}
+          questionId={JSON.stringify(params.id)}
+          question={question.content}
+        />
+      </Suspense>
     </>
   );
 }

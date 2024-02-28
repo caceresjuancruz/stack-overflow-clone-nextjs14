@@ -6,11 +6,12 @@ import {
   fetchCountries,
   fetchJobs,
   fetchLocation,
-} from "@/lib/actions/job.action";
+} from "@/database/actions/job.action";
 
 import { Job } from "@/types";
 import JobsFilter from "@/components/jobs/JobsFilter";
 import JobCard from "@/components/cards/JobCard";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Jobs | Dev Overflow",
@@ -42,7 +43,9 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
       <h1 className="h1-bold text-dark100_light900">Jobs</h1>
 
       <div className="flex">
-        <JobsFilter countriesList={countries} />
+        <Suspense>
+          <JobsFilter countriesList={countries} />
+        </Suspense>
       </div>
 
       <section className="mt-12 flex flex-wrap gap-4">
@@ -58,7 +61,9 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
         )}
       </section>
       <div className="mt-10">
-        <Pagination pageNumber={page} isNext={jobs?.length === 10 || false} />
+        <Suspense>
+          <Pagination pageNumber={page} isNext={jobs?.length === 10 || false} />
+        </Suspense>
       </div>
     </>
   );

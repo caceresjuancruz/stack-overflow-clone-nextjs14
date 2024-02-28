@@ -1,7 +1,8 @@
 "use client";
 
-import { deleteAnswer } from "@/lib/actions/answer.action";
-import { deleteQuestion } from "@/lib/actions/question.action";
+import { images } from "@/constants/images";
+import { deleteAnswer } from "@/database/actions/answer.action";
+import { deleteQuestion } from "@/database/actions/question.action";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -30,7 +31,7 @@ const EditDeleteAction = ({ type, itemId }: EditDeleteActionProps) => {
           href={`/question/edit/${JSON.parse(itemId)}`}
         >
           <Image
-            src="/assets/icons/edit.svg"
+            src={images.edit}
             alt="Edit"
             width={14}
             height={14}
@@ -40,7 +41,7 @@ const EditDeleteAction = ({ type, itemId }: EditDeleteActionProps) => {
         </Link>
       )}
       <Image
-        src="/assets/icons/trash.svg"
+        src={images.trash}
         alt="Delete"
         width={14}
         height={14}

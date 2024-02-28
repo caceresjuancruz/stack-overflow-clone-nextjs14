@@ -3,9 +3,10 @@
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 import GlobalResult from "./GlobalResult";
+import { images } from "@/constants/images";
 
 const GlobalSearch = () => {
   const router = useRouter();
@@ -65,7 +66,7 @@ const GlobalSearch = () => {
     <div className="relative w-full max-w-[400px] max-lg:hidden xl:max-w-[600px]">
       <div className="background-light800_darkgradient light-border-2 relative flex min-h-[56px] grow items-center gap-1 rounded-xl border px-4">
         <Image
-          src={"/assets/icons/search.svg"}
+          src={images.search}
           alt="Search"
           width={24}
           height={24}
@@ -85,7 +86,11 @@ const GlobalSearch = () => {
           className="paragraph-regular no-focus placeholder text-dark300_light900 border-none bg-transparent shadow-none outline-none"
         />
       </div>
-      {isOpen && <GlobalResult />}
+      {isOpen && (
+        <Suspense>
+          <GlobalResult />
+        </Suspense>
+      )}
     </div>
   );
 };

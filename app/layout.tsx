@@ -1,11 +1,12 @@
-import { ClerkProvider } from "@clerk/nextjs";
 import { Inter, Space_Grotesk } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
 import "../styles/prism.css";
-import { ThemeProvider } from "@/context/ThemeProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import { Providers } from "./providers";
+import { LayoutProps } from "@/types";
+import { images } from "@/constants/images";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   description:
     "DevOverflow is a platform for developers to share their knowledge and learn from others.",
   icons: {
-    icon: "assets/images/site-logo.svg",
+    icon: images.logo,
   },
   generator: "DevOverflow NextJS 14",
   referrer: "no-referrer",
@@ -52,26 +53,13 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
-        <ClerkProvider
-          appearance={{
-            elements: {
-              formButtonPrimary: "primary-gradient",
-              footerActionLink: "primary-text-gradient hover:text-primary-500",
-            },
-          }}
-        >
-          <ThemeProvider>{children}</ThemeProvider>
-          <SpeedInsights />
-          <Analytics />
-        </ClerkProvider>
+        <Providers>{children}</Providers>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

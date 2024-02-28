@@ -1,7 +1,8 @@
-import { getUserQuestions } from "@/lib/actions/user.action";
+import { getUserQuestions } from "@/database/actions/user.action";
 import QuestionCard from "../cards/QuestionCard";
 import Pagination from "./Pagination";
 import { SearchParamsProps } from "@/types";
+import { Suspense } from "react";
 
 interface QuestionTabProps extends SearchParamsProps {
   userId: string;
@@ -36,12 +37,14 @@ const QuestionTab = async ({
           />
         ))
       ) : (
-        <p>No results</p>
+        <p className="h3-semibold text-dark100_light900">No posts found! 🥲</p>
       )}
-      <Pagination
-        pageNumber={searchParams.page ? +searchParams.page : 1}
-        isNext={result.isNext || false}
-      />
+      <Suspense>
+        <Pagination
+          pageNumber={searchParams.page ? +searchParams.page : 1}
+          isNext={result.isNext || false}
+        />
+      </Suspense>
     </>
   );
 };

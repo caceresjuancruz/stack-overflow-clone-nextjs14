@@ -1,5 +1,7 @@
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { images } from "@/constants/images";
+import { Suspense } from "react";
 
 export default function Loading() {
   return (
@@ -7,13 +9,15 @@ export default function Loading() {
       <h1 className="h1-bold text-dark100_light900">Tags</h1>
 
       <div className="mb-12 mt-11 flex flex-wrap items-center justify-between gap-5">
-        <LocalSearchbar
-          placeholder="Search by tag name..."
-          iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
-          route="/tags"
-          otherClasses="flex-1"
-        />
+        <Suspense>
+          <LocalSearchbar
+            placeholder="Search by tag name..."
+            iconPosition="left"
+            iconSrc={images.search}
+            route="/tags"
+            otherClasses="flex-1"
+          />
+        </Suspense>
         <Skeleton className="h-14 w-28" />
       </div>
 

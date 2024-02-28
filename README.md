@@ -57,5 +57,3 @@ To get started with DevOverflow, follow these steps:
 4. Run the development server with `npm run dev`.
 
 Feel free to explore, contribute, and join our vibrant developer community on DevOverflow! If you have any questions or feedback, don't hesitate to reach out.
-
-Happy coding!

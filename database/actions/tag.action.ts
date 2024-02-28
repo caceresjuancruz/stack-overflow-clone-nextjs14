@@ -3,7 +3,7 @@
 import { connectToDatabase } from "@/database/dbConnection";
 import { GetAllTagsParams, GetQuestionsByTagIdParams } from "./shared.types";
 import Tag, { ITag } from "@/database/models/tag.model";
-import { getErrorMessage } from "../utils";
+import { getErrorMessage } from "../../lib/utils";
 import { FilterQuery } from "mongoose";
 import Question from "@/database/models/question.model";
 import User from "@/database/models/user.model";

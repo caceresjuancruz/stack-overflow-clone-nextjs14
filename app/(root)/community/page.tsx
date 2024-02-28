@@ -4,9 +4,11 @@ import NoResults from "@/components/shared/NoResults";
 import Pagination from "@/components/shared/Pagination";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { UserFilters } from "@/constants/filters";
-import { getAllUsers } from "@/lib/actions/user.action";
+import { images } from "@/constants/images";
+import { getAllUsers } from "@/database/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Community | Dev Overflow",
@@ -26,17 +28,21 @@ export default async function CommunityPage({
       <h1 className="h1-bold text-dark100_light900">Community</h1>
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-        <LocalSearchbar
-          placeholder="Search for amazing minds"
-          iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
-          route="/community"
-          otherClasses="flex-1"
-        />
-        <Filter
-          filters={UserFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
-        />
+        <Suspense>
+          <LocalSearchbar
+            placeholder="Search for amazing minds"
+            iconPosition="left"
+            iconSrc={images.search}
+            route="/community"
+            otherClasses="flex-1"
+          />
+        </Suspense>
+        <Suspense>
+          <Filter
+            filters={UserFilters}
+            otherClasses="min-h-[56px] sm:min-w-[170px]"
+          />
+        </Suspense>
       </div>
 
       <section className="mt-12 flex flex-wrap gap-4">
@@ -54,10 +60,12 @@ export default async function CommunityPage({
         )}
       </section>
       <div className="mt-10">
-        <Pagination
-          pageNumber={searchParams.page ? +searchParams.page : 1}
-          isNext={result.isNext || false}
-        />
+        <Suspense>
+          <Pagination
+            pageNumber={searchParams.page ? +searchParams.page : 1}
+            isNext={result.isNext || false}
+          />
+        </Suspense>
       </div>
     </>
   );

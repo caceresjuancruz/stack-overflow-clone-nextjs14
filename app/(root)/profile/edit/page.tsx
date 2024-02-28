@@ -1,7 +1,8 @@
 import ProfileForm from "@/components/forms/ProfileForm";
-import { getUserById } from "@/lib/actions/user.action";
+import { getUserById } from "@/database/actions/user.action";
 import { auth } from "@clerk/nextjs";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Edit Profile | Dev Overflow",
@@ -19,7 +20,9 @@ export default async function EditProfilePage() {
       <h1 className="h1-bold text-dark100_light900">Edit Profile</h1>
 
       <div className="mt-9">
-        <ProfileForm clerkId={userId} user={JSON.stringify(user)} />
+        <Suspense>
+          <ProfileForm clerkId={userId} user={JSON.stringify(user)} />
+        </Suspense>
       </div>
     </>
   );

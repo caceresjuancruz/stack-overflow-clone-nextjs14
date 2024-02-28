@@ -1,7 +1,7 @@
 "use server";
 
 import { connectToDatabase } from "@/database/dbConnection";
-import { getErrorMessage } from "../utils";
+import { getErrorMessage } from "../../lib/utils";
 import { SearchParams } from "./shared.types";
 import Question from "@/database/models/question.model";
 import Answer from "@/database/models/answer.model";
@@ -49,8 +49,8 @@ export async function globalSearch(params: SearchParams) {
               type === "user"
                 ? item.clerkid
                 : type === "answer"
-                ? item.question
-                : item._id,
+                  ? item.question
+                  : item._id,
           }))
         );
       }
@@ -79,8 +79,8 @@ export async function globalSearch(params: SearchParams) {
           type === "user"
             ? item.clerkId
             : type === "answer"
-            ? item.question
-            : item._id,
+              ? item.question
+              : item._id,
       }));
     }
 

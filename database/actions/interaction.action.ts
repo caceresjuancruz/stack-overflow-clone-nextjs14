@@ -2,7 +2,7 @@
 
 import { connectToDatabase } from "@/database/dbConnection";
 import { ViewQuestionParams } from "./shared.types";
-import { getErrorMessage } from "../utils";
+import { getErrorMessage } from "../../lib/utils";
 import Question from "@/database/models/question.model";
 import Interaction from "@/database/models/interaction.model";
 

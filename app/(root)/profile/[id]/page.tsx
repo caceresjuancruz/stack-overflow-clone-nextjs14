@@ -1,4 +1,4 @@
-import { getUserById, getUserInfo } from "@/lib/actions/user.action";
+import { getUserById, getUserInfo } from "@/database/actions/user.action";
 import { URLProps } from "@/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SignedIn, auth } from "@clerk/nextjs";

@@ -1,8 +1,9 @@
-import { getAnswers } from "@/lib/actions/answer.action";
+import { getAnswers } from "@/database/actions/answer.action";
 import Filter from "./Filter";
 import { AnswerFilters } from "@/constants/filters";
 import Answer from "./Answer";
 import Pagination from "./Pagination";
+import { Suspense } from "react";
 
 interface AllAnswersProps {
   questionId: string;
@@ -27,8 +28,9 @@ const AllAnswers = async ({
     <div className="mt-11">
       <div className="flex items-center justify-between">
         <p className="primary-text-gradient">{totalAnswers} Answers</p>
-
-        <Filter filters={AnswerFilters} />
+        <Suspense>
+          <Filter filters={AnswerFilters} />
+        </Suspense>
       </div>
       <div>
         {result.answers && result.answers.length > 0 ? (
@@ -40,10 +42,12 @@ const AllAnswers = async ({
         )}
       </div>
       <div className="mt-10 w-full">
-        <Pagination
-          pageNumber={page ? +page : 1}
-          isNext={result.isNext || false}
-        />
+        <Suspense>
+          <Pagination
+            pageNumber={page ? +page : 1}
+            isNext={result.isNext || false}
+          />
+        </Suspense>
       </div>
     </div>
   );
