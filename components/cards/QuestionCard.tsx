@@ -4,6 +4,7 @@ import Link from "next/link";
 import Metric from "../shared/Metric";
 import { SignedIn } from "@clerk/nextjs";
 import EditDeleteAction from "../shared/EditDeleteAction";
+import { Suspense } from "react";
 
 interface QuestionCardProps {
   _id: string;
@@ -52,7 +53,9 @@ const QuestionCard = ({
 
         <SignedIn>
           {showActionButtons && (
-            <EditDeleteAction type="question" itemId={JSON.stringify(_id)} />
+            <Suspense>
+              <EditDeleteAction type="question" itemId={JSON.stringify(_id)} />
+            </Suspense>
           )}
         </SignedIn>
       </div>

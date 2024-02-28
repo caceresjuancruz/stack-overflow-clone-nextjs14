@@ -1,6 +1,7 @@
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import ThemeSwitcher from "./ThemeSwitcher";
 import MobileNav from "./MobileNav";
+import { Suspense } from "react";
 
 const UserMenu = () => {
   return (
@@ -19,7 +20,9 @@ const UserMenu = () => {
           }}
         />
       </SignedIn>
-      <MobileNav />
+      <Suspense>
+        <MobileNav />
+      </Suspense>
     </div>
   );
 };

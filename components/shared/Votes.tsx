@@ -1,12 +1,12 @@
 "use client";
 
-import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
-import { viewQuestion } from "@/lib/actions/interaction.action";
+import { downvoteAnswer, upvoteAnswer } from "@/database/actions/answer.action";
+import { viewQuestion } from "@/database/actions/interaction.action";
 import {
   downvoteQuestion,
   toggleSaveQuestion,
   upvoteQuestion,
-} from "@/lib/actions/question.action";
+} from "@/database/actions/question.action";
 import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";

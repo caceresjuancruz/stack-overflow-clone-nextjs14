@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Job } from "@/types";
 import Image from "next/image";
 import JobLocation from "../jobs/JobLocation";
+import { images } from "@/constants/images";
 
 interface JobCardProps {
   job: Job;
@@ -49,7 +50,7 @@ const JobCard = ({ job }: JobCardProps) => {
           </Link>
         ) : (
           <Image
-            src="/assets/images/site-logo.svg"
+            src={images.logo}
             alt="Default site logo"
             width={64}
             height={64}
@@ -82,7 +83,7 @@ const JobCard = ({ job }: JobCardProps) => {
           <div className="flex flex-wrap items-center gap-6">
             <div className="flex items-center gap-2">
               <Image
-                src="/assets/icons/clock.svg"
+                src={images.clock}
                 alt="Clock"
                 width={20}
                 height={20}
@@ -95,7 +96,7 @@ const JobCard = ({ job }: JobCardProps) => {
 
             <div className="flex items-center gap-2">
               <Image
-                src="/assets/icons/currency-dollar-circle.svg"
+                src={images.dollar}
                 alt="Dollar symbol"
                 width={20}
                 height={20}
@@ -114,7 +115,7 @@ const JobCard = ({ job }: JobCardProps) => {
             <p className="body-semibold primary-text-gradient">View job</p>
 
             <Image
-              src="/assets/icons/arrow-up-right.svg"
+              src={images.arrowUpRight}
               alt="Arrow up right"
               width={20}
               height={20}

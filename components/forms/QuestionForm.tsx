@@ -20,10 +20,14 @@ import { Input } from "@/components/ui/input";
 import { QuestionFormSchema } from "@/lib/validations";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
-import { createQuestion, editQuestion } from "@/lib/actions/question.action";
+import {
+  createQuestion,
+  editQuestion,
+} from "@/database/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
 import { toast } from "../ui/use-toast";
+import { images } from "@/constants/images";
 
 interface QuestionFormProps {
   userId: string;
@@ -251,7 +255,7 @@ export function QuestionForm({
                           {tag}
                           {formType !== "edit" && (
                             <Image
-                              src="/assets/icons/close.svg"
+                              src={images.close}
                               alt="Remove tag"
                               width={12}
                               height={12}

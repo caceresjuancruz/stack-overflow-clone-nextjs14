@@ -1,4 +1,4 @@
-import { getErrorMessage } from "../utils";
+import { getErrorMessage } from "../../lib/utils";
 import { JobFilterParams } from "./shared.types";
 
 export const fetchLocation = async () => {

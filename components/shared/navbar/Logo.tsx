@@ -1,3 +1,4 @@
+import { images } from "@/constants/images";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,10 +7,10 @@ const Logo = () => {
     <Link
       aria-label="DevOverflow logo"
       href="/"
-      className="flex items-center gap-1"
+      className="flex select-none items-center gap-1"
     >
       <Image
-        src="/assets/images/site-logo.svg"
+        src={images.logo}
         alt="DevFlow"
         width={23}
         height={23}

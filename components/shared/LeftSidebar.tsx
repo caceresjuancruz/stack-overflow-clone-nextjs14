@@ -9,6 +9,7 @@ import { Button } from "../ui/button";
 import Logo from "./navbar/Logo";
 import { motion } from "framer-motion";
 import { SidebarLink } from "@/types";
+import { images } from "@/constants/images";
 
 const LeftSidebar = () => {
   const { userId } = useAuth();
@@ -80,7 +81,7 @@ const LeftSidebar = () => {
               className="small-medium light-border-2 btn-secondary no-focus min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none"
             >
               <Image
-                src="/assets/icons/account.svg"
+                src={images.signIn}
                 alt="Login"
                 width={20}
                 height={20}
@@ -99,7 +100,7 @@ const LeftSidebar = () => {
               className="small-medium light-border-2 btn-tertiary text-dark400_light900 no-focus min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none"
             >
               <Image
-                src="/assets/icons/sign-up.svg"
+                src={images.signUp}
                 alt="Sign up"
                 width={20}
                 height={20}
@@ -115,9 +116,9 @@ const LeftSidebar = () => {
       <SignedIn>
         <div className="small-medium text-dark400_light900 w-full cursor-pointer">
           <SignOutButton>
-            <div className="base-medium flex items-center justify-start gap-4 bg-transparent px-4">
+            <div className="base-medium flex select-none items-center justify-start gap-4 bg-transparent px-4">
               <Image
-                src="/assets/icons/logout.svg"
+                src={images.logOut}
                 alt="LogOut"
                 width={20}
                 height={20}

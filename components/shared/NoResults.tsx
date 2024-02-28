@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { images } from "@/constants/images";
 
 interface NoResultsProps {
   title: string;
@@ -13,7 +14,7 @@ const NoResults = ({ title, description, link, linkTitle }: NoResultsProps) => {
   return (
     <div className="mt-10 flex w-full flex-col items-center justify-center">
       <Image
-        src="/assets/images/light-illustration.png"
+        src={images.lightIllustration}
         alt="No results"
         width={270}
         height={200}
@@ -22,7 +23,7 @@ const NoResults = ({ title, description, link, linkTitle }: NoResultsProps) => {
       />
 
       <Image
-        src="/assets/images/dark-illustration.png"
+        src={images.darkIllustration}
         alt="No results"
         width={270}
         height={200}

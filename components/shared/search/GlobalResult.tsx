@@ -1,12 +1,12 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import GlobalFilters from "./GlobalFilters";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import Image from "next/image";
-import { globalSearch } from "@/lib/actions/global.action";
+import { globalSearch } from "@/database/actions/global.action";
 import { toast } from "@/components/ui/use-toast";
 
 const GlobalResult = () => {
@@ -57,8 +57,9 @@ const GlobalResult = () => {
 
   return (
     <div className="absolute top-full z-10 mt-3 w-full rounded-xl bg-light-800 py-5 shadow-sm dark:bg-dark-400">
-      <GlobalFilters />
-
+      <Suspense>
+        <GlobalFilters />
+      </Suspense>
       <div className="my-5 h-[1px] bg-light-700/50 dark:bg-dark-500/50" />
 
       <div className="space-y-5">

@@ -1,7 +1,9 @@
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { images } from "@/constants/images";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Loading() {
   return (
@@ -20,12 +22,14 @@ export default function Loading() {
       </div>
 
       <div className="mb-12 mt-11 flex flex-wrap items-center justify-between gap-5">
-        <LocalSearchbar
-          placeholder="Search questions"
-          iconPosition="left"
-          iconSrc="/assets/icons/search.svg"
-          route="/"
-        />
+        <Suspense>
+          <LocalSearchbar
+            placeholder="Search questions"
+            iconPosition="left"
+            iconSrc={images.search}
+            route="/"
+          />
+        </Suspense>
         <div className="hidden max-md:block">
           <Skeleton className="h-14 w-28" />
         </div>
