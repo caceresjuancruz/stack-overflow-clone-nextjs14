@@ -30,7 +30,9 @@ const AnswerTab = async ({ searchParams, userId, clerkId }: AnswerTabProps) => {
           />
         ))
       ) : (
-        <p>No results</p>
+        <p className="h3-semibold text-dark100_light900">
+          No answers found! 🥲
+        </p>
       )}
       <Suspense>
         <Pagination

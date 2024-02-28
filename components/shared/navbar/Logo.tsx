@@ -7,7 +7,7 @@ const Logo = () => {
     <Link
       aria-label="DevOverflow logo"
       href="/"
-      className="flex items-center gap-1"
+      className="flex select-none items-center gap-1"
     >
       <Image
         src={images.logo}

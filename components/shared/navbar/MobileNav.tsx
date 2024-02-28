@@ -109,7 +109,7 @@ const MobileNav = () => {
             <SheetClose asChild>
               <div className="small-medium text-dark400_light900 mt-12 w-full cursor-pointer py-3">
                 <SignOutButton>
-                  <div className="base-medium flex items-center justify-start gap-4 bg-transparent p-4">
+                  <div className="base-medium flex select-none items-center justify-start gap-4 bg-transparent p-4">
                     <Image
                       src={images.logOut}
                       alt="LogOut"

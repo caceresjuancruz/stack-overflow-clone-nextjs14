@@ -116,7 +116,7 @@ const LeftSidebar = () => {
       <SignedIn>
         <div className="small-medium text-dark400_light900 w-full cursor-pointer">
           <SignOutButton>
-            <div className="base-medium flex items-center justify-start gap-4 bg-transparent px-4">
+            <div className="base-medium flex select-none items-center justify-start gap-4 bg-transparent px-4">
               <Image
                 src={images.logOut}
                 alt="LogOut"

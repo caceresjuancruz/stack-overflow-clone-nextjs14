@@ -37,7 +37,7 @@ const QuestionTab = async ({
           />
         ))
       ) : (
-        <p>No results</p>
+        <p className="h3-semibold text-dark100_light900">No posts found! 🥲</p>
       )}
       <Suspense>
         <Pagination
