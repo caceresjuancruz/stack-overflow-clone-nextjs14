@@ -56,7 +56,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} custom-scrollbar`}>
         <Providers>{children}</Providers>
         <SpeedInsights />
         <Analytics />
