@@ -16,6 +16,7 @@ export function Providers({ children }: LayoutProps) {
 
   return (
     <ClerkProvider
+      afterSignOutUrl="/"
       appearance={{
         baseTheme: clerkTheme,
         elements: {

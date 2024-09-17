@@ -1,7 +1,7 @@
 import { SignedIn, UserButton } from "@clerk/nextjs";
-import ThemeSwitcher from "./ThemeSwitcher";
-import MobileNav from "./MobileNav";
 import { Suspense } from "react";
+import MobileNav from "./MobileNav";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const UserMenu = () => {
   return (
@@ -9,7 +9,6 @@ const UserMenu = () => {
       <ThemeSwitcher />
       <SignedIn>
         <UserButton
-          afterSignOutUrl="/"
           appearance={{
             elements: {
               avatarBox: "h-10 w-10",
