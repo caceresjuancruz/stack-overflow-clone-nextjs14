@@ -1,6 +1,6 @@
 import ProfileForm from "@/components/forms/ProfileForm";
 import { getUserById } from "@/database/actions/user.action";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import { Suspense } from "react";
 

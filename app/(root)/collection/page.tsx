@@ -7,7 +7,7 @@ import { QuestionFilters } from "@/constants/filters";
 import { images } from "@/constants/images";
 import { getSavedQuestions } from "@/database/actions/user.action";
 import { SearchParamsProps } from "@/types";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -15,9 +15,7 @@ export const metadata: Metadata = {
   title: "Collection | Dev Overflow",
 };
 
-export default async function CollectionsPage({
-  searchParams,
-}: SearchParamsProps) {
+export default async function CollectionsPage({ searchParams }: SearchParamsProps) {
   const { userId } = await auth();
 
   if (!userId) return null;

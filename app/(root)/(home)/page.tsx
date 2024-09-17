@@ -1,20 +1,20 @@
-import HomeFilters from "@/components/home/HomeFilters";
 import QuestionCard from "@/components/cards/QuestionCard";
+import HomeFilters from "@/components/home/HomeFilters";
 import Filter from "@/components/shared/Filter";
+import NoResults from "@/components/shared/NoResults";
+import Pagination from "@/components/shared/Pagination";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
-import Link from "next/link";
-import NoResults from "@/components/shared/NoResults";
+import { images } from "@/constants/images";
 import {
   getQuestions,
   getRecommendedQuestions,
 } from "@/database/actions/question.action";
 import { SearchParamsProps } from "@/types";
-import Pagination from "@/components/shared/Pagination";
+import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
-import { auth } from "@clerk/nextjs";
-import { images } from "@/constants/images";
+import Link from "next/link";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {

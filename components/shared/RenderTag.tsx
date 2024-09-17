@@ -8,19 +8,14 @@ interface RenderTagProps {
   showCount?: boolean;
 }
 
-const RenderTag = ({
-  _id,
-  name,
-  totalQuestions,
-  showCount,
-}: RenderTagProps) => {
+const RenderTag = ({ _id, name, totalQuestions, showCount }: RenderTagProps) => {
   return (
     <Link
       href={`/tags/${_id}`}
       aria-label="Tag"
       className="flex items-baseline justify-between gap-2"
     >
-      <Badge className="subtle-medium background-light800_dark300 text-light400_light500 max-w-[5rem] overflow-hidden rounded-md border-none px-4 py-2 uppercase">
+      <Badge className="subtle-medium background-light800_dark300 text-light400_light500 max-w-[5rem] overflow-hidden rounded-md border-none px-4 py-2 uppercase opacity-80 hover:opacity-100">
         <span className="truncate">{name}</span>
       </Badge>
 

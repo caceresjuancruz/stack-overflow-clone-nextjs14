@@ -2,7 +2,7 @@ import { QuestionForm } from "@/components/forms/QuestionForm";
 import { getQuestionById } from "@/database/actions/question.action";
 import { getUserById } from "@/database/actions/user.action";
 import { ParamsProps } from "@/types";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import { Suspense } from "react";
 

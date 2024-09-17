@@ -1,16 +1,17 @@
-import { getUserById, getUserInfo } from "@/database/actions/user.action";
-import { URLProps } from "@/types";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SignedIn, auth } from "@clerk/nextjs";
-import Image from "next/image";
-import { getJoinedDate } from "@/lib/utils";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import ProfileLink from "@/components/shared/ProfileLink";
-import Stats from "@/components/shared/Stats";
-import QuestionTab from "@/components/shared/QuestionTab";
 import AnswerTab from "@/components/shared/AnswerTab";
+import ProfileLink from "@/components/shared/ProfileLink";
+import QuestionTab from "@/components/shared/QuestionTab";
+import Stats from "@/components/shared/Stats";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getUserById, getUserInfo } from "@/database/actions/user.action";
+import { getJoinedDate } from "@/lib/utils";
+import { URLProps } from "@/types";
+import { SignedIn } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { Metadata, ResolvingMetadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 
 export async function generateMetadata(
   { params, searchParams }: URLProps,
@@ -41,9 +42,7 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
           />
 
           <div className="mt-3">
-            <h2 className="h2-bold text-dark100_light900">
-              {result?.user?.name}
-            </h2>
+            <h2 className="h2-bold text-dark100_light900">{result?.user?.name}</h2>
             <p className="paragraph-regular text-dark200_light800">
               @{result?.user?.username}
             </p>
@@ -66,9 +65,7 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
 
               <ProfileLink
                 imgUrl="/assets/icons/calendar.svg"
-                title={`Joined ${getJoinedDate(
-                  result?.user?.joinedAt || new Date()
-                )}`}
+                title={`Joined ${getJoinedDate(result?.user?.joinedAt || new Date())}`}
               />
             </div>
 
@@ -111,10 +108,7 @@ export default async function ProfilePage({ params, searchParams }: URLProps) {
               Answers
             </TabsTrigger>
           </TabsList>
-          <TabsContent
-            value="top-posts"
-            className="mt-5 flex w-full flex-col gap-6"
-          >
+          <TabsContent value="top-posts" className="mt-5 flex w-full flex-col gap-6">
             <QuestionTab
               userId={result?.user?._id}
               clerkId={clerkId}

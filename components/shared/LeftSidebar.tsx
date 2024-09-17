@@ -1,15 +1,15 @@
 "use client";
 
 import { sidebarLinks } from "@/constants";
+import { images } from "@/constants/images";
+import { SidebarLink } from "@/types";
+import { SignOutButton, SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
-import { SignOutButton, SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import Logo from "./navbar/Logo";
-import { motion } from "framer-motion";
-import { SidebarLink } from "@/types";
-import { images } from "@/constants/images";
 
 const LeftSidebar = () => {
   const { userId } = useAuth();
@@ -18,7 +18,7 @@ const LeftSidebar = () => {
 
   return (
     // eslint-disable-next-line tailwindcss/migration-from-tailwind-2
-    <section className="light-border custom-scrollbar shadow-light100_dark100 sticky left-0 top-0  z-40 flex h-screen flex-col justify-between overflow-y-auto border-r bg-opacity-50 px-4 pb-12 pt-6 backdrop-blur-xl max-sm:hidden lg:z-50 lg:w-[266px]">
+    <section className="light-border no-scrollbar shadow-light100_dark100 sticky left-0 top-0  z-40 flex h-screen flex-col justify-between overflow-y-auto border-r bg-opacity-50 px-4 pb-12 pt-6 backdrop-blur-xl max-sm:hidden lg:z-50 lg:w-[266px]">
       <div className="hidden lg:block">
         <Logo />
       </div>
@@ -61,9 +61,7 @@ const LeftSidebar = () => {
                   unoptimized
                 />
                 <p
-                  className={`${
-                    isActive ? "base-bold" : "base-medium"
-                  } max-lg:hidden`}
+                  className={`${isActive ? "base-medium" : "base-medium"} max-lg:hidden`}
                 >
                   {item.label}
                 </p>
@@ -88,9 +86,7 @@ const LeftSidebar = () => {
                 className="invert-colors lg:hidden"
                 unoptimized
               />
-              <span className="primary-text-gradient max-lg:hidden">
-                Log In
-              </span>
+              <span className="primary-text-gradient max-lg:hidden">Log In</span>
             </Button>
           </Link>
 

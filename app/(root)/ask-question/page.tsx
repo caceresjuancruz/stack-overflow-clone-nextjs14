@@ -1,6 +1,6 @@
 import { QuestionForm } from "@/components/forms/QuestionForm";
 import { getUserById } from "@/database/actions/user.action";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";

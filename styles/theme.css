@@ -128,7 +128,7 @@
   }
 
   .base-medium {
-    @apply text-[18px] font-medium leading-[25.2px];
+    @apply text-[16px] font-medium leading-[0px];
   }
 
   .base-semibold {

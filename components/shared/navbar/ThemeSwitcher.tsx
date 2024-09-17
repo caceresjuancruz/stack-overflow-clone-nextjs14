@@ -8,11 +8,11 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 
-import Sun from "./Sun";
-import { useTheme } from "@/context/ThemeProvider";
-import Moon from "./Moon";
 import { themes } from "@/constants";
+import { useTheme } from "@/context/ThemeProvider";
 import Image from "next/image";
+import Moon from "./Moon";
+import Sun from "./Sun";
 
 const ThemeSwitcher = () => {
   const { mode, setMode } = useTheme();
@@ -27,7 +27,7 @@ const ThemeSwitcher = () => {
           >
             {mode === "light" ? <Sun /> : <Moon />}
           </MenubarTrigger>
-          <MenubarContent className="absolute right-[-3rem] min-w-[120px] rounded border bg-light-900 py-2 dark:border-dark-400 dark:bg-dark-300">
+          <MenubarContent className="absolute right-[-3rem] min-w-[120px] rounded border bg-light-900 dark:border-dark-400 dark:bg-dark-300">
             {themes.map((item) => (
               <MenubarItem
                 aria-label={item.label}
@@ -52,9 +52,7 @@ const ThemeSwitcher = () => {
                 />
                 <p
                   className={`body-semibold text-light-500 ${
-                    mode === item.value
-                      ? "text-primary-500"
-                      : "text-dark100_light900"
+                    mode === item.value ? "text-primary-500" : "text-dark100_light900"
                   }`}
                 >
                   {item.label}

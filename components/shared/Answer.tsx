@@ -1,11 +1,11 @@
-import Link from "next/link";
-import ParseHTML from "./ParseHTML";
-import { getTimestamp } from "@/lib/utils";
-import Image from "next/image";
-import Votes from "./Votes";
-import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/database/actions/user.action";
+import { getTimestamp } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
+import Image from "next/image";
+import Link from "next/link";
 import { Suspense } from "react";
+import ParseHTML from "./ParseHTML";
+import Votes from "./Votes";
 
 interface AnswerProps {
   answer: {
@@ -47,9 +47,7 @@ const Answer = async ({ answer }: AnswerProps) => {
             unoptimized
           />
           <div className="flex flex-col sm:flex-row sm:items-center">
-            <p className="body-semibold text-dark300_light700">
-              {answer.author.name}
-            </p>
+            <p className="body-semibold text-dark300_light700">{answer.author.name}</p>
 
             <p className="small-regular text-light400_light500 ml-0.5 mt-0.5 line-clamp-1">
               • answered {getTimestamp(answer.createdAt)}
@@ -61,23 +59,17 @@ const Answer = async ({ answer }: AnswerProps) => {
             <Votes
               type="answer"
               itemId={JSON.parse(JSON.stringify(answer._id))}
-              userId={
-                dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null
-              }
+              userId={dbUser?._id ? JSON.parse(JSON.stringify(dbUser._id)) : null}
               upvotes={answer.upvotes.length}
               hasUpvoted={
                 dbUser?._id
-                  ? answer.upvotes.includes(
-                      JSON.parse(JSON.stringify(dbUser._id))
-                    )
+                  ? answer.upvotes.includes(JSON.parse(JSON.stringify(dbUser._id)))
                   : false
               }
               downvotes={answer.downvotes.length}
               hasDownvoted={
                 dbUser?._id
-                  ? answer.downvotes.includes(
-                      JSON.parse(JSON.stringify(dbUser._id))
-                    )
+                  ? answer.downvotes.includes(JSON.parse(JSON.stringify(dbUser._id)))
                   : false
               }
             />

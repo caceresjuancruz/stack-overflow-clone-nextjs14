@@ -1,12 +1,13 @@
-import { Inter, Space_Grotesk } from "next/font/google";
-import type { Metadata } from "next";
-import "./globals.css";
-import "../styles/prism.css";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/react";
-import { Providers } from "./providers";
-import { LayoutProps } from "@/types";
 import { images } from "@/constants/images";
+import { ThemeProvider } from "@/context/ThemeProvider";
+import { LayoutProps } from "@/types";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
+import "../styles/prism.css";
+import "./globals.css";
+import { Providers } from "./providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -57,7 +58,9 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${spaceGrotesk.variable} custom-scrollbar`}>
-        <Providers>{children}</Providers>
+        <ThemeProvider>
+          <Providers>{children}</Providers>
+        </ThemeProvider>
         <SpeedInsights />
         <Analytics />
       </body>
