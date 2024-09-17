@@ -20,7 +20,7 @@ export function Providers({ children }: LayoutProps) {
       appearance={{
         baseTheme: clerkTheme,
         elements: {
-          formButtonPrimary: "primary-gradient",
+          formButtonPrimary: "primary-gradient rounded-full border-none",
           footerActionLink: "primary-text-gradient hover:text-primary-500",
         },
       }}
