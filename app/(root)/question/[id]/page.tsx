@@ -10,14 +10,22 @@ import { getUserById } from "@/database/actions/user.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 import { URLProps } from "@/types";
 import { auth } from "@clerk/nextjs/server";
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export const metadata: Metadata = {
-  title: "Question | Dev Overflow",
-};
+export async function generateMetadata(
+  { params, searchParams }: URLProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  
+  const question = await getQuestionById({ questionId: params?.id });
+  
+  return {
+    title: `${question?.title} | Dev Overflow`,
+  };
+}
 
 export default async function QuestionDetailPage({ params, searchParams }: URLProps) {
   const { userId } = await auth();
@@ -50,10 +58,10 @@ export default async function QuestionDetailPage({ params, searchParams }: URLPr
             <Suspense>
               <Votes
                 type="question"
-                itemId={question ?? JSON.parse(JSON.stringify(question?._id))}
-                userId={dbUser?._id ?? JSON.parse(JSON.stringify(dbUser?._id))}
-                upvotes={question.upvotes.length}
-                hasUpvoted={dbUser?._id ? question.upvotes.includes(dbUser?._id) : false}
+                itemId={JSON.stringify(question?._id)}
+                userId={JSON.stringify(dbUser?._id)}
+                upvotes={question?.upvotes?.length}
+                hasUpvoted={dbUser?._id ? question?.upvotes?.includes(dbUser?._id) : false}
                 downvotes={question?.downvotes?.length}
                 hasDownvoted={
                   dbUser?._id ? question?.downvotes?.includes(dbUser?._id) : false

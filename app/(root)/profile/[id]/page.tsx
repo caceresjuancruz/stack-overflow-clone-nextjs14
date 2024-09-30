@@ -17,10 +17,10 @@ export async function generateMetadata(
   { params, searchParams }: URLProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const userId = params.id;
-  const user = await getUserById({ userId });
+  
+  const user = await getUserById({ userId: params?.id });
   return {
-    title: `${user.name} | Dev Overflow`,
+    title: `${user?.name} | Dev Overflow`,
   };
 }
 

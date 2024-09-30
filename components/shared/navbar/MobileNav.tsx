@@ -60,6 +60,7 @@ const MobileNav = () => {
           alt="Menu"
           className="invert-colors sm:hidden"
           unoptimized
+          priority
         />
       </SheetTrigger>
       <SheetContent side="left" className="background-light900_dark200 border-none">

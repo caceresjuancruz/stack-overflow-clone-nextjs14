@@ -16,7 +16,7 @@ import { toast } from "../ui/use-toast";
 interface VotesProps {
   type: string;
   itemId: string;
-  userId: string;
+  userId?: string;
   upvotes: number;
   hasUpvoted: boolean;
   downvotes: number;
